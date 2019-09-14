@@ -1,5 +1,5 @@
 {
-  "name": "overmind",
+  "name": "nexus",
   "version": "0.0.1",
   "description": "아정당 업무 페이지",
   "main": "index.js",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mobile-command-center/Overmind.git"
+    "url": "git+https://github.com/mobile-command-center/nexus.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mobile-command-center/Overmind/issues"
+    "url": "https://github.com/mobile-command-center/nexus/issues"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,7 +33,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://github.com/mobile-command-center/Overmind#readme",
+  "homepage": "https://github.com/mobile-command-center/nexus#readme",
   "private": true,
   "dependencies": {
     "react": "^16.9.0",
