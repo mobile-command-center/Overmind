@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import EnrollService from '../services/enrollService';
 
 const styles = {
     table : {
@@ -7,6 +8,40 @@ const styles = {
 };
 
 export default class EnrollmentTable extends Component {
+    state = {
+        items: []
+    }
+
+    componentDidMount() {
+        EnrollService.read(5)
+            .then(({data: { readEnrollment: EnrollmentConnection}}) => {
+                this.setState({
+                    items: EnrollmentConnection.edges
+                });
+            }, () => {
+                console.log('에러다');
+            });
+    }
+
+    renderItems = () => {
+        return this.state.items.map((Enrollment) => (
+            <tr>
+                <td className="text-center">{Enrollment.EL_ID}</td>
+                <td>{Enrollment.ST || '미등록'}</td>
+                <td>{Enrollment.CONST_ID || '미등록'}</td>
+                <td>{Enrollment.APL_ID || '미등록'}</td>
+                <td>{Enrollment.CPAN || '미등록'}</td>
+                <td>{Enrollment.PROD || '미등록'}</td>
+                <td>{Enrollment.EE_ID || '미등록'}</td>
+                <td>{Enrollment.DATE || '미등록'}</td>
+                <td className="text-right">
+                    <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons">dvr</i></a>
+                    <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons">close</i></a>
+                </td>
+            </tr>
+        ));
+    }
+
     render() {
         return(
             <div className="content">
@@ -16,7 +51,7 @@ export default class EnrollmentTable extends Component {
                             <div className="card">
                                 <div className="card-header card-header-primary card-header-icon">
                                     <div className="card-icon">
-                                        <i className="material-icons">how_to_reg</i>
+                                        <i className="material-icons">content_paste</i>
                                     </div>
                                     <h4 className="card-title">Enrollment</h4>
                                 </div>
@@ -27,46 +62,32 @@ export default class EnrollmentTable extends Component {
                                         <table id="datatables" className="table table-striped table-no-bordered table-hover" cellSpacing="0" width="100%" style={styles.table}>
                                             <thead>
                                                 <tr>
-                                                <th>접수 ID</th>
-                                                <th>접수자 ID</th>
+                                                <th className="text-center">접수 ID</th>
                                                 <th>상태</th>
-                                                <th>상담 ID</th>
-                                                <th>신청서ID</th>
+                                                <th>상담 내역</th>
+                                                <th>신청서</th>
                                                 <th>접수 회사</th>
                                                 <th>접수 상품</th>
-                                                
+                                                <th>접수자 ID</th>
                                                 <th>접수 시간</th>
                                                 <th className="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                <th>접수 ID</th>
-                                                <th>접수자 ID</th>
-                                                <th>상태</th>
-                                                <th>상담 ID</th>
-                                                <th>신청서ID</th>
-                                                <th>접수 회사</th>
-                                                <th>접수 상품</th>
-                                                <th>접수 시간</th>
-                                                <th className="text-right">Actions</th>
+                                                <th className="text-center">EL_ID</th>
+                                                <th>ST</th>
+                                                <th>CONST_ID</th>
+                                                <th>APL_ID</th>
+                                                <th>CPAN</th>
+                                                <th>PROD</th>
+                                                <th>EE_ID</th>
+                                                <th>DATE</th>
+                                                <th></th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
-                                                <tr>
-                                                <td>80a74970-6e7d-434d-90e0-e14d893a7c1f</td>
-                                                <td>myraous</td>
-                                                <td>확인</td>
-                                                <td>80a74970-6e7d-434d-90e0-e14d893a7c1f</td>
-                                                <td>80a74970-6e7d-434d-90e0-e14d893a7c1f</td>
-                                                <td>접수회사</td>
-                                                <td>SKB</td>
-                                                <td>2019-09-20 13:53:20</td>
-                                                <td className="text-right">
-                                                    <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons">dvr</i></a>
-                                                    <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons">close</i></a>
-                                                </td>
-                                                </tr>
+                                                {this.renderItems()}
                                             </tbody>
                                         </table>
                                     </div>

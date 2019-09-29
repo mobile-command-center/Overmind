@@ -36,6 +36,9 @@
   "homepage": "https://github.com/mobile-command-center/nexus#readme",
   "private": true,
   "dependencies": {
+    "apollo-boost": "^0.4.4",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router": "^5.1.1",
