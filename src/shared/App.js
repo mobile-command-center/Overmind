@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import { Home, DashBoard } from '../pages';
+import { Route, Switch } from 'react-router-dom';
+import { Home, DashBoard, Enrollment } from '../pages';
 
 
 class App extends Component {
@@ -8,7 +8,10 @@ class App extends Component {
         return (
             <div>
                 <Route exact path="/" component={Home}/>
-                <Route path="/dashboard" component={DashBoard}/>
+                <Switch>
+                    <Route path="/admin/dashboard" component={DashBoard}/>
+                    <Route path="/admin/enrollment" component={Enrollment}/>
+                </Switch>
             </div>
         );
     }

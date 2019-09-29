@@ -3,149 +3,149 @@ import React, { Component } from 'react';
 export default class SideBar extends Component {
     render() {
         return(
-            <div class="sidebar" data-color="rose" data-background-color="black" data-image="./assets/img/sidebar-1.jpg">
-                <div class="logo">
-                    <a href="https://cafe.naver.com/movedance" class="simple-text logo-mini">
+            <div className="sidebar" data-color="rose" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
+                <div className="logo">
+                    <a href="https://cafe.naver.com/movedance" className="simple-text logo-mini">
                         AJ
                     </a>
-                    <a href="https://cafe.naver.com/movedance" class="simple-text logo-normal">
+                    <a href="https://cafe.naver.com/movedance" className="simple-text logo-normal">
                         아정당통신
                     </a>
                 </div>
-                <div class="sidebar-wrapper">
-                    <div class="user">
-                        <div class="photo">
-                        <img src="./assets/img/faces/avatar.jpg" />
+                <div className="sidebar-wrapper">
+                    <div className="user">
+                        <div className="photo">
+                        <img src="/assets/img/faces/avatar.jpg" alt=""/>
                         </div>
-                        <div class="user-info">
-                        <a data-toggle="collapse" href="#collapseExample" class="username">
+                        <div className="user-info">
+                        <a data-toggle="collapse" href="#collapseExample" className="username">
                             <span>
                             Tania Andrew
-                            <b class="caret"></b>
+                            <b className="caret"></b>
                             </span>
                         </a>
-                        <div class="collapse" id="collapseExample">
-                            <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> MP </span>
-                                <span class="sidebar-normal"> My Profile </span>
+                        <div className="collapse" id="collapseExample">
+                            <ul className="nav">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#myprofile">
+                                <span className="sidebar-mini"> MP </span>
+                                <span className="sidebar-normal"> My Profile </span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> EP </span>
-                                <span class="sidebar-normal"> Edit Profile </span>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#editprofile">
+                                <span className="sidebar-mini"> EP </span>
+                                <span className="sidebar-normal"> Edit Profile </span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> S </span>
-                                <span class="sidebar-normal"> Settings </span>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#settings">
+                                <span className="sidebar-mini"> S </span>
+                                <span className="sidebar-normal"> Settings </span>
                                 </a>
                             </li>
                             </ul>
                         </div>
                         </div>
                     </div>
-                    <ul class="nav">
-                        <li class="nav-item">
-                        <a class="nav-link" href="../examples/dashboard.html">
-                            <i class="material-icons">dashboard</i>
+                    <ul className="nav">
+                        <li className="nav-item">
+                        <a className="nav-link" href="../examples/dashboard.html">
+                            <i className="material-icons">dashboard</i>
                             <p> 상황판 </p>
                         </a>
                         </li>
-                        <li class="nav-item active">
-                        <a class="nav-link" data-toggle="collapse" href="#formsConsultation">
-                            <i class="material-icons">call</i>
+                        <li className="nav-item active">
+                        <a className="nav-link" data-toggle="collapse" href="#formsConsultation">
+                            <i className="material-icons">call</i>
                             <p> 상담
-                            <b class="caret"></b>
+                            <b className="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="formsConsultation">
-                            <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/regular.html">
-                                <span class="sidebar-mini"> SR </span>
-                                <span class="sidebar-normal"> 조회 </span>
+                        <div className="collapse" id="formsConsultation">
+                            <ul className="nav">
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <span className="sidebar-mini"> SR </span>
+                                <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/extended.html">
-                                <span class="sidebar-mini"> WR </span>
-                                <span class="sidebar-normal"> 작성 </span>
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <span className="sidebar-mini"> WR </span>
+                                <span className="sidebar-normal"> 작성 </span>
                                 </a>
                             </li>
                             </ul>
                         </div>
                         </li>
-                        <li class="nav-item ">
-                        <a class="nav-link" data-toggle="collapse" href="#formsApplication">
-                            <i class="material-icons">content_paste</i>
+                        <li className="nav-item ">
+                        <a className="nav-link" data-toggle="collapse" href="#formsApplication">
+                            <i className="material-icons">content_paste</i>
                             <p> 신청서
-                            <b class="caret"></b>
+                            <b className="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="formsApplication">
-                            <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/regular.html">
-                                <span class="sidebar-mini"> SR </span>
-                                <span class="sidebar-normal"> 조회 </span>
+                        <div className="collapse" id="formsApplication">
+                            <ul className="nav">
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <span className="sidebar-mini"> SR </span>
+                                <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/extended.html">
-                                <span class="sidebar-mini"> WR </span>
-                                <span class="sidebar-normal"> 작성 </span>
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <span className="sidebar-mini"> WR </span>
+                                <span className="sidebar-normal"> 작성 </span>
                                 </a>
                             </li>
                             </ul>
                         </div>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#formsEnrollment">
-                            <i class="material-icons">how_to_reg</i>
+                        <li className="nav-item">
+                        <a className="nav-link" data-toggle="collapse" href="#formsEnrollment">
+                            <i className="material-icons">how_to_reg</i>
                             <p> 접수
-                            <b class="caret"></b>
+                            <b className="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="formsEnrollment">
-                            <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/regular.html">
-                                <span class="sidebar-mini"> SR </span>
-                                <span class="sidebar-normal"> 조회 </span>
+                        <div className="collapse" id="formsEnrollment">
+                            <ul className="nav">
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <span className="sidebar-mini"> SR </span>
+                                <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/extended.html">
-                                <span class="sidebar-mini"> WR </span>
-                                <span class="sidebar-normal"> 작성 </span>
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <span className="sidebar-mini"> WR </span>
+                                <span className="sidebar-normal"> 작성 </span>
                                 </a>
                             </li>
                             </ul>
                         </div>
                         </li>
-                        <li class="nav-item ">
-                        <a class="nav-link" data-toggle="collapse" href="#formsPayment">
-                            <i class="material-icons">attach_money</i>
+                        <li className="nav-item ">
+                        <a className="nav-link" data-toggle="collapse" href="#formsPayment">
+                            <i className="material-icons">attach_money</i>
                             <p> 지급
-                            <b class="caret"></b>
+                            <b className="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="formsPayment">
-                            <ul class="nav">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/regular.html">
-                                <span class="sidebar-mini"> SR </span>
-                                <span class="sidebar-normal"> 조회 </span>
+                        <div className="collapse" id="formsPayment">
+                            <ul className="nav">
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <span className="sidebar-mini"> SR </span>
+                                <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="../examples/forms/extended.html">
-                                <span class="sidebar-mini"> WR </span>
-                                <span class="sidebar-normal"> 작성 </span>
+                            <li className="nav-item ">
+                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <span className="sidebar-mini"> WR </span>
+                                <span className="sidebar-normal"> 작성 </span>
                                 </a>
                             </li>
                             </ul>
