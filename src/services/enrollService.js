@@ -33,6 +33,28 @@ class EnrollmentService {
                     }
                 `,
             });
+        } else {
+            return this._client
+            .query({
+                query: gql`
+                    query {
+                        readEnrollment(limit:${limit}) {
+                            edges {
+                                EL_ID
+                                ST
+                                CONST_ID
+                                APL_ID
+                                CPAN
+                                PROD
+                                EE_ID
+                                GIFT_AMT
+                                DATE
+                            }
+                            totalCount
+                        }
+                    }
+                `,
+            });
         }
         
     }
