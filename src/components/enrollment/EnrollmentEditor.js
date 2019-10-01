@@ -1,227 +1,239 @@
 import React, { Component } from 'react'
+import EnrollService from '../../services/enrollService';
+
 
 export default class EnrollmentEditor extends Component {
+    state = {
+        item:  {
+            EL_ID: '',
+            DATE: '',
+            WRTR_ID: '', // @TODO 로그인 사용자 ID 자동 입력
+            WRT_DATE: '',
+            CONST_ID: '',
+            EE_ID: '',
+            APL_ID: '',
+            CPAN: '',
+            PROD: '',
+            ST: '',
+            GIFT_AMT: '',
+            F_SUBSIDY_AMT: ''
+        }
+    }
+
+    constructor(props) {
+        super(props);
+
+        const { EL_ID } = this.props;
+
+        if(EL_ID) {
+            EnrollService.read(1, {EL_ID: `"${EL_ID}"`})
+            .then(({data: { readEnrollment: EnrollmentConnection}}) => {
+                this.setState({
+                    item: EnrollmentConnection.edges[0]
+                });
+            }, () => {
+                console.log('에러다');
+            });
+        }
+        
+    }
+
+    _onChangedRadio = (e) => {
+        this.setState({
+            item: {
+                ...this.state.item,
+                ST: e.currentTarget.value
+            }
+        });
+    }
+
     render() {
+
+        const {
+            EL_ID,
+            DATE,
+            CONST_ID,
+            EE_ID,
+            APL_ID,
+            CPAN,
+            PROD,
+            ST,
+            GIFT_AMT,
+            F_SUBSIDY_AMT
+        } = this.state.item;
+
         return(
             <div className="content">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-6">
-                            <form id="RegisterValidation" action="" method="">
+                        <div className="col-md-6 ml-auto mr-auto">
+                            <form id="EnrollmentValidation" action="" method="">
                                 <div className="card ">
                                     <div className="card-header card-header-rose card-header-icon">
                                         <div className="card-icon">
                                             <i className="material-icons">mail_outline</i>
                                         </div>
-                                        <h4 className="card-title">Register Form</h4>
-                                    </div>
-                                    <div className="card-body ">
-                                        <div className="form-group">
-                                            <label for="exampleEmail" className="bmd-label-floating"> Email Address *</label>
-                                            <input type="email" className="form-control" id="exampleEmail" required="true"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="examplePassword" className="bmd-label-floating"> Password *</label>
-                                            <input type="password" className="form-control" id="examplePassword" required="true" name="password"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="examplePassword1" className="bmd-label-floating"> Confirm Password *</label>
-                                            <input type="password" className="form-control" id="examplePassword1" required="true" equalTo="#examplePassword" name="password_confirmation"/>
-                                        </div>
-                                        <div className="category form-category">
-                                            * Required fields
-                                        </div>
-                                    </div>
-                                    <div className="card-footer text-right">
-                                        <div className="form-check mr-auto">
-                                            <label className="form-check-label">
-                                                <input className="form-check-input" type="checkbox" value="" required/> Subscribe to newsletter
-                                                <span className="form-check-sign">
-                                                <span className="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <button type="submit" className="btn btn-rose">Register</button>
-                                    </div>
-                                </div>
-                            </form>
-                            </div>
-                            <div className="col-md-6">
-                                <form id="LoginValidation" action="" method="">
-                                    <div className="card ">
-                                        <div className="card-header card-header-rose card-header-icon">
-                                            <div className="card-icon">
-                                            <i className="material-icons">contacts</i>
-                                            </div>
-                                            <h4 className="card-title">Login Form</h4>
-                                        </div>
-                                        <div className="card-body ">
-                                            <div className="form-group">
-                                                <label for="exampleEmails" className="bmd-label-floating"> Email Address *</label>
-                                                <input type="email" className="form-control" id="exampleEmails" required="true" name="emailadress"/>
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="examplePasswords" className="bmd-label-floating"> Password *</label>
-                                                <input type="password" className="form-control" id="examplePasswords" required="true" name="password"/>
-                                            </div>
-                                            <div className="category form-category">* Required fields</div>
-                                        </div>
-                                        <div className="card-footer ml-auto mr-auto">
-                                            <button type="submit" className="btn btn-rose">Login</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                                <div className="col-md-12">
-                                <form id="TypeValidation" className="form-horizontal" action="" method="">
-                                    <div className="card ">
-                                        <div className="card-header card-header-rose card-header-text">
-                                            <div className="card-text">
-                                            <h4 className="card-title">Type Validation</h4>
-                                        </div>
+                                        <h4 className="card-title">접수 작성 폼</h4>
                                     </div>
                                     <div className="card-body ">
                                         <div className="row">
-                                            <label className="col-sm-2 col-form-label">Required Text</label>
-                                            <div className="col-sm-7">
-                                                <div className="form-group">
-                                                <input className="form-control" type="text" name="required" required="true" />
+                                            <label className="col-sm-3 col-form-label">접수 ID</label>
+                                            <div className="col-sm-8">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="EL_ID" aria-required="true" disabled defaultValue={EL_ID || ''}/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <label className="col-sm-3 label-on-right">
-                                            <code>required</code>
-                                        </label>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">접수 시간</label>
+                                            <div className="col-sm-8">
+                                                <div className="form-group bmd-form-group is-filled">
+                                                    <input className="form-control datetimepicker" type="text" name="DATE" required={true} defaultValue={DATE || new Date().toString()}/>
+                                                    <span className="material-input"></span>
+                                                    <span className="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">접수 직원 ID</label>
+                                            <div className="col-sm-8">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="EE_ID" aria-required="true" autoComplete="false" defaultValue={EE_ID || ''}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">상담 ID</label>
+                                            <div className="col-sm-5 col-md-6">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="CONST_ID"  aria-required="true" autoComplete="false" defaultValue={CONST_ID || ''}/>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-2">
+                                                <button type="button" className="btn btn-rose btn-sm btn-round">
+                                                    <i className="material-icons">search</i>
+                                                    찾기
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">신청서 ID</label>
+                                            <div className="col-sm-5 col-md-6">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="APL_ID"  aria-required="true" autoComplete="false" defaultValue={APL_ID || ''}/>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-2">
+                                                <button type="button" className="btn btn-rose btn-sm btn-round">
+                                                    <i className="material-icons">search</i>
+                                                    찾기
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">접수 회사</label>
+                                            <div className="col-sm-8">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="CPAN"  aria-required="true" autoComplete="false" defaultValue={CPAN || ''}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">접수 상품</label>
+                                            <div className="col-sm-8">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="PROD"  aria-required="true" autoComplete="false" defaultValue={PROD || ''}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">사은품 지급 금액</label>
+                                            <div className="col-sm-8">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="GIFT_AMT"  aria-required="true" autoComplete="false" defaultValue={GIFT_AMT || ''}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label">확정 후기 지급 금액</label>
+                                            <div className="col-sm-8">
+                                                <div className="form-group bmd-form-group">
+                                                    <input className="form-control" type="text" name="F_SUBSIDY_AMT"  aria-required="true" autoComplete="false" defaultValue={F_SUBSIDY_AMT || ''}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <label className="col-sm-3 col-form-label label-checkbox">상태</label>
+                                            <div className="col-sm-8 checkbox-radios">
+                                                <div className="form-check form-check-inline">
+                                                    <label className="form-check-label">
+                                                        <input className="form-check-input" type="radio" name="ST" value="READY" checked={ST === 'READY'} onChange={this._onChangedRadio}/> 준비
+                                                        <span className="circle">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <label className="form-check-label">
+                                                        <input className="form-check-input" type="radio" name="ST" value="CHECK" checked={ST === 'CHECK'} onChange={this._onChangedRadio}/> 확인
+                                                        <span className="circle">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <label className="form-check-label">
+                                                        <input className="form-check-input" type="radio" name="ST" value="HAPPY" checked={ST === 'HAPPY'} onChange={this._onChangedRadio}/> 해피콜
+                                                        <span className="circle">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <label className="form-check-label">
+                                                        <input className="form-check-input" type="radio" name="ST" value="WITHHOLD" checked={ST === 'WITHHOLD'} onChange={this._onChangedRadio}/> 보류
+                                                        <span className="circle">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <label className="form-check-label">
+                                                        <input className="form-check-input" type="radio" name="ST" value="COMMAND" checked={ST === 'COMMAND'} onChange={this._onChangedRadio}/> 지시
+                                                        <span className="circle">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <label className="form-check-label">
+                                                        <input className="form-check-input" type="radio" name="ST" value="CONFIRM" checked={ST === 'CONFIRM'} onChange={this._onChangedRadio}/> 개통확인
+                                                        <span className="circle">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <label className="form-check-label">
+                                                        <input className="form-check-input" type="radio" name="ST" value="COMPLETE" checked={ST === 'COMPLETE'} onChange={this._onChangedRadio}/> 개통완료
+                                                        <span className="circle">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="row">
-                                        <label className="col-sm-2 col-form-label">Email</label>
-                                        <div className="col-sm-7">
-                                            <div className="form-group">
-                                                <input className="form-control" type="text" name="email" email="true" required="true" />
-                                            </div>
-                                        </div>
-                                        <label className="col-sm-3 label-on-right">
-                                            <code>email="true"</code>
-                                        </label>
-                                    </div>
-                                    <div className="row">
-                                        <label className="col-sm-2 col-form-label">Number</label>
-                                        <div className="col-sm-7">
-                                            <div className="form-group">
-                                                <input className="form-control" type="text" name="number" number="true" required="true" />
-                                            </div>
-                                        </div>
-                                        <label className="col-sm-3 label-on-right">
-                                            <code>number="true"</code>
-                                        </label>
-                                    </div>
-                                    <div className="row">
-                                        <label className="col-sm-2 col-form-label">Url</label>
-                                        <div className="col-sm-7">
-                                            <div className="form-group">
-                                                <input className="form-control" type="text" name="url" url="true" required="true" />
-                                            </div>
-                                        </div>
-                                        <label className="col-sm-3 label-on-right">
-                                            <code>url="true"</code>
-                                        </label>
-                                    </div>
-                                    <div className="row">
-                                        <label className="col-sm-2 col-form-label">Equal to</label>
-                                        <div className="col-sm-3">
-                                            <div className="form-group">
-                                                <input className="form-control" id="idSource" type="text" placeholder="#idSource" required="true" />
-                                            </div>
-                                        </div>
-                                        <div className="col-sm-3">
-                                            <div className="form-group">
-                                                <input className="form-control" id="idDestination" type="text" placeholder="#idDestination" equalTo="#idSource" required="true" />
-                                            </div>
-                                        </div>
-                                        <label className="col-sm-4 label-on-right">
-                                            <code>equalTo="#idSource"</code>
-                                        </label>
-                                        </div>
-                                    </div>
-                                    <div className="card-footer ml-auto mr-auto">
-                                        <button type="submit" className="btn btn-rose">Validate Inputs</button>
+                                    <div className="card-footer text-right">
+                                        <div className="form-check mr-auto"></div>
+                                        <button type="submit" className="btn btn-rose">등록</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div className="col-md-12">
-                            <form id="RangeValidation" className="form-horizontal" action="" method="">
-                                <div className="card ">
-                                    <div className="card-header card-header-rose card-header-text">
-                                        <div className="card-text">
-                                        <h4 className="card-title">Range Validation</h4>
-                                    </div>
-                                </div>
-                                <div className="card-body ">
-                                    <div className="row">
-                                        <label className="col-sm-2 col-form-label">Min Length</label>
-                                    <div className="col-sm-7">
-                                        <div className="form-group">
-                                            <input className="form-control" type="text" name="min_length" minLength="5" required="true" />
-                                        </div>
-                                    </div>
-                                    <label className="col-sm-3 label-on-right">
-                                        <code>minLength="5"</code>
-                                    </label>
-                                </div>
-                                <div className="row">
-                                    <label className="col-sm-2 col-form-label">Max Length</label>
-                                    <div className="col-sm-7">
-                                        <div className="form-group">
-                                           <input className="form-control" type="text" name="max_length" maxLength="5" required="true" />
-                                        </div>
-                                    </div>
-                                    <label className="col-sm-3 label-on-right">
-                                        <code>maxLength="5"</code>
-                                    </label>
-                                </div>
-                                <div className="row">
-                                    <label className="col-sm-2 col-form-label">Range</label>
-                                        <div className="col-sm-7">
-                                            <div className="form-group">
-                                                <input className="form-control" type="text" name="range" range="[6,10]" required="true" />
-                                            </div>
-                                        </div>
-                                    <label className="col-sm-3 label-on-right">
-                                        <code>range="[6,10]"</code>
-                                    </label>
-                                </div>
-                                <div className="row">
-                                    <label className="col-sm-2 col-form-label">Min Value</label>
-                                    <div className="col-sm-7">
-                                        <div className="form-group">
-                                            <input className="form-control" type="text" name="min" min="6" required="true" />
-                                        </div>
-                                    </div>
-                                    <label className="col-sm-3 label-on-right">
-                                        <code>min="6"</code>
-                                    </label>
-                                </div>
-                                <div className="row">
-                                    <label className="col-sm-2 col-form-label">Max Value</label>
-                                        <div className="col-sm-7">
-                                            <div className="form-group">
-                                                <input className="form-control" type="text" name="max" max="6" required="true" />
-                                            </div>
-                                        </div>
-                                        <label className="col-sm-3 label-on-right">
-                                            <code>max="6"</code>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="card-footer ml-auto mr-auto">
-                                    <button type="submit" className="btn btn-rose">Validate Inputs</button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
-          </div>
         );
     }
 }
