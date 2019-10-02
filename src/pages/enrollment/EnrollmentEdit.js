@@ -6,9 +6,8 @@ import EnrollmentEditor from '../../components/enrollment/EnrollmentEditor';
 
 export default class EnrollmentEdit extends Component {
     render() {
-        const { location } = this.props;
-        const query = location.search.match(/EL_ID=([^&]*)/);
-        const EL_ID = query ? query[1]: undefined;
+        const { match } = this.props;
+        const EL_ID = match.params.EL_ID;
     
         return (
             <div>

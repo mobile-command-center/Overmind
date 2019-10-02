@@ -12,9 +12,10 @@ class App extends Component {
                 <Route exact path="/" component={Home}/>
                 <Route path="/dashboard" component={DashBoard}/>
                 <Switch>
+                    <Route path="/enrollment/edit/:EL_ID" component={EnrollmentEdit}/>
                     <Route path="/enrollment/edit" component={EnrollmentEdit}/>
-                    <Route path="/enrollment/edit?EL_ID=:EL_ID" component={EnrollmentEdit}/>
-                    <Route path="/enrollment" component={Enrollment}/>
+                    <Route path="/enrollment/:EL_ID" component={Enrollment}/>
+                    <Route path="/enrollment/" component={Enrollment}/>
                 </Switch>
             </div>
         );
