@@ -62,7 +62,7 @@ export default class ConsultationEditor extends Component {
             preConfirm: () => {
                 return ConsultService.create({
                     ...this.state.item,
-                    [this._inputDateRef.current.name]: this._inputDateRef.current.value
+                    [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
                 }).then(({data: {createConsultation : {CONST_ID}}})=> {
                     debugger;
                     Swal.insertQueueStep({
