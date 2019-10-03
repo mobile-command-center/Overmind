@@ -66,6 +66,8 @@ $(document).ready(function() {
 
   md.initMinimizeSidebar();
 
+  md.initFormExtendedDatetimepickers();
+
   // Multilevel Dropdown menu
 
   $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
@@ -300,6 +302,7 @@ md = {
 
   initFormExtendedDatetimepickers: function() {
     $('.datetimepicker').datetimepicker({
+      format: 'YYYY/MM/DD h:mm A',
       icons: {
         time: "fa fa-clock-o",
         date: "fa fa-calendar",
