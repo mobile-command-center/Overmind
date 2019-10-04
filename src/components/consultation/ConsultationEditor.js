@@ -21,14 +21,13 @@ export default class ConsultationEditor extends Component {
 
         this._inputDateRef = React.createRef();
 
-
         const { CONST_ID } = this.props;
 
         if(!!CONST_ID) {
-            ConsultService.read(1, {CONST_ID: `"${CONST_ID}"`})
-            .then(({data: { readConsultation: ConsultationConnection}}) => {
+            ConsultService.get({CONST_ID: `"${CONST_ID}"`})
+            .then(({data: {getConsultation}}) => {
                 this.setState({
-                    item: ConsultationConnection.edges[0]
+                    item: getConsultation
                 });
             }, () => {
                 Swal.fire({
@@ -60,28 +59,51 @@ export default class ConsultationEditor extends Component {
             showLoaderOnConfirm: true,
             type: 'warning',
             preConfirm: () => {
-                return ConsultService.create({
-                    ...this.state.item,
-                    [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
-                }).then(({data: {createConsultation : {CONST_ID}}})=> {
-                    debugger;
-                    Swal.insertQueueStep({
-                        title: '성공!',
-                        text: `상담 ID: ${CONST_ID}`,
-                        buttonsStyling: false,
-                        confirmButtonClass: 'btn btn-success',
-                        type: 'success',
-                        preConfirm: () => {
-                            window.location.replace(`../consultation/${CONST_ID}`);
-                        }
-                    });
-                }, (error)=> {
-                    Swal.insertQueueStep({
-                        title: '에러!',
-                        text: '상담 정보 등록이 실패 하였습니다.',
-                        type: 'error',
-                    });
-                })
+                if(!!this.state.item.CONST_ID) {
+                    return ConsultService.update({
+                        ...this.state.item,
+                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                    }).then(({data: {updateConsultation : {CONST_ID}}}) => {
+                            Swal.insertQueueStep({
+                                title: '성공!',
+                                text: `상담 ID: ${CONST_ID}`,
+                                buttonsStyling: false,
+                                confirmButtonClass: 'btn btn-success',
+                                type: 'success',
+                                preConfirm: () => {
+                                    window.location.replace(`/consultation/${CONST_ID}`);
+                                }
+                            });
+                        }, (error) => {
+                            Swal.insertQueueStep({
+                                title: '에러!',
+                                text: '상담 정보 업데이트가 실패 하였습니다.',
+                                type: 'error',
+                            });
+                        });
+                } {
+                    return ConsultService.create({
+                        ...this.state.item,
+                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                    }).then(({data: {createConsultation : {CONST_ID}}})=> {
+                        Swal.insertQueueStep({
+                            title: '성공!',
+                            text: `상담 ID: ${CONST_ID}`,
+                            buttonsStyling: false,
+                            confirmButtonClass: 'btn btn-success',
+                            type: 'success',
+                            preConfirm: () => {
+                                window.location.replace(`/consultation/${CONST_ID}`);
+                            }
+                        });
+                    }, (error)=> {
+                        Swal.insertQueueStep({
+                            title: '에러!',
+                            text: '상담 정보 등록이 실패 하였습니다.',
+                            type: 'error',
+                        });
+                    })
+                }
             }
           }]);
     }

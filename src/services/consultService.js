@@ -8,6 +8,28 @@ class ConsultService {
         });
     }
 
+    get(input) {
+        return this._client
+        .query({
+            query: gql`
+                query {
+                    getConsultation(input : {
+                        CONST_ID: ${input.CONST_ID}
+                    }) {
+                        CONST_ID
+                        DATE
+                        WRTR_ID
+                        WRT_DATE
+                        EE_ID
+                        C_TEL
+                        MEMO
+                        P_SUBSIDY_AMT
+                    }
+                }
+            `,
+        });
+    }
+
     read(limit, input) {
         if(input) {
             return this._client
@@ -15,10 +37,16 @@ class ConsultService {
                 query: gql`
                     query {
                         readConsultation(limit:${limit}, input: {
-                            EL_ID: ${input.CONST_ID}
+                            CONST_ID: ${input.CONST_ID}
                         }) {
                             edges {
                                 CONST_ID
+                                DATE
+                                WRT_DATE
+                                EE_ID
+                                C_TEL
+                                MEMO
+                                P_SUBSIDY_AMT
                             }
                             totalCount
                         }
@@ -33,6 +61,12 @@ class ConsultService {
                         readConsultation(limit:${limit}) {
                             edges {
                                 CONST_ID
+                                DATE
+                                WRT_DATE
+                                EE_ID
+                                C_TEL
+                                MEMO
+                                P_SUBSIDY_AMT
                             }
                             totalCount
                         }
@@ -52,7 +86,7 @@ class ConsultService {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
                             DATE: ${`"${input.DATE}"`}
                             ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
-                            ${input.C_TELL ? `C_TELL: ${`"${input.C_TELL}"`}`: ''}
+                            ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
                             ${input.MEMO ? `MEMO: ${`"${input.MEMO}"`}`: ''}
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                         }) {
@@ -61,7 +95,43 @@ class ConsultService {
                     }
                 `
             }); 
+    }
 
+    update(input) {
+        debugger;
+        return this._client
+        .mutate({
+            mutation: gql`
+                mutation {
+                    updateConsultation(input: {
+                        CONST_ID: ${`"${input.CONST_ID}"`}
+                        ${input.DATE ? `DATE: ${`"${input.DATE}"`}`: ''}
+                        ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
+                        ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
+                        ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
+                        ${input.MEMO ? `MEMO: ${`"${input.MEMO}"`}`: ''}
+                        ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
+                    }) {
+                        CONST_ID
+                    }
+                }
+            `
+        }); 
+    }
+
+    delete(input) {
+        return this._client
+        .mutate({
+            mutation: gql`
+                mutation {
+                    deleteConsultation(input: {
+                        CONST_ID: ${`"${input.CONST_ID}"`}
+                    }) {
+                        CONST_ID
+                    }
+                }
+            `
+        }); 
     }
 }
 
