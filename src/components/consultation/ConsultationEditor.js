@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Swal from 'sweetalert2'
+import moment from 'moment';
 import ConsultService from '../../services/consultService';
 
 
@@ -24,7 +25,7 @@ export default class ConsultationEditor extends Component {
         const { CONST_ID } = this.props;
 
         if(!!CONST_ID) {
-            ConsultService.get({CONST_ID: `"${CONST_ID}"`})
+            ConsultService.get({CONST_ID})
             .then(({data: {getConsultation}}) => {
                 this.setState({
                     item: getConsultation
@@ -81,7 +82,7 @@ export default class ConsultationEditor extends Component {
                                 type: 'error',
                             });
                         });
-                } {
+                } else {
                     return ConsultService.create({
                         ...this.state.item,
                         [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
@@ -136,7 +137,7 @@ export default class ConsultationEditor extends Component {
                                     <label className="col-sm-3 col-form-label">상담 시간</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} value={this.state.item.DATE} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} value={moment(this.state.item.DATE).utc().format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>

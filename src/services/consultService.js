@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 class ConsultService {
     constructor() {
         this._client = new ApolloClient({
-            uri: 'https://kd579k2xk8.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql'
+            uri: 'https://3bs9wim5w1.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql'
         });
     }
 
@@ -30,51 +30,35 @@ class ConsultService {
         });
     }
 
-    read(limit, input) {
-        if(input) {
-            return this._client
-            .query({
-                query: gql`
-                    query {
-                        readConsultation(limit:${limit}, input: {
-                            CONST_ID: ${input.CONST_ID}
-                        }) {
-                            edges {
-                                CONST_ID
-                                DATE
-                                WRT_DATE
-                                EE_ID
-                                C_TEL
-                                MEMO
-                                P_SUBSIDY_AMT
-                            }
-                            totalCount
+    read(input) {
+        return this._client
+        .query({
+            query: gql`
+                query {
+                    readConsultation(input:{
+                        ${input.first ? `first: ${input.first}`: ''}
+                        ${input.last ? `last: ${input.last}`: ''}
+                        ${input.before ? `before: ${input.before}`: ''}
+                        ${input.after ? `after: ${input.after}`: ''}
+                    }) {
+                        edges {
+                            CONST_ID
+                            DATE
+                            WRT_DATE
+                            EE_ID
+                            C_TEL
+                            MEMO
+                            P_SUBSIDY_AMT
+                        }
+                        totalCount
+                        pageInfo {
+                            endCursor
+                            startCursor
                         }
                     }
-                `,
-            });
-        } else {
-            return this._client
-            .query({
-                query: gql`
-                    query {
-                        readConsultation(limit:${limit}) {
-                            edges {
-                                CONST_ID
-                                DATE
-                                WRT_DATE
-                                EE_ID
-                                C_TEL
-                                MEMO
-                                P_SUBSIDY_AMT
-                            }
-                            totalCount
-                        }
-                    }
-                `,
-            });
-        }
-        
+                }
+            `,
+        });
     }
 
     create(input) {
@@ -98,13 +82,12 @@ class ConsultService {
     }
 
     update(input) {
-        debugger;
         return this._client
         .mutate({
             mutation: gql`
                 mutation {
                     updateConsultation(input: {
-                        CONST_ID: ${`"${input.CONST_ID}"`}
+                        CONST_ID: ${input.CONST_ID}
                         ${input.DATE ? `DATE: ${`"${input.DATE}"`}`: ''}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
@@ -125,7 +108,7 @@ class ConsultService {
             mutation: gql`
                 mutation {
                     deleteConsultation(input: {
-                        CONST_ID: ${`"${input.CONST_ID}"`}
+                        CONST_ID: ${input.CONST_ID}
                     }) {
                         CONST_ID
                     }

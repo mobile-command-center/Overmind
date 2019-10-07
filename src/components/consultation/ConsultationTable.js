@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Swal from 'sweetalert2'
 import moment from 'moment';
 import ConsultService from '../../services/consultService';
+import consultService from '../../services/consultService';
 
 const styles = {
     table: {
@@ -12,23 +13,37 @@ const styles = {
 export default class ConsultationTable extends Component {
     state = {
         limit: 10,
-        items: []
+        edges: [],
+        pageInfo: {
+            endCursor: null,
+            startCursor: null,
+            hasPreviousPage: false
+        }
     }
 
     componentDidMount() {
-        ConsultService.read(this.state.limit)
-            .then(({ data: { readConsultation: ConsultationConnection } }) => {
-                debugger;
-                this.setState({
-                    items: ConsultationConnection.edges
-                });
-            }, () => {
-                console.log('에러다');
+        ConsultService.read({
+            first: this.state.limit
+        })
+        .then(({ data: { readConsultation: ConsultationConnection } }) => {
+            this.setState({
+                edges: ConsultationConnection.edges,
+                pageInfo: ConsultationConnection.pageInfo,
+                limit: this.state.limit
             });
+        }, () => {
+            Swal.fire({
+                title: '에러!',
+                text: '상담 정보 조회를 실패 하였습니다.',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-success',
+                type: 'error'
+            });
+        });
     }
 
     renderItems = () => {
-        return this.state.items.map((Consultation) => (
+        return this.state.edges.map((Consultation) => (
             <tr key={Consultation.CONST_ID} onClick={this.onClickCHandler} data-id={Consultation.CONST_ID}>
                 <td className="text-center">{Consultation.CONST_ID}</td>
                 <td>{Consultation.C_TEL || '미등록'}</td>
@@ -45,13 +60,95 @@ export default class ConsultationTable extends Component {
     }
 
     onClickCHandler = (e) => {
+        e.preventDefault();
+        
         const elemTarget = e.target;
         const CONST_ID = e.currentTarget.dataset.id;
         if (elemTarget && elemTarget.dataset.action === 'onEdit') {
             window.location.href = `../consultation/edit/${CONST_ID}`;
         } else if (elemTarget && elemTarget.dataset.action === 'onDelete') {
             this.onDelete(CONST_ID);
+        } else if (elemTarget && elemTarget.dataset.action === 'onPrevPage') {
+            this.onPrevPage();
+        } else if (elemTarget && elemTarget.dataset.action === 'onNextPage') {
+            this.onNextPage();
         }
+    }
+
+    onPrevPage = (e) => {
+        const startCursor = this.state.pageInfo.startCursor;
+
+        consultService.read({
+            last: this.state.limit,
+            before: startCursor
+        }).then(({ data: { readConsultation: ConsultationConnection } }) => {
+            if(ConsultationConnection.edges.length < 1) {
+                return Swal.fire({
+                    title: '에러!',
+                    text: '처음 페이지 입니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
+            }
+
+            this.setState({
+                edges: ConsultationConnection.edges,
+                pageInfo: ConsultationConnection.pageInfo,
+                limit: this.state.limit
+            });
+        }, (err) => {
+            Swal.fire({
+                title: '에러!',
+                text: '상담 정보 조회를 실패 하였습니다.',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-success',
+                type: 'error'
+            });
+        });
+    }
+
+    onNextPage = () => {
+        const endCursor = this.state.pageInfo.endCursor;
+
+        if(this.state.edges.length < this.state.limit) {
+            return Swal.fire({
+                title: '에러!',
+                text: '마지막 페이지 입니다.',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-success',
+                type: 'error'
+            });
+        }
+
+        consultService.read({
+            first: this.state.limit,
+            after: endCursor
+        }).then(({ data: { readConsultation: ConsultationConnection } }) => {
+            if(ConsultationConnection.edges.length < 1) {
+                return Swal.fire({
+                    title: '에러!',
+                    text: '마지막 페이지 입니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
+            }
+
+            this.setState({
+                edges: ConsultationConnection.edges,
+                pageInfo: ConsultationConnection.pageInfo,
+                limit: this.state.limit
+            });
+        }, (err) => {
+            Swal.fire({
+                title: '에러!',
+                text: '상담 정보 조회를 실패 하였습니다.',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-success',
+                type: 'error'
+            });
+        });
     }
 
     onDelete = (CONST_ID) => {
@@ -136,40 +233,16 @@ export default class ConsultationTable extends Component {
                                             </table>
                                         </div>
                                         <div className="row">
-                                            <div className="col-sm-12 col-md-3">
-                                                <div className="dataTables_info" role="status" aria-live="polite">
-                                                    Showing 31 to 40 of 40 entries
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-12 col-md-2 ml-auto">
-                                                <div className="dataTables_paginate paging_full_numbers">
+                                            <div className="col-sm-12 col-md-1 ml-auto">
+                                                <div className="dataTables_paginate paging_full_numbers" onClick={this.onClickCHandler}>
                                                     <ul className="pagination">
                                                         <li className="paginate_button page-item previous">
-                                                            <a href="#Prev" aria-controls="datatables" data-dt-idx="1" tabIndex="0" className="page-link">
+                                                            <a href="#Prev" aria-controls="datatables" className="page-link" data-action="onPrevPage">
                                                                 Prev
                                                             </a>
                                                         </li>
-                                                        <li className="paginate_button page-item ">
-                                                            <a href="#1" aria-controls="datatables" data-dt-idx="2" tabIndex="0" className="page-link">
-                                                                1
-                                                            </a>
-                                                        </li>
-                                                        <li className="paginate_button page-item ">
-                                                            <a href="#2" aria-controls="datatables" data-dt-idx="3" tabIndex="0" className="page-link">
-                                                                2</a>
-                                                        </li>
-                                                        <li className="paginate_button page-item ">
-                                                            <a href="#3" aria-controls="datatables" data-dt-idx="4" tabIndex="0" className="page-link">
-                                                                3
-                                                            </a>
-                                                        </li>
-                                                        <li className="paginate_button page-item active">
-                                                            <a href="#4" aria-controls="datatables" data-dt-idx="5" tabIndex="0" className="page-link">
-                                                                4
-                                                            </a>
-                                                        </li>
-                                                        <li className="paginate_button page-item next disabled">
-                                                            <a href="#Next" aria-controls="datatables" data-dt-idx="6" tabIndex="0" className="page-link">
+                                                        <li className="paginate_button page-item next">
+                                                            <a href="#Next" aria-controls="datatables" className="page-link" data-action="onNextPage">
                                                                 Next
                                                             </a>
                                                         </li>
