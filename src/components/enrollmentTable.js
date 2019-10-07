@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert2'
 import EnrollService from '../services/enrollService';
 
 const styles = {
@@ -9,11 +10,12 @@ const styles = {
 
 export default class EnrollmentTable extends Component {
     state = {
+        limit: 10,
         items: []
     }
 
     componentDidMount() {
-        EnrollService.read(5)
+        EnrollService.read(this.state.limit)
             .then(({data: { readEnrollment: EnrollmentConnection}}) => {
                 this.setState({
                     items: EnrollmentConnection.edges
@@ -25,7 +27,7 @@ export default class EnrollmentTable extends Component {
 
     renderItems = () => {
         return this.state.items.map((Enrollment) => (
-            <tr>
+            <tr key={Enrollment.EL_ID}>
                 <td className="text-center">{Enrollment.EL_ID}</td>
                 <td>{Enrollment.ST || '미등록'}</td>
                 <td>{Enrollment.CONST_ID || '미등록'}</td>
@@ -36,10 +38,24 @@ export default class EnrollmentTable extends Component {
                 <td>{Enrollment.DATE || '미등록'}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons">dvr</i></a>
-                    <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons">close</i></a>
+                    <a href="#34" className="btn btn-link btn-danger btn-just-icon remove" onClick={this.onClickClose}><i className="material-icons">close</i></a>
                 </td>
             </tr>
         ));
+    }
+
+    onClickClose = () => {
+        Swal.fire({
+            title: '삭제하시겠습니까?',
+            text: '한 번 삭제 하시면 복구하실 수 없습니다.',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '예, 삭제하겠습니다.',
+            cancelButtonText: '아니오',
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger",
+            buttonsStyling: false
+        });
     }
 
     render() {

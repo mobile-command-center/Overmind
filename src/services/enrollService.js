@@ -8,8 +8,33 @@ class EnrollmentService {
         });
     }
 
-    read(limit) {
-        return this._client
+    read(limit, input) {
+        if(input) {
+            return this._client
+            .query({
+                query: gql`
+                    query {
+                        readEnrollment(limit:${limit}, input: {
+                            EL_ID: ${input.EL_ID}
+                        }) {
+                            edges {
+                                EL_ID
+                                ST
+                                CONST_ID
+                                APL_ID
+                                CPAN
+                                PROD
+                                EE_ID
+                                GIFT_AMT
+                                DATE
+                            }
+                            totalCount
+                        }
+                    }
+                `,
+            });
+        } else {
+            return this._client
             .query({
                 query: gql`
                     query {
@@ -22,6 +47,7 @@ class EnrollmentService {
                                 CPAN
                                 PROD
                                 EE_ID
+                                GIFT_AMT
                                 DATE
                             }
                             totalCount
@@ -29,6 +55,31 @@ class EnrollmentService {
                     }
                 `,
             });
+        }
+        
+    }
+
+    create(input) {
+        return this._client
+            .query({
+                query: gql`
+                    query {
+                        createEnrollment(input: {
+                            DATE: ${input.DATE}
+                            WRTR_ID: ${input.WRTR_ID}
+                            ${input.CONST_ID ? `CONST_ID: ${input.CONST_ID}` : ''}
+                            ${input.EE_ID ? `EE_ID: ${input.EE_ID}` : ''}
+                            ${input.APL_ID ? `APL_ID: ${input.APL_ID}` : ''}
+                            ${input.CPAN ? `CPAN: ${input.CPAN}` : ''}
+                            ${input.PROD ? `PROD: ${input.PROD}` : ''}
+                            ${input.ST ? `ST: ${input.ST}` : ''}
+                            ${input.GIFT_AMT ? `GIFT_AMT: ${input.GIFT_AMT}` : ''}
+                        }) {
+                            EL_ID
+                        }
+                    }
+                `,
+            }); 
     }
 }
 
