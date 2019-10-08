@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
 import Swal from 'sweetalert2'
 import moment from 'moment';
-import ConsultService from '../../services/consultService';
+import PayService from '../../services/payService';
 import LoadingSpinner from '../common/LoadingSpinner';
 
-
-export default class ConsultationEditor extends Component {
+export default class PaymentEditor extends Component {
     state = {
         item:  {
-            CONST_ID: '',
-            WRTR_ID: 'USER',
-            DATE : '',
+            PYMT_ID: '',
+            DATE: '',
             EE_ID : '',
-            C_TEL : '',
-            MEMO : '',
-            P_SUBSIDY_AMT : ''
+            PAY_TYPE: '',
+            PAY_AMT: '',
+            WRTR_ID: 'USER',
+            ST : '',
+            CONST_ID : '',
+            EL_ID : ''
         },
         loading: true,
     }
@@ -26,14 +27,14 @@ export default class ConsultationEditor extends Component {
     }
 
     componentDidMount() {
-        const { CONST_ID } = this.props;
+        const { PYMT_ID } = this.props;
 
-        if(!!CONST_ID) {
-            ConsultService.get({CONST_ID})
-            .then(({data: {getConsultation}}) => {
+        if(!!PYMT_ID) {
+            PayService.get({PYMT_ID})
+            .then(({data: {getPayment}}) => {
                 this.setState({
                     loading: false,
-                    item: getConsultation
+                    item: getPayment
                 });
             }, () => {
                 Swal.fire({
@@ -60,8 +61,17 @@ export default class ConsultationEditor extends Component {
             ...this.state,
             item : {
                 ...this.state.item,
-                [this._inputDateRef.current.name]: this._inputDateRef.current.value,
+                [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value).toISOString(),
                 [e.target.name]: e.target.value
+            }
+        });
+    };
+
+    _onChangedRadio = (e) => {
+        this.setState({
+            item: {
+                ...this.state.item,
+                PAY_TYPE: e.currentTarget.value
             }
         });
     };
@@ -74,47 +84,47 @@ export default class ConsultationEditor extends Component {
             showLoaderOnConfirm: true,
             type: 'warning',
             preConfirm: () => {
-                if(!!this.state.item.CONST_ID) {
-                    return ConsultService.update({
+                if(!!this.state.item.PYMT_ID) {
+                    return PayService.update({
                         ...this.state.item,
                         [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
-                    }).then(({data: {updateConsultation : {CONST_ID}}}) => {
+                    }).then(({data: {updatePayment : {PYMT_ID}}}) => {
                             Swal.insertQueueStep({
                                 title: '성공!',
-                                text: `상담 ID: ${CONST_ID}`,
+                                text: `지급 ID: ${PYMT_ID}`,
                                 buttonsStyling: false,
                                 confirmButtonClass: 'btn btn-success',
                                 type: 'success',
                                 preConfirm: () => {
-                                    window.location.replace(`/consultation/${CONST_ID}`);
+                                    window.location.replace(`/payment/${PYMT_ID}`);
                                 }
                             });
                         }, (error) => {
                             Swal.insertQueueStep({
                                 title: '에러!',
-                                text: '상담 정보 업데이트가 실패 하였습니다.',
+                                text: '지급 정보 업데이트가 실패 하였습니다.',
                                 type: 'error',
                             });
                         });
                 } else {
-                    return ConsultService.create({
+                    return PayService.create({
                         ...this.state.item,
                         [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
-                    }).then(({data: {createConsultation : {CONST_ID}}})=> {
+                    }).then(({data: {createPayment : {PYMT_ID}}})=> {
                         Swal.insertQueueStep({
                             title: '성공!',
-                            text: `상담 ID: ${CONST_ID}`,
+                            text: `지급 ID: ${PYMT_ID}`,
                             buttonsStyling: false,
                             confirmButtonClass: 'btn btn-success',
                             type: 'success',
                             preConfirm: () => {
-                                window.location.replace(`/consultation/${CONST_ID}`);
+                                window.location.replace(`/payment/${PYMT_ID}`);
                             }
                         });
                     }, (error)=> {
                         Swal.insertQueueStep({
                             title: '에러!',
-                            text: '상담 정보 등록이 실패 하였습니다.',
+                            text: '지급 정보 등록이 실패 하였습니다.',
                             type: 'error',
                         });
                     })
@@ -132,33 +142,33 @@ export default class ConsultationEditor extends Component {
                         <div className="card ">
                             <div className="card-header card-header-rose card-header-icon">
                                 <div className="card-icon">
-                                    <i className="material-icons">mail_outline</i>
+                                    <i className="material-icons">attach_money</i>
                                 </div>
-                                <h4 className="card-title">상담 작성 폼</h4>
+                                <h4 className="card-title">지급 작성 폼</h4>
                             </div>
                             <div className="card-body">
-                                {this.state.item.CONST_ID ? 
+                                {this.state.item.PYMT_ID ? 
                                     (<div className="row">
-                                        <label className="col-sm-3 col-form-label">상담 ID</label>
+                                        <label className="col-sm-3 col-form-label">지급 ID</label>
                                         <div className="col-sm-8">
                                             <div className="form-group bmd-form-group">
-                                                <input className="form-control" type="text" name="CONST_ID" aria-required="true" disabled value={this.state.item.CONST_ID} onChange={this._onChangeHandler}/>
+                                                <input className="form-control" type="text" name="PYMT_ID" aria-required="true" disabled value={this.state.item.PYMT_ID} onChange={this._onChangeHandler}/>
                                             </div>
                                         </div>
                                     </div>) : null
                                 }
                                 <div className="row">
-                                    <label className="col-sm-3 col-form-label">상담 시간</label>
+                                    <label className="col-sm-3 col-form-label">지급 날짜</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} value={moment(this.state.item.DATE).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete="false" value={moment(this.state.item.DATE).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <label className="col-sm-3 col-form-label">상담 직원 ID</label>
+                                    <label className="col-sm-3 col-form-label">지급 처리 직원 ID</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
                                             <input className="form-control" type="text" name="EE_ID" aria-required="true" autoComplete="false" value={this.state.item.EE_ID} onChange={this._onChangeHandler}/>
@@ -166,26 +176,63 @@ export default class ConsultationEditor extends Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <label className="col-sm-3 col-form-label">고객 전화 번호</label>
+                                    <label className="col-sm-3 col-form-label">상담 ID</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
-                                            <input className="form-control" type="text" name="C_TEL"  aria-required="true" autoComplete="false" value={this.state.item.C_TEL} onChange={this._onChangeHandler}/>
+                                            <input className="form-control" type="text" name="CONST_ID"  aria-required="true" autoComplete="false" value={this.state.item.CONST_ID} onChange={this._onChangeHandler}/>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <label className="col-sm-3 col-form-label">후기 지급 금액</label>
+                                    <label className="col-sm-3 col-form-label">접수 ID</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
-                                            <input className="form-control" type="text" name="P_SUBSIDY_AMT"  aria-required="true" autoComplete="false"value={this.state.item.P_SUBSIDY_AMT} onChange={this._onChangeHandler}/>
+                                            <input className="form-control" type="text" name="EL_ID"  aria-required="true" autoComplete="false"value={this.state.item.EL_ID} onChange={this._onChangeHandler}/>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <label className="col-sm-3 col-form-label">상담 내용</label>
+                                    <label className="col-sm-3 col-form-label label-checkbox">지급 방법</label>
+                                    <div className="col-sm-8 checkbox-radios">
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input className="form-check-input" type="radio" name="PAY_TYPE" value="사은품" checked={this.state.item.PAY_TYPE === '사은품'} onChange={this._onChangedRadio}/> 사은품
+                                                <span className="circle">
+                                                    <span className="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input className="form-check-input" type="radio" name="PAY_TYPE" value="현금" checked={this.state.item.PAY_TYPE === '현금'} onChange={this._onChangedRadio}/> 현금
+                                                <span className="circle">
+                                                    <span className="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input className="form-check-input" type="radio" name="PAY_TYPE" value="지류" checked={this.state.item.PAY_TYPE === '지류'} onChange={this._onChangedRadio}/> 지류
+                                                <span className="circle">
+                                                    <span className="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <label className="col-sm-3 col-form-label">지급 금액</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
-                                            <textarea className="form-control" rows="5" name="MEMO" value={this.state.item.MEMO} onChange={this._onChangeHandler}></textarea>
+                                            <input className="form-control" type="text" name="PAY_AMT"  aria-required="true" autoComplete="false"value={this.state.item.PAY_AMT} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <label className="col-sm-3 col-form-label">상태</label>
+                                    <div className="col-sm-8">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="ST"  aria-required="true" autoComplete="false" value={this.state.item.ST} onChange={this._onChangeHandler}/>
                                         </div>
                                     </div>
                                 </div>
