@@ -103,7 +103,7 @@ export default class ConsultationTable extends Component {
                 <td>{Consultation.P_SUBSIDY_AMT || '미등록'}</td>
                 <td>{Consultation.EE_ID || '미등록'}</td>
                 <td>{Consultation.MEMO || '미등록'}</td>
-                <td>{moment(Consultation.DATE).utc().format("YYYY/MM/DD h:mm A") || '미등록'}</td>
+                <td>{moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
                     <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons" data-action="onDelete">delete</i></a>
