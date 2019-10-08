@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/core';
 // First way to import
-import { PulseLoader } from 'react-spinners';
+import { PacmanLoader } from 'react-spinners';
  
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
@@ -24,10 +24,10 @@ export default class AwesomeComponent extends React.Component {
   render() {
     return (
       <div className='sweet-loading'>
-        <PulseLoader
+        <PacmanLoader
           css={override}
           sizeUnit={"px"}
-          size={15}
+          size={25}
           color={'#e91e63'}
           loading={this.props.loading}
         />
