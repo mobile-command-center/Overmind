@@ -320,11 +320,11 @@ export default class ConsultationTable extends Component {
                     <div className="row">
                         {this.state.loading ? <LoadingSpinner></LoadingSpinner>:null}
                         <div className="card">
-                            <div className="card-header card-header-primary card-header-icon">
+                            <div className="card-header card-header-rose card-header-icon">
                                 <div className="card-icon">
-                                    <i className="material-icons">content_paste</i>
+                                    <i className="material-icons">call</i>
                                 </div>
-                                <h4 className="card-title">Consultation</h4>
+                                <h4 className="card-title">상담 내역</h4>
                             </div>
                             <div className="card-body">
                                 <div className="material-datatables">
