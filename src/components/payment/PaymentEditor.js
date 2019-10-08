@@ -8,9 +8,9 @@ export default class PaymentEditor extends Component {
     state = {
         item:  {
             PYMT_ID: '',
-            DATE: '',
+            DATE: new Date().toISOString(),
             EE_ID : '',
-            PAY_TYPE: '',
+            PAY_TYPE: '현금',
             PAY_AMT: '',
             WRTR_ID: 'USER',
             ST : '',
@@ -161,7 +161,7 @@ export default class PaymentEditor extends Component {
                                     <label className="col-sm-3 col-form-label">지급 날짜</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete="false" value={moment(this.state.item.DATE).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete={false} value={moment(this.state.item.DATE).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
