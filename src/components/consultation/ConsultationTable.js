@@ -318,98 +318,93 @@ export default class ConsultationTable extends Component {
             <div className="content">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-12">
-                            {
-                                this.state.loading ? 
-                                    <LoadingSpinner></LoadingSpinner>:
-                                    <div className="card">
-                                        <div className="card-header card-header-primary card-header-icon">
-                                            <div className="card-icon">
-                                                <i className="material-icons">content_paste</i>
+                        {this.state.loading ? <LoadingSpinner></LoadingSpinner>:null}
+                        <div className="card">
+                            <div className="card-header card-header-primary card-header-icon">
+                                <div className="card-icon">
+                                    <i className="material-icons">content_paste</i>
+                                </div>
+                                <h4 className="card-title">Consultation</h4>
+                            </div>
+                            <div className="card-body">
+                                <div className="material-datatables">
+                                    <div className="dataTables_wrapper dt-bootstrap4">
+                                        <div className="row">
+                                            {/* <div className="col-sm-12 col-md-6">
+                                                <div className="dataTables_length" id="datatables_length">
+                                                    <label>
+                                                        Show 
+                                                        <select name="datatables_length" aria-controls="datatables" className="custom-select custom-select-sm form-control form-control-sm">
+                                                            <option value="10">10</option>
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="-1">All</option>
+                                                        </select>
+                                                        entries
+                                                    </label>
+                                                </div>
+                                            </div> */}
+                                            <div className="col-sm-12 col-md-6 ml-auto">
+                                                <div id="datatables_filter" className="dataTables_filter">
+                                                    <label>
+                                                        <span className="bmd-form-group bmd-form-group-sm">
+                                                            <input type="search" className="form-control form-control-sm" placeholder="Search records" aria-controls="datatables" value={this.state.searchText} onChange={this.onChangeHandler} onKeyDown={this.onKeyDownHandler}/>
+                                                            <a href="#34" className="btn btn-rose btn-link btn-just-icon" onClick={this.onClickCHandler} ><i className="material-icons" data-action="onSearch">search</i></a>
+                                                        </span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <h4 className="card-title">Consultation</h4>
                                         </div>
-                                        <div className="card-body">
-                                            <div className="material-datatables">
-                                                <div className="dataTables_wrapper dt-bootstrap4">
-                                                    <div className="row">
-                                                        {/* <div className="col-sm-12 col-md-6">
-                                                            <div className="dataTables_length" id="datatables_length">
-                                                                <label>
-                                                                    Show 
-                                                                    <select name="datatables_length" aria-controls="datatables" className="custom-select custom-select-sm form-control form-control-sm">
-                                                                        <option value="10">10</option>
-                                                                        <option value="25">25</option>
-                                                                        <option value="50">50</option>
-                                                                        <option value="-1">All</option>
-                                                                    </select>
-                                                                    entries
-                                                                </label>
-                                                            </div>
-                                                        </div> */}
-                                                        <div className="col-sm-12 col-md-6 ml-auto">
-                                                            <div id="datatables_filter" className="dataTables_filter">
-                                                                <label>
-                                                                    <span className="bmd-form-group bmd-form-group-sm">
-                                                                        <input type="search" className="form-control form-control-sm" placeholder="Search records" aria-controls="datatables" value={this.state.searchText} onChange={this.onChangeHandler} onKeyDown={this.onKeyDownHandler}/>
-                                                                        <a href="#34" className="btn btn-rose btn-link btn-just-icon" onClick={this.onClickCHandler} ><i className="material-icons" data-action="onSearch">search</i></a>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="row">
-                                                        <table id="datatables" className="table table-striped table-no-bordered table-hover" cellSpacing="0" width="100%" style={styles.table}>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th className="text-center">상담 ID</th>
-                                                                    <th>고객 전화 번호</th>
-                                                                    <th>후기 지급 금액</th>
-                                                                    <th>상담 직원 ID</th>
-                                                                    <th>상담 내용</th>
-                                                                    <th>상담 시간</th>
-                                                                    <th className="disabled-sorting text-right">Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th className="text-center">CONST_ID</th>
-                                                                    <th>C_TEL</th>
-                                                                    <th>P_SUBSIDY_AMT</th>
-                                                                    <th>EE_ID</th>
-                                                                    <th>MEMO</th>
-                                                                    <th>DATE</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </tfoot>
-                                                            <tbody>
-                                                                {this.renderItems()}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <div className="row">
-                                                    <div className="col-sm-12 col-md-1 ml-auto">
-                                                        <div className="dataTables_paginate paging_full_numbers" onClick={this.onClickCHandler}>
-                                                            <ul className="pagination">
-                                                                <li className="paginate_button page-item previous">
-                                                                    <a href="#Prev" aria-controls="datatables" className="page-link" data-action="onPrevPage">
-                                                                        Prev
-                                                                    </a>
-                                                                </li>
-                                                                <li className="paginate_button page-item next">
-                                                                    <a href="#Next" aria-controls="datatables" className="page-link" data-action="onNextPage">
-                                                                        Next
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </div>
+                                        <div className="row">
+                                            <table id="datatables" className="table table-striped table-no-bordered table-hover" cellSpacing="0" width="100%" style={styles.table}>
+                                                <thead>
+                                                    <tr>
+                                                        <th className="text-center">상담 ID</th>
+                                                        <th>고객 전화 번호</th>
+                                                        <th>후기 지급 금액</th>
+                                                        <th>상담 직원 ID</th>
+                                                        <th>상담 내용</th>
+                                                        <th>상담 시간</th>
+                                                        <th className="disabled-sorting text-right">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th className="text-center">CONST_ID</th>
+                                                        <th>C_TEL</th>
+                                                        <th>P_SUBSIDY_AMT</th>
+                                                        <th>EE_ID</th>
+                                                        <th>MEMO</th>
+                                                        <th>DATE</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    {this.renderItems()}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div className="row">
+                                        <div className="col-sm-12 col-md-1 ml-auto">
+                                            <div className="dataTables_paginate paging_full_numbers" onClick={this.onClickCHandler}>
+                                                <ul className="pagination">
+                                                    <li className="paginate_button page-item previous">
+                                                        <a href="#Prev" aria-controls="datatables" className="page-link" data-action="onPrevPage">
+                                                            Prev
+                                                        </a>
+                                                    </li>
+                                                    <li className="paginate_button page-item next">
+                                                        <a href="#Next" aria-controls="datatables" className="page-link" data-action="onNextPage">
+                                                            Next
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
-                            }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
