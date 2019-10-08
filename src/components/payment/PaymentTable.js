@@ -101,8 +101,8 @@ export default class PaymentTable extends Component {
         return this.state.edges.map((Payment) => (
             <tr key={Payment.PYMT_ID} onClick={this.onClickCHandler} data-id={Payment.PYMT_ID}>
                 <td className="text-center">{Payment.PYMT_ID}</td>
-                <td className="text-center">{Payment.CONST_ID || '미등록'}</td>
-                <td className="text-center">{Payment.EL_ID || '미등록'}</td>
+                <td className="text-center" data-action="onEditConsultation">{Payment.CONST_ID || '미등록'}</td>
+                <td className="text-center" data-action="onEditEnrollment">{Payment.EL_ID || '미등록'}</td>
                 <td>{Payment.EE_ID || '미등록'}</td>
                 <td>{Payment.PAY_TYPE || '미등록'}</td>
                 <td>{Payment.PAY_AMT || '미등록'}</td>
@@ -143,6 +143,12 @@ export default class PaymentTable extends Component {
             this.onNextPage();
         } else if (elemTarget && elemTarget.dataset.action === 'onSearch') {
             this.onSearch();
+        } else if (elemTarget && elemTarget.dataset.action === 'onEditEnrollment') {
+            const win = window.open(`/enrollment/edit/${PYMT_ID}`, '_blank');
+            win.focus();
+        } else if (elemTarget && elemTarget.dataset.action === 'onEditConsultation') {
+            const win = window.open(`/consultation/edit/${PYMT_ID}`, '_blank');
+            win.focus();
         }
     }
 
