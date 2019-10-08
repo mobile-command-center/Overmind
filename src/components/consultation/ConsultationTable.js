@@ -12,41 +12,87 @@ const styles = {
 };
 
 export default class ConsultationTable extends Component {
-    state = {
-        limit: 10,
-        edges: [],
-        pageInfo: {
-            endCursor: null,
-            startCursor: null,
-            hasPreviousPage: false
-        },
-        loading: true,
-        searchText: '',
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            limit: 10,
+            edges: [],
+            pageInfo: {
+                endCursor: null,
+                startCursor: null,
+                hasPreviousPage: false
+            },
+            loading: true,
+            searchText: this.props.searchText || '',
+        }
     }
 
     componentDidMount() {
-        ConsultService.read({
-            first: this.state.limit
-        })
-        .then(({ data: { readConsultation: ConsultationConnection } }) => {
-            this.setState({
-                edges: ConsultationConnection.edges,
-                pageInfo: ConsultationConnection.pageInfo,
-                limit: this.state.limit,
-                loading: false
+        if(!!this.state.searchText) {
+            consultService.search({
+                first: this.state.limit,
+                filter: {
+                    DATE: {
+                        contains: this.state.searchText
+                    },
+                    WRT_DATE: {
+                        contains: this.state.searchText
+                    },
+                    EE_ID: {
+                        contains: this.state.searchText
+                    },
+                    C_TEL: {
+                        contains: this.state.searchText
+                    },
+                    MEMO: {
+                        contains: this.state.searchText
+                    },
+                    P_SUBSIDY_AMT: {
+                        contains: this.state.searchText
+                    },
+                }
+            })
+            .then(({ data: { searchConsultation: ConsultationConnection } }) => {
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: false
+                });
+            }, (err) => {
+                Swal.fire({
+                    title: '에러!',
+                    text: '상담 정보 검색을 실패 하였습니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
             });
-        }, () => {
-            this.setState({
-                loading: false
+        } else {
+            ConsultService.read({
+                first: this.state.limit
+            })
+            .then(({ data: { readConsultation: ConsultationConnection } }) => {
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: false
+                });
+            }, () => {
+                this.setState({
+                    loading: false
+                });
+                Swal.fire({
+                    title: '에러!',
+                    text: '상담 정보 조회를 실패 하였습니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
             });
-            Swal.fire({
-                title: '에러!',
-                text: '상담 정보 조회를 실패 하였습니다.',
-                buttonsStyling: false,
-                confirmButtonClass: 'btn btn-success',
-                type: 'error'
-            });
-        });
+        }
     }
 
     renderItems = () => {
@@ -72,6 +118,12 @@ export default class ConsultationTable extends Component {
         });
     }
 
+    onKeyDownHandler = (e) => {
+        if(e.keyCode === 13) {
+            this.onSearch();
+        }
+    }
+
     onClickCHandler = (e) => {
         e.preventDefault();
 
@@ -91,82 +143,87 @@ export default class ConsultationTable extends Component {
     }
 
     onSearch = (e) => {
-        consultService.search({
-            first: this.state.limit,
-            filter: {
-                DATE: {
-                    contains: this.state.searchText
-                },
-                WRT_DATE: {
-                    contains: this.state.searchText
-                },
-                EE_ID: {
-                    contains: this.state.searchText
-                },
-                C_TEL: {
-                    contains: this.state.searchText
-                },
-                MEMO: {
-                    contains: this.state.searchText
-                },
-                P_SUBSIDY_AMT: {
-                    contains: this.state.searchText
-                },
-            }
-        })
-        .then(({ data: { searchConsultation: ConsultationConnection } }) => {
-            this.setState({
-                edges: ConsultationConnection.edges,
-                pageInfo: ConsultationConnection.pageInfo,
-                limit: this.state.limit
-            });
-        }, (err) => {
-            Swal.fire({
-                title: '에러!',
-                text: '상담 정보 검색을 실패 하였습니다.',
-                buttonsStyling: false,
-                confirmButtonClass: 'btn btn-success',
-                type: 'error'
-            });
-        });
+        window.location.href = `../consultation/search/${this.state.searchText}`;
     }
 
     onPrevPage = (e) => {
         const startCursor = this.state.pageInfo.startCursor;
 
-        consultService.read({
-            last: this.state.limit,
-            before: startCursor
-        }).then(({ data: { readConsultation: ConsultationConnection } }) => {
-            if(ConsultationConnection.edges.length < 1) {
-                return Swal.fire({
+        if(!!this.state.searchText) {
+            consultService.search({
+                first: this.state.limit,
+                filter: {
+                    DATE: {
+                        contains: this.state.searchText
+                    },
+                    WRT_DATE: {
+                        contains: this.state.searchText
+                    },
+                    EE_ID: {
+                        contains: this.state.searchText
+                    },
+                    C_TEL: {
+                        contains: this.state.searchText
+                    },
+                    MEMO: {
+                        contains: this.state.searchText
+                    },
+                    P_SUBSIDY_AMT: {
+                        contains: this.state.searchText
+                    },
+                }
+            })
+            .then(({ data: { searchConsultation: ConsultationConnection } }) => {
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: false
+                });
+            }, (err) => {
+                Swal.fire({
                     title: '에러!',
-                    text: '처음 페이지 입니다.',
+                    text: '상담 정보 검색을 실패 하였습니다.',
                     buttonsStyling: false,
                     confirmButtonClass: 'btn btn-success',
                     type: 'error'
                 });
-            }
-
-            this.setState({
-                edges: ConsultationConnection.edges,
-                pageInfo: ConsultationConnection.pageInfo,
-                limit: this.state.limit,
-                loading: true
             });
-        }, (err) => {
-            Swal.fire({
-                title: '에러!',
-                text: '상담 정보 조회를 실패 하였습니다.',
-                buttonsStyling: false,
-                confirmButtonClass: 'btn btn-success',
-                type: 'error'
+        } else {
+            consultService.read({
+                last: this.state.limit,
+                before: startCursor
+            }).then(({ data: { readConsultation: ConsultationConnection } }) => {
+                if(ConsultationConnection.edges.length < 1) {
+                    return Swal.fire({
+                        title: '에러!',
+                        text: '처음 페이지 입니다.',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-success',
+                        type: 'error'
+                    });
+                }
+    
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: true
+                });
+            }, (err) => {
+                Swal.fire({
+                    title: '에러!',
+                    text: '상담 정보 조회를 실패 하였습니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
+            }).finally(() => {
+                this.setState({
+                    loading: false
+                });
             });
-        }).finally(() => {
-            this.setState({
-                loading: false
-            });
-        });
+        }
     }
 
     onNextPage = () => {
@@ -294,8 +351,8 @@ export default class ConsultationTable extends Component {
                                                             <div id="datatables_filter" className="dataTables_filter">
                                                                 <label>
                                                                     <span className="bmd-form-group bmd-form-group-sm">
-                                                                        <input type="search" className="form-control form-control-sm" placeholder="Search records" aria-controls="datatables" value={this.state.searchText} onChange={this.onChangeHandler}/>
-                                                                        <a href="#34" className="btn btn-rose btn-link btn-just-icon" onClick={this.onClickCHandler}><i className="material-icons" data-action="onSearch">search</i></a>
+                                                                        <input type="search" className="form-control form-control-sm" placeholder="Search records" aria-controls="datatables" value={this.state.searchText} onChange={this.onChangeHandler} onKeyDown={this.onKeyDownHandler}/>
+                                                                        <a href="#34" className="btn btn-rose btn-link btn-just-icon" onClick={this.onClickCHandler} ><i className="material-icons" data-action="onSearch">search</i></a>
                                                                     </span>
                                                                 </label>
                                                             </div>

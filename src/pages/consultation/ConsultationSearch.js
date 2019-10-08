@@ -6,12 +6,15 @@ import ConsultationTable from '../../components/consultation/ConsultationTable';
 
 export default class ConsultationSearch extends Component {
     render() {
+        const { match } = this.props;
+        const searchText = match.params.searchText;
+
         return (
             <div>
                 <SideBar></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
-                    <ConsultationTable></ConsultationTable>
+                    <ConsultationTable searchText={searchText}></ConsultationTable>
                     <Footer></Footer>
                 </div>
             </div>
