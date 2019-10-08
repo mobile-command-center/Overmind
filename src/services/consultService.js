@@ -61,6 +61,54 @@ class ConsultService {
         });
     }
 
+    search(input) {
+        return this._client
+            .query({
+                query: gql`
+                query {
+                    searchConsultation(input:{
+                        ${input.first ? `first: ${input.first}`: ''}
+                        ${input.last ? `last: ${input.last}`: ''}
+                        ${input.before ? `before: ${input.before}`: ''}
+                        ${input.after ? `after: ${input.after}`: ''}
+                        ${input.filter ? `filter: {
+                            ${input.filter.WRT_DATE ? `WRT_DATE: {
+                                    contains: "${input.filter.WRT_DATE.contains}"
+                            }`: ''}
+                            ${input.filter.EE_ID ? `EE_ID: {
+                                    contains: "${input.filter.EE_ID.contains}"
+                            }`: ''}
+                            ${input.filter.C_TEL ? `C_TEL: {
+                                    contains: "${input.filter.C_TEL.contains}"
+                            }`: ''}
+                            ${input.filter.MEMO ? `MEMO: {
+                                    contains: "${input.filter.MEMO.contains}"
+                            }`: ''}
+                            ${input.filter.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT : {
+                                    contains: "${input.filter.P_SUBSIDY_AMT.contains}"
+                            }`: ''}
+                        }`: ''}
+                    }) {
+                        edges {
+                            CONST_ID
+                            DATE
+                            WRT_DATE
+                            EE_ID
+                            C_TEL
+                            MEMO
+                            P_SUBSIDY_AMT
+                        }
+                        totalCount
+                        pageInfo {
+                            endCursor
+                            startCursor
+                        }
+                    }
+                }
+            `,
+        });
+    }
+
     create(input) {
         return this._client
             .mutate({

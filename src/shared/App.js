@@ -16,7 +16,7 @@ class App extends Component {
                 <Switch>
                     <Route path="/consultation/edit/:CONST_ID" component={ConsultationEdit}/>
                     <Route path="/consultation/edit" component={ConsultationEdit}/>
-                    <Route path="/consultation/:CONST_ID" component={ConsultationSearch}/>
+                    <Route path="/consultation/search/:searchText" component={ConsultationSearch}/>
                     <Route path="/consultation/" component={ConsultationSearch}/>
                 </Switch>
                 <Switch>

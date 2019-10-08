@@ -12,40 +12,87 @@ const styles = {
 };
 
 export default class ConsultationTable extends Component {
-    state = {
-        limit: 10,
-        edges: [],
-        pageInfo: {
-            endCursor: null,
-            startCursor: null,
-            hasPreviousPage: false
-        },
-        loading: true
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            limit: 10,
+            edges: [],
+            pageInfo: {
+                endCursor: null,
+                startCursor: null,
+                hasPreviousPage: false
+            },
+            loading: true,
+            searchText: this.props.searchText || '',
+        }
     }
 
     componentDidMount() {
-        ConsultService.read({
-            first: this.state.limit
-        })
-        .then(({ data: { readConsultation: ConsultationConnection } }) => {
-            this.setState({
-                edges: ConsultationConnection.edges,
-                pageInfo: ConsultationConnection.pageInfo,
-                limit: this.state.limit,
-                loading: false
+        if(!!this.state.searchText) {
+            consultService.search({
+                first: this.state.limit,
+                filter: {
+                    DATE: {
+                        contains: this.state.searchText
+                    },
+                    WRT_DATE: {
+                        contains: this.state.searchText
+                    },
+                    EE_ID: {
+                        contains: this.state.searchText
+                    },
+                    C_TEL: {
+                        contains: this.state.searchText
+                    },
+                    MEMO: {
+                        contains: this.state.searchText
+                    },
+                    P_SUBSIDY_AMT: {
+                        contains: this.state.searchText
+                    },
+                }
+            })
+            .then(({ data: { searchConsultation: ConsultationConnection } }) => {
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: false
+                });
+            }, (err) => {
+                Swal.fire({
+                    title: '에러!',
+                    text: '상담 정보 검색을 실패 하였습니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
             });
-        }, () => {
-            this.setState({
-                loading: false
+        } else {
+            ConsultService.read({
+                first: this.state.limit
+            })
+            .then(({ data: { readConsultation: ConsultationConnection } }) => {
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: false
+                });
+            }, () => {
+                this.setState({
+                    loading: false
+                });
+                Swal.fire({
+                    title: '에러!',
+                    text: '상담 정보 조회를 실패 하였습니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
             });
-            Swal.fire({
-                title: '에러!',
-                text: '상담 정보 조회를 실패 하였습니다.',
-                buttonsStyling: false,
-                confirmButtonClass: 'btn btn-success',
-                type: 'error'
-            });
-        });
+        }
     }
 
     renderItems = () => {
@@ -65,6 +112,18 @@ export default class ConsultationTable extends Component {
         ));
     }
 
+    onChangeHandler = (e) => {
+        this.setState({
+            searchText: e.target.value
+        });
+    }
+
+    onKeyDownHandler = (e) => {
+        if(e.keyCode === 13) {
+            this.onSearch();
+        }
+    }
+
     onClickCHandler = (e) => {
         e.preventDefault();
 
@@ -78,45 +137,93 @@ export default class ConsultationTable extends Component {
             this.onPrevPage();
         } else if (elemTarget && elemTarget.dataset.action === 'onNextPage') {
             this.onNextPage();
+        } else if (elemTarget && elemTarget.dataset.action === 'onSearch') {
+            this.onSearch();
         }
+    }
+
+    onSearch = (e) => {
+        window.location.href = `../consultation/search/${this.state.searchText}`;
     }
 
     onPrevPage = (e) => {
         const startCursor = this.state.pageInfo.startCursor;
 
-        consultService.read({
-            last: this.state.limit,
-            before: startCursor
-        }).then(({ data: { readConsultation: ConsultationConnection } }) => {
-            if(ConsultationConnection.edges.length < 1) {
-                return Swal.fire({
+        if(!!this.state.searchText) {
+            consultService.search({
+                first: this.state.limit,
+                filter: {
+                    DATE: {
+                        contains: this.state.searchText
+                    },
+                    WRT_DATE: {
+                        contains: this.state.searchText
+                    },
+                    EE_ID: {
+                        contains: this.state.searchText
+                    },
+                    C_TEL: {
+                        contains: this.state.searchText
+                    },
+                    MEMO: {
+                        contains: this.state.searchText
+                    },
+                    P_SUBSIDY_AMT: {
+                        contains: this.state.searchText
+                    },
+                }
+            })
+            .then(({ data: { searchConsultation: ConsultationConnection } }) => {
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: false
+                });
+            }, (err) => {
+                Swal.fire({
                     title: '에러!',
-                    text: '처음 페이지 입니다.',
+                    text: '상담 정보 검색을 실패 하였습니다.',
                     buttonsStyling: false,
                     confirmButtonClass: 'btn btn-success',
                     type: 'error'
                 });
-            }
-
-            this.setState({
-                edges: ConsultationConnection.edges,
-                pageInfo: ConsultationConnection.pageInfo,
-                limit: this.state.limit,
-                loading: true
             });
-        }, (err) => {
-            Swal.fire({
-                title: '에러!',
-                text: '상담 정보 조회를 실패 하였습니다.',
-                buttonsStyling: false,
-                confirmButtonClass: 'btn btn-success',
-                type: 'error'
+        } else {
+            consultService.read({
+                last: this.state.limit,
+                before: startCursor
+            }).then(({ data: { readConsultation: ConsultationConnection } }) => {
+                if(ConsultationConnection.edges.length < 1) {
+                    return Swal.fire({
+                        title: '에러!',
+                        text: '처음 페이지 입니다.',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-success',
+                        type: 'error'
+                    });
+                }
+    
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: true
+                });
+            }, (err) => {
+                Swal.fire({
+                    title: '에러!',
+                    text: '상담 정보 조회를 실패 하였습니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
+            }).finally(() => {
+                this.setState({
+                    loading: false
+                });
             });
-        }).finally(() => {
-            this.setState({
-                loading: false
-            });
-        });
+        }
     }
 
     onNextPage = () => {
@@ -223,39 +330,64 @@ export default class ConsultationTable extends Component {
                                             <h4 className="card-title">Consultation</h4>
                                         </div>
                                         <div className="card-body">
-                                            <div className="toolbar">
-                                            </div>
                                             <div className="material-datatables">
-                                                <div className="row">
-                                                    <table id="datatables" className="table table-striped table-no-bordered table-hover" cellSpacing="0" width="100%" style={styles.table}>
-                                                        <thead>
-                                                            <tr>
-                                                                <th className="text-center">상담 ID</th>
-                                                                <th>고객 전화 번호</th>
-                                                                <th>후기 지급 금액</th>
-                                                                <th>상담 직원 ID</th>
-                                                                <th>상담 내용</th>
-                                                                <th>상담 시간</th>
-                                                                <th className="disabled-sorting text-right">Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th className="text-center">CONST_ID</th>
-                                                                <th>C_TEL</th>
-                                                                <th>P_SUBSIDY_AMT</th>
-                                                                <th>EE_ID</th>
-                                                                <th>MEMO</th>
-                                                                <th>DATE</th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </tfoot>
-                                                        <tbody>
-                                                            {this.renderItems()}
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div className="row">
+                                                <div className="dataTables_wrapper dt-bootstrap4">
+                                                    <div className="row">
+                                                        {/* <div className="col-sm-12 col-md-6">
+                                                            <div className="dataTables_length" id="datatables_length">
+                                                                <label>
+                                                                    Show 
+                                                                    <select name="datatables_length" aria-controls="datatables" className="custom-select custom-select-sm form-control form-control-sm">
+                                                                        <option value="10">10</option>
+                                                                        <option value="25">25</option>
+                                                                        <option value="50">50</option>
+                                                                        <option value="-1">All</option>
+                                                                    </select>
+                                                                    entries
+                                                                </label>
+                                                            </div>
+                                                        </div> */}
+                                                        <div className="col-sm-12 col-md-6 ml-auto">
+                                                            <div id="datatables_filter" className="dataTables_filter">
+                                                                <label>
+                                                                    <span className="bmd-form-group bmd-form-group-sm">
+                                                                        <input type="search" className="form-control form-control-sm" placeholder="Search records" aria-controls="datatables" value={this.state.searchText} onChange={this.onChangeHandler} onKeyDown={this.onKeyDownHandler}/>
+                                                                        <a href="#34" className="btn btn-rose btn-link btn-just-icon" onClick={this.onClickCHandler} ><i className="material-icons" data-action="onSearch">search</i></a>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <table id="datatables" className="table table-striped table-no-bordered table-hover" cellSpacing="0" width="100%" style={styles.table}>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th className="text-center">상담 ID</th>
+                                                                    <th>고객 전화 번호</th>
+                                                                    <th>후기 지급 금액</th>
+                                                                    <th>상담 직원 ID</th>
+                                                                    <th>상담 내용</th>
+                                                                    <th>상담 시간</th>
+                                                                    <th className="disabled-sorting text-right">Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th className="text-center">CONST_ID</th>
+                                                                    <th>C_TEL</th>
+                                                                    <th>P_SUBSIDY_AMT</th>
+                                                                    <th>EE_ID</th>
+                                                                    <th>MEMO</th>
+                                                                    <th>DATE</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </tfoot>
+                                                            <tbody>
+                                                                {this.renderItems()}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div className="row">
                                                     <div className="col-sm-12 col-md-1 ml-auto">
                                                         <div className="dataTables_paginate paging_full_numbers" onClick={this.onClickCHandler}>
                                                             <ul className="pagination">
@@ -273,10 +405,10 @@ export default class ConsultationTable extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
                             }
                         </div>
                     </div>
