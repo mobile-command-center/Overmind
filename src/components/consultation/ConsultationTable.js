@@ -143,7 +143,7 @@ export default class ConsultationTable extends Component {
     }
 
     onSearch = (e) => {
-        window.location.href = `../consultation/search/${this.state.searchText}`;
+        window.location.href = `/consultation/search/${this.state.searchText}`;
     }
 
     onPrevPage = (e) => {
