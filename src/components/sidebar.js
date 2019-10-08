@@ -65,13 +65,13 @@ export default class SideBar extends Component {
                         <div className="collapse" id="formsConsultation">
                             <ul className="nav">
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <a className="nav-link" href="/consultation">
                                 <span className="sidebar-mini"> SR </span>
                                 <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <a className="nav-link" href="/consultation/edit">
                                 <span className="sidebar-mini"> WR </span>
                                 <span className="sidebar-normal"> 작성 </span>
                                 </a>
@@ -89,13 +89,13 @@ export default class SideBar extends Component {
                         <div className="collapse" id="formsApplication">
                             <ul className="nav">
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <a className="nav-link" href="/application/">
                                 <span className="sidebar-mini"> SR </span>
                                 <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <a className="nav-link" href="/application/edit">
                                 <span className="sidebar-mini"> WR </span>
                                 <span className="sidebar-normal"> 작성 </span>
                                 </a>
@@ -113,13 +113,13 @@ export default class SideBar extends Component {
                         <div className="collapse" id="formsEnrollment">
                             <ul className="nav">
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <a className="nav-link" href="/enrollment/">
                                 <span className="sidebar-mini"> SR </span>
                                 <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <a className="nav-link" href="/enrollment/edit">
                                 <span className="sidebar-mini"> WR </span>
                                 <span className="sidebar-normal"> 작성 </span>
                                 </a>
@@ -137,13 +137,13 @@ export default class SideBar extends Component {
                         <div className="collapse" id="formsPayment">
                             <ul className="nav">
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/regular.html">
+                                <a className="nav-link" href="/payment/">
                                 <span className="sidebar-mini"> SR </span>
                                 <span className="sidebar-normal"> 조회 </span>
                                 </a>
                             </li>
                             <li className="nav-item ">
-                                <a className="nav-link" href="../examples/forms/extended.html">
+                                <a className="nav-link" href="/payment/edit">
                                 <span className="sidebar-mini"> WR </span>
                                 <span className="sidebar-normal"> 작성 </span>
                                 </a>
