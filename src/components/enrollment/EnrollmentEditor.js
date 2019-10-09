@@ -155,7 +155,7 @@ export default class EnrollmentEditor extends Component {
                 <div className="card ">
                     <div className="card-header card-header-rose card-header-icon">
                         <div className="card-icon">
-                            <i className="material-icons">mail_outline</i>
+                            <i className="material-icons">how_to_reg</i>
                         </div>
                         <h4 className="card-title">접수 작성 폼</h4>
                     </div>
