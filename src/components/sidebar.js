@@ -52,8 +52,8 @@ export default class SideBar extends Component {
                     </div>
                     <ul className="nav">
                         <li className="nav-item">
-                            <a className="nav-link" href="../examples/dashboard.html">
-                                <i className="material-icons">dashbosard</i>
+                            <a className="nav-link" href="/dashboard">
+                                <i className="material-icons">dashboard</i>
                                 <p> 상황판 </p>
                             </a>
                         </li>

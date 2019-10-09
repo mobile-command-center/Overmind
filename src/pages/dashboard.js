@@ -8,7 +8,7 @@ export default class DashBoard extends Component {
     render() {
         return (
             <div>
-                <SideBar></SideBar>
+            <SideBar></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <Content></Content>
