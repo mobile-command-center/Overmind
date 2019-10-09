@@ -363,7 +363,7 @@ export default class ConsultationTable extends Component {
                     <div className="row">
                         {this.state.loading ? <LoadingSpinner></LoadingSpinner>:null}
                         <div className="card">
-                            <div className="card-header card-header-rose card-header-icon">
+                            <div className="card-header card-header-warning card-header-icon">
                                 <div className="card-icon">
                                     <i className="material-icons">call</i>
                                 </div>
