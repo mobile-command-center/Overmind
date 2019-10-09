@@ -7,6 +7,7 @@ import ConsultationSearch from '../pages/consultation/ConsultationSearch';
 import PaymentEdit from '../pages/payment/PaymentEdit';
 import PaymentSearch from '../pages/payment/PaymentSearch';
 import EnrollmentSearch from '../pages/enrollment/EnrollmentSearch';
+import ApplicationSearch from '../pages/application/ApplicationSearch';
 
 // https://velopert.com/3417 리액트 라우터 강좌
 
@@ -21,6 +22,10 @@ class App extends Component {
                     <Route path="/consultation/edit" component={ConsultationEdit}/>
                     <Route path="/consultation/search/:searchText" component={ConsultationSearch}/>
                     <Route path="/consultation/" component={ConsultationSearch}/>
+                </Switch>
+                <Switch>
+                    <Route path="/application/search/:searchText" component={ApplicationSearch}/>
+                    <Route path="/application/" component={ApplicationSearch}/>
                 </Switch>
                 <Switch>
                     <Route path="/enrollment/edit/:EL_ID" component={EnrollmentEdit}/>
