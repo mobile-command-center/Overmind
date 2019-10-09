@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, DashBoard, Enrollment } from '../pages';
+import { Home, DashBoard } from '../pages';
 import EnrollmentEdit from '../pages/enrollment/EnrollmentEdit';
 import ConsultationEdit from '../pages/consultation/ConsultationEdit'
 import ConsultationSearch from '../pages/consultation/ConsultationSearch';
@@ -24,8 +24,8 @@ class App extends Component {
                 <Switch>
                     <Route path="/enrollment/edit/:EL_ID" component={EnrollmentEdit}/>
                     <Route path="/enrollment/edit" component={EnrollmentEdit}/>
-                    <Route path="/enrollment/:EL_ID" component={Enrollment}/>
-                    <Route path="/enrollment/" component={Enrollment}/>
+                    {/* <Route path="/enrollment/:EL_ID" component={Enrollment}/> */}
+                    {/* <Route path="/enrollment/" component={Enrollment}/> */}
                 </Switch>
                 <Switch>
                     <Route path="/payment/edit/:PYMT_ID" component={PaymentEdit}/>
