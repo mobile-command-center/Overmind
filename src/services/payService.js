@@ -92,12 +92,6 @@ class PayService {
                             ${input.filter.ST ? `ST : {
                                     contains: "${input.filter.ST.contains}"
                             }`: ''}
-                            ${input.filter.CONST_ID ? `CONST_ID : {
-                                contains: "${input.filter.CONST_ID.contains}"
-                            }`: ''}
-                            ${input.filter.EL_ID ? `EL_ID : {
-                                contains: "${input.filter.EL_ID.contains}"
-                            }`: ''}
                         }`: ''}
                     }) {
                         edges {
@@ -135,8 +129,8 @@ class PayService {
                             ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
                             ${input.PAY_AMT ? `PAY_AMT: ${`"${input.PAY_AMT}"`}`: ''}
                             ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
-                            ${input.CONST_ID ? `CONST_ID: ${`"${input.CONST_ID}"`}`: ''}
-                            ${input.EL_ID ? `EL_ID: ${`"${input.EL_ID}"`}`: ''}
+                            ${input.CONST_ID ? `CONST_ID: ${input.CONST_ID}`: ''}
+                            ${input.EL_ID ? `EL_ID: ${input.EL_ID}`: ''}
                         }) {
                             PYMT_ID
                         }
@@ -158,8 +152,8 @@ class PayService {
                         ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
                         ${input.PAY_AMT ? `PAY_AMT: ${`"${input.PAY_AMT}"`}`: ''}
                         ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
-                        ${input.CONST_ID ? `CONST_ID: ${`"${input.CONST_ID}"`}`: ''}
-                        ${input.EL_ID ? `EL_ID: ${`"${input.EL_ID}"`}`: ''}
+                        ${input.CONST_ID ? `CONST_ID: ${input.CONST_ID}`: ''}
+                        ${input.EL_ID ? `EL_ID: ${input.EL_ID}`: ''}
                     }) {
                         PYMT_ID
                     }
