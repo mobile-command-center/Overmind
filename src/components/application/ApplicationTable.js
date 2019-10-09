@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Swal from 'sweetalert2'
 import moment from 'moment';
+import ReadMoreReact from 'read-more-react';
 import LoadingSpinner from '../common/LoadingSpinner';
 import applyService from '../../services/applyService';
 
@@ -95,7 +96,12 @@ export default class ApplicationTable extends Component {
         return this.state.edges.map((Application) => (
             <tr key={Application.APL_ID} onClick={this.onClickCHandler} data-id={Application.APL_ID}>
                 <td className="text-center">{Application.APL_ID}</td>
-                <td>{Application.FRM_DATA || '미등록'}</td>
+                <td>{Application.FRM_DATA ? 
+                    <ReadMoreReact text={Application.FRM_DATA }                     
+                        min={80}
+                        ideal={90}
+                        max={100}>
+                    </ReadMoreReact> : '미등록'}</td>
                 <td>{moment(Application.DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
                 <td className="text-right">
                     <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons" data-action="onDelete">delete</i></a>
