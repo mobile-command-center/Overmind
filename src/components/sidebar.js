@@ -96,12 +96,6 @@ export default class SideBar extends Component {
                                             <span className="sidebar-normal"> 조회 </span>
                                         </a>
                                     </li>
-                                    <li className="nav-item ">
-                                        <a className="nav-link" href="/application/edit">
-                                            <span className="sidebar-mini"> WR </span>
-                                            <span className="sidebar-normal"> 작성 </span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </li>
