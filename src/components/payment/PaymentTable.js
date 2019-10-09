@@ -144,10 +144,12 @@ export default class PaymentTable extends Component {
         } else if (elemTarget && elemTarget.dataset.action === 'onSearch') {
             this.onSearch();
         } else if (elemTarget && elemTarget.dataset.action === 'onEditEnrollment') {
-            const win = window.open(`/enrollment/edit/${PYMT_ID}`, '_blank');
+            const EL_ID = e.target.textContent;
+            const win = window.open(`/enrollment/edit/${EL_ID}`, '_blank');
             win.focus();
         } else if (elemTarget && elemTarget.dataset.action === 'onEditConsultation') {
-            const win = window.open(`/consultation/edit/${PYMT_ID}`, '_blank');
+            const CONST_ID = e.target.textContent;
+            const win = window.open(`/consultation/edit/${CONST_ID}`, '_blank');
             win.focus();
         }
     }
