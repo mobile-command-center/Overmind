@@ -53,18 +53,18 @@ export default class SideBar extends Component {
                     <ul className="nav">
                         <li className="nav-item">
                             <a className="nav-link" href="../examples/dashboard.html">
-                                <i className="material-icons">dashboard</i>
+                                <i className="material-icons">dashbosard</i>
                                 <p> 상황판 </p>
                             </a>
                         </li>
-                        <li className={activeTab === "consultation" ? "nav-item active" : "nav-item"}>
-                            <a className="nav-link" data-toggle="collapse" href="#formsConsultation" aria-expanded={activeTab === "consultation"}>
+                        <li className="nav-item">
+                            <a className="nav-link" data-toggle="collapse" href="#formsConsultation">
                                 <i className="material-icons">call</i>
                                 <p> 상담
                                 <b className="caret"></b>
                                 </p>
                             </a>
-                            <div className={activeTab === "consultation" ? "collapse show" : "collapse"} id="formsConsultation">
+                            <div className="collapse" id="formsConsultation">
                                 <ul className="nav">
                                     <li className="nav-item ">
                                         <a className="nav-link" href="/consultation/">
@@ -81,14 +81,14 @@ export default class SideBar extends Component {
                                 </ul>
                             </div>
                         </li>
-                        <li className={activeTab === "application" ? "nav-item active" : "nav-item"}>
-                            <a className="nav-link" data-toggle="collapse" href="#formsApplication" aria-expanded={activeTab === "application"}>
+                        <li className="nav-item">
+                            <a className="nav-link" data-toggle="collapse" href="#formsApplication">
                                 <i className="material-icons">content_paste</i>
                                 <p> 신청서
                                     <b className="caret"></b>
                                 </p>
                             </a>
-                            <div className={activeTab === "application" ? "collapse show" : "collapse"} id="formsApplication">
+                            <div className="collapse" id="formsApplication">
                                 <ul className="nav">
                                     <li className="nav-item ">
                                         <a className="nav-link" href="/application">
@@ -99,14 +99,14 @@ export default class SideBar extends Component {
                                 </ul>
                             </div>
                         </li>
-                        <li className={activeTab === "enrollment" ? "nav-item active" : "nav-item"}>
-                        <a className="nav-link" data-toggle="collapse" href="#formsEnrollment" aria-expanded={activeTab === "enrollment"}>
+                        <li className="nav-item">
+                        <a className="nav-link" data-toggle="collapse" href="#formsEnrollment">
                             <i className="material-icons">how_to_reg</i>
                             <p> 접수
                                 <b className="caret"></b>
                             </p>
                         </a>
-                        <div className={activeTab === "enrollment" ? "collapse show" : "collapse"} id="formsEnrollment">
+                        <div className="collapse" id="formsEnrollment">
                             <ul className="nav">
                                 <li className="nav-item ">
                                     <a className="nav-link" href="/enrollment/">
@@ -123,14 +123,14 @@ export default class SideBar extends Component {
                             </ul>
                         </div>
                         </li>
-                        <li className={activeTab === "payment" ? "nav-item active" : "nav-item"}>
-                            <a className="nav-link" data-toggle="collapse" href="#formsPayment" aria-expanded={activeTab === "payment"}>
+                        <li className="nav-item">
+                            <a className="nav-link" data-toggle="collapse" href="#formsPayment">
                                 <i className="material-icons">attach_money</i>
                                 <p> 지급
                                     <b className="caret"></b>
                                 </p>
                             </a>
-                            <div className={activeTab === "payment" ? "collapse show" : "collapse"} id="formsPayment">
+                            <div className="collapse" id="formsPayment">
                                 <ul className="nav">
                                     <li className="nav-item ">
                                         <a className="nav-link" href="/payment/">
