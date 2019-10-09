@@ -133,7 +133,7 @@ class PayService {
                             DATE: ${`"${input.DATE}"`}
                             ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                             ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
-                            ${input.PAY_AMT ? `PAY_AMT: ${input.PAY_AMT}`: ''}
+                            ${input.PAY_AMT ? `PAY_AMT: ${`"${input.PAY_AMT}"`}`: ''}
                             ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
                             ${input.CONST_ID ? `CONST_ID: ${`"${input.CONST_ID}"`}`: ''}
                             ${input.EL_ID ? `EL_ID: ${`"${input.EL_ID}"`}`: ''}
@@ -156,7 +156,7 @@ class PayService {
                         ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
-                        ${input.PAY_AMT ? `PAY_AMT: ${input.PAY_AMT}`: ''}
+                        ${input.PAY_AMT ? `PAY_AMT: ${`"${input.PAY_AMT}"`}`: ''}
                         ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
                         ${input.CONST_ID ? `CONST_ID: ${`"${input.CONST_ID}"`}`: ''}
                         ${input.EL_ID ? `EL_ID: ${`"${input.EL_ID}"`}`: ''}
