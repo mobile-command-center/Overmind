@@ -11,7 +11,7 @@ export default class PaymentEdit extends Component {
 
         return (
             <div>
-                <SideBar activeTab="payment"></SideBar>
+                <SideBar></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <div className="content">

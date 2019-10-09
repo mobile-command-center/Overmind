@@ -3,8 +3,6 @@ import SideBar from '../../components/sidebar';
 import NavigationBar from '../../components/navigationbar';
 import Footer from '../../components/footer';
 import EnrollmentEditor from '../../components/enrollment/EnrollmentEditor';
-import ApplicationTable from '../../components/application/ApplicationTable';
-import ConsultationSearchWidget from '../../components/consultation/ConsultationSearchWidget';
 
 export default class EnrollmentEdit extends Component {
     render() {
@@ -13,7 +11,7 @@ export default class EnrollmentEdit extends Component {
     
         return (
             <div>
-                <SideBar activeTab="enrollment"></SideBar>
+                <SideBar></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <div className="content">

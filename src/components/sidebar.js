@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 export default class SideBar extends Component {
     render() {
-        const activeTab = this.props.activeTab;
-
         return(
             <div className="sidebar" data-color="rose" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
                 <div className="logo">

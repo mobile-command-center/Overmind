@@ -11,7 +11,7 @@ export default class ApplicationSearch extends Component {
 
         return (
             <div>
-                <SideBar activeTab="application"></SideBar>
+                <SideBar></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <ApplicationTable searchText={searchText}></ApplicationTable>
