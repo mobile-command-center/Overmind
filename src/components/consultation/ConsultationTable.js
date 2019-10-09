@@ -243,39 +243,82 @@ export default class ConsultationTable extends Component {
             loading: true
         });
 
-        consultService.read({
-            first: this.state.limit,
-            after: endCursor
-        }).then(({ data: { readConsultation: ConsultationConnection } }) => {
-            if(ConsultationConnection.edges.length < 1) {
-
-                return Swal.fire({
+        if(!!this.state.searchText) {
+            consultService.search({
+                first: this.state.limit,
+                after: endCursor,
+                filter: {
+                    DATE: {
+                        contains: this.state.searchText
+                    },
+                    WRT_DATE: {
+                        contains: this.state.searchText
+                    },
+                    EE_ID: {
+                        contains: this.state.searchText
+                    },
+                    C_TEL: {
+                        contains: this.state.searchText
+                    },
+                    MEMO: {
+                        contains: this.state.searchText
+                    },
+                    P_SUBSIDY_AMT: {
+                        contains: this.state.searchText
+                    },
+                }
+            })
+            .then(({ data: { searchConsultation: ConsultationConnection } }) => {
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                    loading: false
+                });
+            }, (err) => {
+                Swal.fire({
                     title: '에러!',
-                    text: '마지막 페이지 입니다.',
+                    text: '상담 정보 검색을 실패 하였습니다.',
                     buttonsStyling: false,
                     confirmButtonClass: 'btn btn-success',
                     type: 'error'
                 });
-            }
+            });
+        } else {
+            consultService.read({
+                first: this.state.limit,
+                after: endCursor
+            }).then(({ data: { readConsultation: ConsultationConnection } }) => {
+                if(ConsultationConnection.edges.length < 1) {
 
-            this.setState({
-                edges: ConsultationConnection.edges,
-                pageInfo: ConsultationConnection.pageInfo,
-                limit: this.state.limit,
+                    return Swal.fire({
+                        title: '에러!',
+                        text: '마지막 페이지 입니다.',
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-success',
+                        type: 'error'
+                    });
+                }
+
+                this.setState({
+                    edges: ConsultationConnection.edges,
+                    pageInfo: ConsultationConnection.pageInfo,
+                    limit: this.state.limit,
+                });
+            }, (err) => {
+                Swal.fire({
+                    title: '에러!',
+                    text: '상담 정보 조회를 실패 하였습니다.',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-success',
+                    type: 'error'
+                });
+            }).finally(() => {
+                this.setState({
+                    loading: false
+                });
             });
-        }, (err) => {
-            Swal.fire({
-                title: '에러!',
-                text: '상담 정보 조회를 실패 하였습니다.',
-                buttonsStyling: false,
-                confirmButtonClass: 'btn btn-success',
-                type: 'error'
-            });
-        }).finally(() => {
-            this.setState({
-                loading: false
-            });
-        });
+        }
     }
 
     onDelete = (CONST_ID) => {
