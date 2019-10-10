@@ -239,7 +239,7 @@ export default class PaymentEditor extends Component {
                             </div>
                             <div className="card-footer text-right">
                                 <div className="form-check mr-auto"></div>
-                                <button type="button" className="btn btn-rose" onClick={this._onClickRegister} onChange={this._onChangeHandler}>등록</button>
+                                <button type="button" className="btn btn-info" onClick={this._onClickRegister} onChange={this._onChangeHandler}>등록</button>
                             </div>
                         </div>
                     </form>
