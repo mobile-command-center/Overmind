@@ -11,7 +11,7 @@ export default class PaymentSearch extends Component {
 
         return (
             <div>
-                <SideBar activeTab="consultation"></SideBar>
+                <SideBar></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <PaymentTable searchText={searchText}></PaymentTable>

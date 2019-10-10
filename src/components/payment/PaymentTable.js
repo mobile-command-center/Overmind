@@ -380,7 +380,7 @@ export default class PaymentTable extends Component {
                     <div className="row">
                         {this.state.loading ? <LoadingSpinner></LoadingSpinner>:null}
                         <div className="card">
-                            <div className="card-header card-header-rose card-header-icon">
+                            <div className="card-header card-header-info card-header-icon">
                                 <div className="card-icon">
                                     <i className="material-icons">attach_money</i>
                                 </div>

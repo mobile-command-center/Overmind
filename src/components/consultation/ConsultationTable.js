@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Swal from 'sweetalert2'
 import moment from 'moment';
+import ReadMoreReact from 'read-more-react';
 import ConsultService from '../../services/consultService';
 import consultService from '../../services/consultService';
 import LoadingSpinner from '../common/LoadingSpinner';
@@ -102,7 +103,12 @@ export default class ConsultationTable extends Component {
                 <td>{Consultation.C_TEL || '미등록'}</td>
                 <td>{Consultation.P_SUBSIDY_AMT || '미등록'}</td>
                 <td>{Consultation.EE_ID || '미등록'}</td>
-                <td>{Consultation.MEMO || '미등록'}</td>
+                <td>{Consultation.MEMO ? 
+                    <ReadMoreReact text={Consultation.MEMO}                     
+                        min={20}
+                        ideal={25}
+                        max={30}>
+                    </ReadMoreReact> : '미등록'}</td>
                 <td>{moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
@@ -363,7 +369,7 @@ export default class ConsultationTable extends Component {
                     <div className="row">
                         {this.state.loading ? <LoadingSpinner></LoadingSpinner>:null}
                         <div className="card">
-                            <div className="card-header card-header-rose card-header-icon">
+                            <div className="card-header card-header-warning card-header-icon">
                                 <div className="card-icon">
                                     <i className="material-icons">call</i>
                                 </div>

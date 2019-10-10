@@ -11,7 +11,7 @@ export default class ConsultationSearch extends Component {
 
         return (
             <div>
-                <SideBar activeTab="consultation"></SideBar>
+                <SideBar></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <ConsultationTable searchText={searchText}></ConsultationTable>

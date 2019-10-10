@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 export default class SideBar extends Component {
     render() {
-        const activeTab = this.props.activeTab;
-
         return(
             <div className="sidebar" data-color="rose" data-background-color="black" data-image="/assets/img/sidebar-1.jpg">
                 <div className="logo">
@@ -52,8 +50,8 @@ export default class SideBar extends Component {
                     </div>
                     <ul className="nav">
                         <li className="nav-item">
-                            <a className="nav-link" href="../examples/dashboard.html">
-                                <i className="material-icons">dashbosard</i>
+                            <a className="nav-link" href="/dashboard">
+                                <i className="material-icons">dashboard</i>
                                 <p> 상황판 </p>
                             </a>
                         </li>

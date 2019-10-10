@@ -301,7 +301,7 @@ export default class ApplicationTable extends Component {
                     <div className="row">
                         {this.state.loading ? <LoadingSpinner></LoadingSpinner>:null}
                         <div className="card">
-                            <div className="card-header card-header-rose card-header-icon">
+                            <div className="card-header card-header-success card-header-icon">
                                 <div className="card-icon">
                                     <i className="material-icons">how_to_reg</i>
                                 </div>
