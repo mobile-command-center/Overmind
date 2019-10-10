@@ -140,7 +140,7 @@ export default class PaymentEditor extends Component {
                     {this.state.loading ? <LoadingSpinner></LoadingSpinner>:null}
                     <form id="EnrollmentValidation" action="" method="">
                         <div className="card ">
-                            <div className="card-header card-header-rose card-header-icon">
+                            <div className="card-header card-header-info card-header-icon">
                                 <div className="card-icon">
                                     <i className="material-icons">attach_money</i>
                                 </div>
