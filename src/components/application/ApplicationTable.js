@@ -305,7 +305,7 @@ export default class ApplicationTable extends Component {
                                 <div className="card-icon">
                                     <i className="material-icons">how_to_reg</i>
                                 </div>
-                                <h4 className="card-title">접수 내역</h4>
+                                <h4 className="card-title">신청서 내역</h4>
                             </div>
                             <div className="card-body">
                                 <div className="material-datatables">
