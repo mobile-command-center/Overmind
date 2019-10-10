@@ -119,7 +119,7 @@ class ConsultService {
                             DATE: ${`"${input.DATE}"`}
                             ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                             ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
-                            ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace('\n', '\\n')}"`}`: ''}
+                            ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                         }) {
                             CONST_ID
@@ -140,7 +140,7 @@ class ConsultService {
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                         ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
-                        ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace('\n', '\\n')}"`}`: ''}
+                        ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                         ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                     }) {
                         CONST_ID
