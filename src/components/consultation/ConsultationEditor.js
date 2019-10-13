@@ -10,7 +10,7 @@ export default class ConsultationEditor extends Component {
         item:  {
             CONST_ID: '',
             WRTR_ID: 'USER',
-            DATE : '',
+            DATE : new Date().toISOString(),
             EE_ID : '',
             C_TEL : '',
             MEMO : '',
