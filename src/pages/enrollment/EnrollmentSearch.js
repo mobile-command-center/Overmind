@@ -11,7 +11,7 @@ export default class EnrollmentSearch extends Component {
 
         return (
             <div>
-                <SideBar></SideBar>
+                <SideBar url={"/enrollment/search"}></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <EnrollmentTable searchText={searchText}></EnrollmentTable>
