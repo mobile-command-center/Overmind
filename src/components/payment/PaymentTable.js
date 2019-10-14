@@ -47,9 +47,6 @@ export default class PaymentTable extends Component {
                     ST: {
                         contains: this.state.searchText
                     },
-                    CONST_ID: {
-                        contains: this.state.searchText
-                    },
                     EL_ID: {
                         contains: this.state.searchText
                     },
@@ -101,7 +98,6 @@ export default class PaymentTable extends Component {
         return this.state.edges.map((Payment) => (
             <tr key={Payment.PYMT_ID} onClick={this.onClickCHandler} data-id={Payment.PYMT_ID}>
                 <td className="text-center">{Payment.PYMT_ID}</td>
-                <td className="text-center" data-action="onEditConsultation">{Payment.CONST_ID || '미등록'}</td>
                 <td className="text-center" data-action="onEditEnrollment">{Payment.EL_ID || '미등록'}</td>
                 <td>{Payment.EE_ID || '미등록'}</td>
                 <td>{Payment.PAY_TYPE || '미등록'}</td>
@@ -147,10 +143,6 @@ export default class PaymentTable extends Component {
             const EL_ID = e.target.textContent;
             const win = window.open(`/enrollment/edit/${EL_ID}`, '_blank');
             win.focus();
-        } else if (elemTarget && elemTarget.dataset.action === 'onEditConsultation') {
-            const CONST_ID = e.target.textContent;
-            const win = window.open(`/consultation/edit/${CONST_ID}`, '_blank');
-            win.focus();
         }
     }
 
@@ -178,9 +170,6 @@ export default class PaymentTable extends Component {
                         contains: this.state.searchText
                     },
                     ST: {
-                        contains: this.state.searchText
-                    },
-                    CONST_ID: {
                         contains: this.state.searchText
                     },
                     EL_ID: {
@@ -276,9 +265,6 @@ export default class PaymentTable extends Component {
                         contains: this.state.searchText
                     },
                     ST: {
-                        contains: this.state.searchText
-                    },
-                    CONST_ID: {
                         contains: this.state.searchText
                     },
                     EL_ID: {
@@ -420,7 +406,6 @@ export default class PaymentTable extends Component {
                                                 <thead>
                                                     <tr>
                                                         <th className="text-center">지급 ID</th>
-                                                        <th className="text-center">상담 ID</th>
                                                         <th className="text-center">접수 ID</th>
                                                         <th>지급 직원 ID</th>
                                                         <th>지급 방법</th>
@@ -433,7 +418,6 @@ export default class PaymentTable extends Component {
                                                 <tfoot>
                                                     <tr>
                                                         <th className="text-center">PYMT_ID</th>
-                                                        <th className="text-center">CONST_ID</th>
                                                         <th className="text-center">EL_ID</th>
                                                         <th>EE_ID</th>
                                                         <th>PAY_TYPE</th>

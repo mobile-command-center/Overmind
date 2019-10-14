@@ -14,7 +14,6 @@ export default class PaymentEditor extends Component {
             PAY_AMT: '',
             WRTR_ID: 'USER',
             ST : '',
-            CONST_ID : '',
             EL_ID : ''
         },
         loading: true,
@@ -172,14 +171,6 @@ export default class PaymentEditor extends Component {
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
                                             <input className="form-control" type="text" name="EE_ID" aria-required="true" autoComplete="false" value={this.state.item.EE_ID} onChange={this._onChangeHandler}/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <label className="col-sm-3 col-form-label">상담 ID</label>
-                                    <div className="col-sm-8">
-                                        <div className="form-group bmd-form-group">
-                                            <input className="form-control" type="text" name="CONST_ID"  aria-required="true" autoComplete="false" value={this.state.item.CONST_ID} onChange={this._onChangeHandler}/>
                                         </div>
                                     </div>
                                 </div>
