@@ -11,7 +11,7 @@ export default class EnrollmentEdit extends Component {
     
         return (
             <div>
-                <SideBar></SideBar>
+                <SideBar url={"enrollment/edit"}></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <div className="content">

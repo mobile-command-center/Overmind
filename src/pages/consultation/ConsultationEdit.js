@@ -11,7 +11,7 @@ export default class ConsultationEdit extends Component {
     
         return (
             <div>
-                <SideBar></SideBar>
+                <SideBar url={"/consultation/edit"}></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <div className="content">

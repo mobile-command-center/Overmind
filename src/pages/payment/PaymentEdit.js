@@ -11,7 +11,7 @@ export default class PaymentEdit extends Component {
 
         return (
             <div>
-                <SideBar></SideBar>
+                <SideBar url={"/payment/edit"}></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <div className="content">
