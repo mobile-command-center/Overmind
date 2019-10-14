@@ -69,13 +69,13 @@ export default class SideBar extends Component {
                                     <li className={url.indexOf("consultation/search") > -1 ? "nav-item active" : "nav-item"}>
                                         <a className="nav-link" href="/consultation/">
                                             <span className="sidebar-mini"> SR </span>
-                                            <span className="sidebar-normal"> 조회 </span>
+                                            <span className="sidebar-normal"> 상담 조회 </span>
                                         </a>
                                     </li>
                                     <li className={url.indexOf("consultation/edit") > -1 ? "nav-item active" : "nav-item"}>
                                         <a className="nav-link" href="/consultation/edit">
                                         <span className="sidebar-mini"> WR </span>
-                                        <span className="sidebar-normal"> 작성 </span>
+                                        <span className="sidebar-normal"> 상담 작성 </span>
                                         </a>
                                     </li>
                                 </ul>
@@ -93,7 +93,7 @@ export default class SideBar extends Component {
                                     <li className={url.indexOf("application/search") > -1 ? "nav-item active" : "nav-item"}>
                                         <a className="nav-link" href="/application">
                                             <span className="sidebar-mini"> SR </span>
-                                            <span className="sidebar-normal"> 조회 </span>
+                                            <span className="sidebar-normal"> 신청서 조회 </span>
                                         </a>
                                     </li>
                                 </ul>
@@ -111,13 +111,13 @@ export default class SideBar extends Component {
                                     <li className={url.indexOf("enrollment/search") > -1 ? "nav-item active" : "nav-item"}>
                                         <a className="nav-link" href="/enrollment/">
                                             <span className="sidebar-mini"> SR </span>
-                                            <span className="sidebar-normal"> 조회 </span>
+                                            <span className="sidebar-normal"> 접수 조회 </span>
                                         </a>
                                     </li>
                                     <li className={url.indexOf("enrollment/edit") > -1 ? "nav-item active" : "nav-item"}>
                                         <a className="nav-link" href="/enrollment/edit">
                                             <span className="sidebar-mini"> WR </span>
-                                            <span className="sidebar-normal"> 작성 </span>
+                                            <span className="sidebar-normal"> 접수 작성 </span>
                                         </a>
                                     </li>
                                 </ul>
@@ -135,13 +135,13 @@ export default class SideBar extends Component {
                                     <li className={url.indexOf("payment/search") > -1 ? "nav-item active" : "nav-item"}>
                                         <a className="nav-link" href="/payment/">
                                             <span className="sidebar-mini"> SR </span>
-                                            <span className="sidebar-normal"> 조회 </span>
+                                            <span className="sidebar-normal"> 지급 조회 </span>
                                         </a>
                                     </li>
                                     <li className={url.indexOf("payment/edit") > -1 ? "nav-item active" : "nav-item"}>
                                         <a className="nav-link" href="/payment/edit">
                                             <span className="sidebar-mini"> WR </span>
-                                            <span className="sidebar-normal"> 작성 </span>
+                                            <span className="sidebar-normal"> 지급 작성 </span>
                                         </a>
                                     </li>
                                 </ul>
