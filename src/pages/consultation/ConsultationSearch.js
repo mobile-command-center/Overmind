@@ -11,7 +11,7 @@ export default class ConsultationSearch extends Component {
 
         return (
             <div>
-                <SideBar></SideBar>
+                <SideBar url={"/consultation/search"}></SideBar>
                 <div className="main-panel">
                     <NavigationBar></NavigationBar>
                     <ConsultationTable searchText={searchText}></ConsultationTable>
