@@ -24,7 +24,6 @@ class PayService {
                         WRTR_ID
                         WRT_DATE
                         ST
-                        CONST_ID
                         EL_ID
                     }
                 }
@@ -52,7 +51,6 @@ class PayService {
                             WRTR_ID
                             WRT_DATE
                             ST
-                            CONST_ID
                             EL_ID
                         }
                         totalCount
@@ -103,7 +101,6 @@ class PayService {
                             WRTR_ID
                             WRT_DATE
                             ST
-                            CONST_ID
                             EL_ID
                         }
                         totalCount
@@ -129,7 +126,6 @@ class PayService {
                             ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
                             ${input.PAY_AMT ? `PAY_AMT: ${`"${input.PAY_AMT}"`}`: ''}
                             ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
-                            ${input.CONST_ID ? `CONST_ID: ${input.CONST_ID}`: ''}
                             ${input.EL_ID ? `EL_ID: ${input.EL_ID}`: ''}
                         }) {
                             PYMT_ID
@@ -152,7 +148,6 @@ class PayService {
                         ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
                         ${input.PAY_AMT ? `PAY_AMT: ${`"${input.PAY_AMT}"`}`: ''}
                         ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
-                        ${input.CONST_ID ? `CONST_ID: ${input.CONST_ID}`: ''}
                         ${input.EL_ID ? `EL_ID: ${input.EL_ID}`: ''}
                     }) {
                         PYMT_ID
