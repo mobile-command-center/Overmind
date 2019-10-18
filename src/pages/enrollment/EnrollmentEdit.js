@@ -16,15 +16,11 @@ export default class EnrollmentEdit extends Component {
                     <NavigationBar></NavigationBar>
                     <div className="content">
                         <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-6 ml-auto mr-auto">
-                                    <EnrollmentEditor EL_ID={EL_ID}></EnrollmentEditor>
-                                </div>
-                                {/* <div className="col-lg-6 col-md-12 ml-auto mr-auto">
-                                    <ConsultationSearchWidget></ConsultationSearchWidget>
-                                    <ApplicationTable></ApplicationTable>
-                                </div> */}
-                            </div>
+                            <EnrollmentEditor EL_ID={EL_ID}></EnrollmentEditor>
+                            {/* <div className="col-lg-6 col-md-12 ml-auto mr-auto">
+                                <ConsultationSearchWidget></ConsultationSearchWidget>
+                                <ApplicationTable></ApplicationTable>
+                            </div> */}
                         </div>
                     </div>
                     <Footer></Footer>
