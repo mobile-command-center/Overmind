@@ -79,6 +79,24 @@ export default class PaymentEditor extends Component {
     };
 
     _onClickRegister = (e) => {
+        const inputObject = {
+            ...this.state.item,
+        }
+
+        if(this._inpuSchedDateRef.current) {
+            Object.assign(inputObject, { 
+                [this._inpuSchedDateRef.current.name]: new Date(this._inpuSchedDateRef.current.value).toISOString()
+            });
+        }
+
+        if(this._inputComplDateRef.current) {
+            Object.assign(inputObject, { 
+                [this._inputComplDateRef.current.name]: new Date(this._inputComplDateRef.current.value).toISOString()
+            });
+        }
+
+        debugger;
+
         Swal.queue([{
             title: '상담 정보 등록',
             confirmButtonText: '등록',
@@ -87,11 +105,7 @@ export default class PaymentEditor extends Component {
             type: 'warning',
             preConfirm: () => {
                 if(!!this.state.item.PYMT_ID) {
-                    return PayService.update({
-                        ...this.state.item,
-                        [this._inpuSchedDateRef.current.name]: new Date(this._inpuSchedDateRef.current.value).toISOString(),
-                        [this._inputComplDateRef.current.name]: new Date(this._inputComplDateRef.current.value).toISOString()
-                    }).then(({data: {updatePayment : {PYMT_ID}}}) => {
+                    return PayService.update(inputObject).then(({data: {updatePayment : {PYMT_ID}}}) => {
                             Swal.insertQueueStep({
                                 title: '성공!',
                                 text: `지급 ID: ${PYMT_ID}`,
@@ -110,11 +124,7 @@ export default class PaymentEditor extends Component {
                             });
                         });
                 } else {
-                    return PayService.create({
-                        ...this.state.item,
-                        [this._inpuSchedDateRef.current.name]: new Date(this._inpuSchedDateRef.current.value).toISOString(),
-                        [this._inputComplDateRef.current.name]: new Date(this._inputComplDateRef.current.value).toISOString()
-                    }).then(({data: {createPayment : {PYMT_ID}}})=> {
+                    return PayService.create(inputObject).then(({data: {createPayment : {PYMT_ID}}})=> {
                         Swal.insertQueueStep({
                             title: '성공!',
                             text: `지급 ID: ${PYMT_ID}`,
@@ -185,7 +195,7 @@ export default class PaymentEditor extends Component {
                                     <label className="col-sm-3 col-form-label">지급 예정 날짜</label>
                                     <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete={false} value={this.state.item.SCHE_DATE ? moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inpuSchedDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="SCHE_DATE" required={true} autoComplete={false} value={this.state.item.SCHE_DATE ? moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inpuSchedDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
@@ -200,7 +210,7 @@ export default class PaymentEditor extends Component {
                                     <label className="col-sm-3 col-form-label">지급 완료 날짜</label>
                                     <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete={false} value={this.state.item.COMP_DATE ? moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inputComplbutton}/>
+                                            <input className="form-control datetimepicker" type="text" name="COMP_DATE" required={true} autoComplete={false} value={this.state.item.COMP_DATE ? moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inputComplbutton}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
