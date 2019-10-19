@@ -17,7 +17,8 @@ class PayService {
                         PYMT_ID: ${input.PYMT_ID}
                     }) {
                         PYMT_ID
-                        DATE
+                        SCHE_DATE
+                        COMP_DATE
                         EE_ID
                         PAY_TYPE
                         PAY_AMT
@@ -44,7 +45,8 @@ class PayService {
                     }) {
                         edges {
                             PYMT_ID
-                            DATE
+                            SCHE_DATE
+                            COMP_DATE
                             EE_ID
                             PAY_TYPE
                             PAY_AMT
@@ -94,7 +96,8 @@ class PayService {
                     }) {
                         edges {
                             PYMT_ID
-                            DATE
+                            SCHE_DATE
+                            COMP_DATE
                             EE_ID
                             PAY_TYPE
                             PAY_AMT
@@ -121,7 +124,8 @@ class PayService {
                     mutation {
                         createPayment(input: {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
-                            DATE: ${`"${input.DATE}"`}
+                            ${input.SCHE_DATE ? `SCHE_DATE: ${`"${input.SCHE_DATE}"`}`: ''}
+                            ${input.COMP_DATE ? `COMP_DATE: ${`"${input.COMP_DATE}"`}`: ''}
                             ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                             ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
                             ${input.PAY_AMT ? `PAY_AMT: ${`"${input.PAY_AMT}"`}`: ''}
@@ -142,7 +146,8 @@ class PayService {
                 mutation {
                     updatePayment(input: {
                         PYMT_ID: ${input.PYMT_ID}
-                        ${input.DATE ? `DATE: ${`"${input.DATE}"`}`: ''}
+                        ${input.SCHE_DATE ? `SCHE_DATE: ${`"${input.SCHE_DATE}"`}`: ''}
+                        ${input.COMP_DATE ? `COMP_DATE: ${`"${input.COMP_DATE}"`}`: ''}
                         ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.PAY_TYPE ? `PAY_TYPE: ${`"${input.PAY_TYPE}"`}`: ''}
