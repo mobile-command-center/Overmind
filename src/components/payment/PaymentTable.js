@@ -32,9 +32,6 @@ export default class PaymentTable extends Component {
             payService.search({
                 first: this.state.limit,
                 filter: {
-                    DATE: {
-                        contains: this.state.searchText
-                    },
                     EE_ID: {
                         contains: this.state.searchText
                     },
@@ -103,7 +100,8 @@ export default class PaymentTable extends Component {
                 <td>{Payment.PAY_TYPE || '미등록'}</td>
                 <td>{Payment.PAY_AMT || '미등록'}</td>
                 <td>{Payment.ST || '미등록'}</td>
-                <td>{moment(Payment.DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
+                <td>{moment(Payment.SCHE_DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
+                <td>{moment(Payment.COMP_DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
                     <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons" data-action="onDelete">delete</i></a>
@@ -157,9 +155,6 @@ export default class PaymentTable extends Component {
             payService.search({
                 first: this.state.limit,
                 filter: {
-                    DATE: {
-                        contains: this.state.searchText
-                    },
                     EE_ID: {
                         contains: this.state.searchText
                     },
@@ -252,9 +247,6 @@ export default class PaymentTable extends Component {
                 first: this.state.limit,
                 after: endCursor,
                 filter: {
-                    DATE: {
-                        contains: this.state.searchText
-                    },
                     EE_ID: {
                         contains: this.state.searchText
                     },
@@ -411,7 +403,8 @@ export default class PaymentTable extends Component {
                                                         <th>지급 방법</th>
                                                         <th>지급 금액</th>
                                                         <th>상태</th>
-                                                        <th>지급 날짜</th>
+                                                        <th>지급 예정 날짜</th>
+                                                        <th>지급 완료 날짜</th>
                                                         <th className="disabled-sorting text-right">Actions</th>
                                                     </tr>
                                                 </thead>
@@ -423,7 +416,8 @@ export default class PaymentTable extends Component {
                                                         <th>PAY_TYPE</th>
                                                         <th>PAY_AMT</th>
                                                         <th>ST</th>
-                                                        <th>DATE</th>
+                                                        <th>SCHE_DATE</th>
+                                                        <th>COMP_DATE</th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
