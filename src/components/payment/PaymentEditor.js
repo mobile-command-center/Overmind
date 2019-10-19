@@ -89,7 +89,7 @@ export default class PaymentEditor extends Component {
                 if(!!this.state.item.PYMT_ID) {
                     return PayService.update({
                         ...this.state.item,
-                        [this._inputComplDateRef.current.name]: new Date(this._inputComplDateRef.current.value).toISOString(),
+                        [this._inpuSchedDateRef.current.name]: new Date(this._inpuSchedDateRef.current.value).toISOString(),
                         [this._inputComplDateRef.current.name]: new Date(this._inputComplDateRef.current.value).toISOString()
                     }).then(({data: {updatePayment : {PYMT_ID}}}) => {
                             Swal.insertQueueStep({
@@ -137,6 +137,26 @@ export default class PaymentEditor extends Component {
           }]);
     }
 
+    _onClickClearScheDate = () => {
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                SCHE_DATE: '',
+            }
+        });
+    }
+
+    _onClickClearCompDate = () => {
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                COMP_DATE: '',
+            }
+        });
+    }
+
     render() {
         return(
             <div className="row">
@@ -163,22 +183,32 @@ export default class PaymentEditor extends Component {
                                 }
                                 <div className="row">
                                     <label className="col-sm-3 col-form-label">지급 예정 날짜</label>
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete={false} value={moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inpuSchedDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete={false} value={this.state.item.SCHE_DATE ? moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inpuSchedDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
                                     </div>
+                                    <div className="col-sm-1">
+                                        <button type="button" className="close" aria-hidden="true" onClick={this._onClickClearScheDate}>
+                                            <i className="material-icons">clear</i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="row">
                                     <label className="col-sm-3 col-form-label">지급 완료 날짜</label>
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete={false} value={moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputComplDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} autoComplete={false} value={this.state.item.COMP_DATE ? moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inputComplbutton}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
+                                    </div>
+                                    <div className="col-sm-1">
+                                        <button type="button" className="close" aria-hidden="true" onClick={this._onClickClearCompDate}>
+                                            <i className="material-icons">clear</i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="row">
