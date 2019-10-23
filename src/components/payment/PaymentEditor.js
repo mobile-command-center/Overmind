@@ -101,8 +101,6 @@ export default class PaymentEditor extends Component {
             });
         }
 
-        debugger;
-
         Swal.queue([{
             title: '상담 정보 등록',
             confirmButtonText: '등록',
@@ -201,7 +199,7 @@ export default class PaymentEditor extends Component {
                                     <label className="col-sm-3 col-form-label">지급 예정 날짜</label>
                                     <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" readonly type="text" name="SCHE_DATE" required={true} autoComplete={false} value={this.state.item.SCHE_DATE ? moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A") : ''} ref={this._inpuSchedDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="SCHE_DATE" required={true} autoComplete={false} value={this.state.item.SCHE_DATE ? moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A") : ''} ref={this._inpuSchedDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
@@ -216,7 +214,7 @@ export default class PaymentEditor extends Component {
                                     <label className="col-sm-3 col-form-label">지급 완료 날짜</label>
                                     <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" readonly type="text" name="COMP_DATE" required={true} autoComplete={false} value={this.state.item.COMP_DATE ? moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A") : ''} ref={this._inputComplbutton}/>
+                                            <input className="form-control datetimepicker" type="text" name="COMP_DATE" required={true} autoComplete={false} value={this.state.item.COMP_DATE ? moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A") : ''} ref={this._inputComplbutton}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>

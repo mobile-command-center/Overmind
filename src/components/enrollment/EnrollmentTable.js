@@ -101,7 +101,7 @@ export default class EnrollmentTable extends Component {
                 <td>{Enrollment.CPAN || '미등록'}</td>
                 <td>{Enrollment.PROD || '미등록'}</td>
                 <td>{Enrollment.ST || '미등록'}</td>
-                <td>{moment(Enrollment.DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
+                <td>{Enrollment.DATE ? moment(Enrollment.DATE).format("YYYY/MM/DD h:mm A") : '미등록'}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
                     <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons" data-action="onDelete">delete</i></a>

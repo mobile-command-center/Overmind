@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Swal from 'sweetalert2';
 import moment from 'moment';
 import enrollService from '../../services/enrollService';
+import ConsultationSearchModal from '../consultation/ConsultationSearchModal';
+import { Row, Col, Button } from 'react-bootstrap';
 
 
 export default class EnrollmentEditor extends Component {
@@ -135,57 +137,14 @@ export default class EnrollmentEditor extends Component {
           }]);
     }
 
-    renderConstSearchModal() {
-        const CONST_ID = '';
-
-        return(
-            <div className="modal fade" id="constSearchModal" tabindex="-1" role="dialog" aria-labelledby="constSearchModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h4 className="modal-title">상담내역 검색</h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">
-                                <i className="material-icons">clear</i>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="row form-group bmd-form-group">
-                                <div className="col-md-6 ml-auto">
-                                    <input className="form-control" type="text" name="CONST_ID" aria-required="true" autoComplete="false" value={CONST_ID} onChange={this._onChangeHandler}/>
-                                </div>
-                                <div className="col-md-6 ml-auto">
-                                    <button type="button" className="btn btn-rose btn-sm btn-round">
-                                        <i className="material-icons">search</i>
-                                        찾기
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <table id="datatables" className="table table-striped table-no-bordered table-hover" cellSpacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th className="text-center">상담 ID</th>
-                                            <th>고객 전화 번호</th>
-                                            <th>후기 지급 금액</th>
-                                            <th>상담 직원 ID</th>
-                                            <th>상담 내용</th>
-                                            <th>상담 시간</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            {/* <button type="button" className="btn btn-link">Nice Button</button>
-                            <button type="button" className="btn btn-danger btn-link" data-dismiss="modal">Close</button> */}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
+    _onSuccessConsultationSearchModal = (CONST_ID) => {
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                CONST_ID,
+            }
+        });
     }
 
     render() {
@@ -214,7 +173,7 @@ export default class EnrollmentEditor extends Component {
                                 </div>
                                 <h4 className="card-title">접수 작성 폼</h4>
                             </div>
-                            <div className="card-body ">
+                            <div className="card-body">
                                 { EL_ID ? 
                                     <div className="row">
                                         <label className="col-sm-3 col-form-label">접수 ID</label>
@@ -225,7 +184,7 @@ export default class EnrollmentEditor extends Component {
                                         </div>
                                     </div> : null 
                                 }
-                                <div className="row">
+                                <Row>
                                     <label className="col-sm-3 col-form-label">접수 시간</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group is-filled">
@@ -234,31 +193,27 @@ export default class EnrollmentEditor extends Component {
                                             <span className="material-input"></span>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="row">
+                                </Row>
+                                <Row>
                                     <label className="col-sm-3 col-form-label">접수 직원 ID</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
                                             <input className="form-control" type="text" name="EE_ID" aria-required="true" autoComplete="false" value={EE_ID} onChange={this._onChangeHandler}/>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="row">
+                                </Row>
+                                <Row>
                                     <label className="col-sm-3 col-form-label">상담 ID</label>
-                                    <div className="col-sm-5 col-md-6">
+                                    <Col sm="5" md="6">
                                         <div className="form-group bmd-form-group">
-                                            <input className="form-control" type="text" name="CONST_ID" aria-required="true" autoComplete="false" value={CONST_ID} onChange={this._onChangeHandler}/>
+                                            <input className="form-control" type="text" name="CONST_ID" aria-required="true" autoComplete="false" value={CONST_ID}/>
                                         </div>
-                                    </div>
-                                    <div className="col-sm-2">
-                                        <button type="button" className="btn btn-rose btn-sm btn-round" data-toggle="modal" data-target="#constSearchModal">
-                                            <i className="material-icons">search</i>
-                                            찾기
-                                        </button>
-                                    </div>
-                                    {this.renderConstSearchModal()}
-                                </div>
-                                <div className="row">
+                                    </Col>
+                                    <Col sm="2">
+                                        <ConsultationSearchModal onSuccess={this._onSuccessConsultationSearchModal}></ConsultationSearchModal>
+                                    </Col>
+                                </Row>
+                                <Row>
                                     <label className="col-sm-3 col-form-label">신청서 ID</label>
                                     <div className="col-sm-5 col-md-6">
                                         <div className="form-group bmd-form-group">
@@ -271,7 +226,7 @@ export default class EnrollmentEditor extends Component {
                                             찾기
                                         </button>
                                     </div>
-                                </div>
+                                </Row>
                                 <div className="row">
                                     <label className="col-sm-3 col-form-label">접수 회사</label>
                                     <div className="col-sm-8">
