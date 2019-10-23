@@ -314,18 +314,9 @@ export default class ConsultationSearchModal extends Component {
         ));
     }
 
-    closeModal() {
-        this.setState({
-            limit: 5,
-            edges: [],
-            pageInfo: {
-                endCursor: null,
-                startCursor: null,
-                hasPreviousPage: false
-            },
-            searchText: '',
-            show: false,
-        })
+    closeModal = () => {
+        this.setState({show: false});
+        this.componentDidMount();
     }
 
     render() {
