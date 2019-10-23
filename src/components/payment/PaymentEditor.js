@@ -58,15 +58,21 @@ export default class PaymentEditor extends Component {
     }
 
     _onChangeHandler = (e) => {
-        this.setState({
-            ...this.state,
-            item : {
-                ...this.state.item,
-                [this._inpuSchedDateRef.current.name]: moment(this._inpuSchedDateRef.current.value).toISOString(),
-                [this._inputComplDateRef.current.name]: moment(this._inputComplDateRef.current.value).toISOString(),
-                [e.target.name]: e.target.value
-            }
-        });
+        const state = {
+            ...this.state
+        };
+
+        if(this._inpuSchedDateRef.current && !!this._inpuSchedDateRef.current.value) {
+            state.item[this._inpuSchedDateRef.current.name] =  new Date(this._inpuSchedDateRef.current.value).toISOString();
+        }
+        
+        if(this._inputComplDateRef.current && !!this._inputComplDateRef.current.value) {
+            state.item[this._inputComplDateRef.current.name] = new Date(this._inputComplDateRef.current.value).toISOString();
+        }
+        
+        state.item[e.target.name] = e.target.value;
+
+        this.setState(state);
     };
 
     _onChangedRadio = (e) => {
@@ -83,19 +89,17 @@ export default class PaymentEditor extends Component {
             ...this.state.item,
         }
 
-        if(this._inpuSchedDateRef.current) {
+        if(this._inpuSchedDateRef.current && !!this._inpuSchedDateRef.current.value) {
             Object.assign(inputObject, { 
                 [this._inpuSchedDateRef.current.name]: new Date(this._inpuSchedDateRef.current.value).toISOString()
             });
         }
 
-        if(this._inputComplDateRef.current) {
+        if(this._inputComplDateRef.current && !!this._inputComplDateRef.current.value) {
             Object.assign(inputObject, { 
                 [this._inputComplDateRef.current.name]: new Date(this._inputComplDateRef.current.value).toISOString()
             });
         }
-
-        debugger;
 
         Swal.queue([{
             title: '상담 정보 등록',
@@ -195,7 +199,7 @@ export default class PaymentEditor extends Component {
                                     <label className="col-sm-3 col-form-label">지급 예정 날짜</label>
                                     <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="SCHE_DATE" required={true} autoComplete={false} value={this.state.item.SCHE_DATE ? moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inpuSchedDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="SCHE_DATE" required={true} autoComplete={false} value={this.state.item.SCHE_DATE ? moment(this.state.item.SCHE_DATE).format("YYYY/MM/DD h:mm A") : ''} ref={this._inpuSchedDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
@@ -210,7 +214,7 @@ export default class PaymentEditor extends Component {
                                     <label className="col-sm-3 col-form-label">지급 완료 날짜</label>
                                     <div className="col-sm-7">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="COMP_DATE" required={true} autoComplete={false} value={this.state.item.COMP_DATE ? moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A") : ''} onChange={this._onChangeHandler} ref={this._inputComplbutton}/>
+                                            <input className="form-control datetimepicker" type="text" name="COMP_DATE" required={true} autoComplete={false} value={this.state.item.COMP_DATE ? moment(this.state.item.COMP_DATE).format("YYYY/MM/DD h:mm A") : ''} ref={this._inputComplbutton}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>

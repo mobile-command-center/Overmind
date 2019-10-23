@@ -100,8 +100,8 @@ export default class PaymentTable extends Component {
                 <td>{Payment.PAY_TYPE || '미등록'}</td>
                 <td>{Payment.PAY_AMT || '미등록'}</td>
                 <td>{Payment.ST || '미등록'}</td>
-                <td>{moment(Payment.SCHE_DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
-                <td>{moment(Payment.COMP_DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
+                <td>{Payment.SCHE_DATE ? moment(Payment.SCHE_DATE).format("YYYY/MM/DD h:mm A") : '미등록'}</td>
+                <td>{Payment.COMP_DATE ? moment(Payment.COMP_DATE).format("YYYY/MM/DD h:mm A") : '미등록'}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
                     <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons" data-action="onDelete">delete</i></a>
