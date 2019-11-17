@@ -6,7 +6,9 @@ import App from '../shared/App';
 // https://velopert.com/3417
 
 const Root = () => (
-    <BrowserRouter>
+    <BrowserRouter
+        basename="/"
+    >
         <App/>
     </BrowserRouter>
 );
