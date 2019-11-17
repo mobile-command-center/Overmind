@@ -17,7 +17,7 @@ export default class ConsultationTable extends Component {
         super(props);
 
         this.state = {
-            limit: 10,
+            limit: 20,
             edges: [],
             pageInfo: {
                 endCursor: null,

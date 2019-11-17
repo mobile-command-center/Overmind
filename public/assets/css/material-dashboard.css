@@ -1863,7 +1863,6 @@ pre code {
 
 .table th,
 .table td {
-  padding: 0.75rem;
   vertical-align: top;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -15304,7 +15303,6 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .table>thead>tr>td,
 .table>tbody>tr>td,
 .table>tfoot>tr>td {
-  padding: 12px 8px;
   vertical-align: middle;
   border-color: #ddd;
 }

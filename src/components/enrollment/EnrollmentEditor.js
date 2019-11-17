@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import moment from 'moment';
 import enrollService from '../../services/enrollService';
 import ConsultationSearchModal from '../consultation/ConsultationSearchModal';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 
 export default class EnrollmentEditor extends Component {
