@@ -29,7 +29,7 @@ export default class NavigationBar extends Component {
                     <span className="navbar-toggler-icon icon-bar"></span>
                 </button>
                 <div className="collapse navbar-collapse justify-content-end">
-                    <form className="navbar-form">
+                    {/* <form className="navbar-form">
                         <div className="input-group no-border">
                             <input type="text" value={this.state.search} onChange={this.handleChange}className="form-control" placeholder="Search..."/>
                             <button type="submit" className="btn btn-white btn-round btn-just-icon">
@@ -37,9 +37,9 @@ export default class NavigationBar extends Component {
                                 <div className="ripple-container"></div>
                             </button>
                         </div>
-                    </form>
+                    </form> */}
                     <ul className="navbar-nav">
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <a className="nav-link" href="#pablo">
                         <i className="material-icons">dashboard</i>
                         <p className="d-lg-none d-md-block">
@@ -62,7 +62,7 @@ export default class NavigationBar extends Component {
                         <a className="dropdown-item" href="#78">Another Notification</a>
                         <a className="dropdown-item" href="#90">Another One</a>
                         </div>
-                    </li>
+                    </li> */}
                     <li className="nav-item dropdown">
                         <a className="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i className="material-icons">person</i>
