@@ -17,12 +17,12 @@ export default class SideBar extends Component {
                 <div className="sidebar-wrapper">
                     <div className="user">
                         <div className="photo">
-                            <img src="/assets/img/faces/avatar.jpg" alt=""/>
+                            <img src="/assets/img/logo.png" alt=""/>
                             </div>
                             <div className="user-info">
                             <a data-toggle="collapse" href="#collapseExample" className="username">
                                 <span>
-                                Tania Andrew
+                                테스트 사용자
                                 <b className="caret"></b>
                                 </span>
                             </a>
