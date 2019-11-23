@@ -185,7 +185,7 @@ export default class ConsultationEditor extends Component {
                                     <label className="col-sm-3 col-form-label">상담 내용</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
-                                            <textarea className="form-control" rows="5" name="MEMO" value={this.state.item.MEMO} onChange={this._onChangeHandler}></textarea>
+                                            <textarea className="form-control" rows="18" name="MEMO" value={this.state.item.MEMO} onChange={this._onChangeHandler}></textarea>
                                         </div>
                                     </div>
                                 </div>
