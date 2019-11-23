@@ -51,12 +51,12 @@ export default class SideBar extends Component {
                         </div>
                     </div>
                     <ul className="nav">
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <a className="nav-link" href="../examples/dashboard.html">
                                 <i className="material-icons">dashboard</i>
                                 <p> 상황판 </p>
                             </a>
-                        </li>
+                        </li> */}
                         <li className={url.indexOf("consultation") > -1 ? "nav-item active" : "nav-item"}>
                             <a className="nav-link" data-toggle="collapse" href="#formsConsultation" aria-expanded={url.indexOf("consultation") > -1}>
                                 <i className="material-icons">call</i>
@@ -81,7 +81,7 @@ export default class SideBar extends Component {
                                 </ul>
                             </div>
                         </li>
-                        <li className={url.indexOf("application") > -1 ? "nav-item active" : "nav-item"}>
+                        {/* <li className={url.indexOf("application") > -1 ? "nav-item active" : "nav-item"}>
                             <a className="nav-link" data-toggle="collapse" href="#formsApplication" aria-expanded={url.indexOf("application") > -1}>
                                 <i className="material-icons">content_paste</i>
                                 <p> 신청서
@@ -146,7 +146,7 @@ export default class SideBar extends Component {
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
           </div>);
