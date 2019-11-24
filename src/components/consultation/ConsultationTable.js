@@ -118,7 +118,7 @@ export default class ConsultationTable extends Component {
         const elemTarget = e.target;
         const CONST_ID = e.currentTarget.dataset.id;
         if (elemTarget && elemTarget.dataset.action === 'onEdit') {
-            window.location.href = `../consultation/edit/${CONST_ID}`;
+            window.location.href = `/consultation/edit/${CONST_ID}`;
         } else if (elemTarget && elemTarget.dataset.action === 'onDelete') {
             this.onDelete(CONST_ID);
         } else if (elemTarget && elemTarget.dataset.action === 'onPrevPage') {
