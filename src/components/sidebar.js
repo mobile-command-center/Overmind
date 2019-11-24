@@ -81,7 +81,7 @@ export default class SideBar extends Component {
                                 </ul>
                             </div>
                         </li>
-                        <li className={url.indexOf("application") > -1 ? "nav-item active" : "nav-item"}>
+                        {/* <li className={url.indexOf("application") > -1 ? "nav-item active" : "nav-item"}>
                             <a className="nav-link" data-toggle="collapse" href="#formsApplication" aria-expanded={url.indexOf("application") > -1}>
                                 <i className="material-icons">content_paste</i>
                                 <p> 신청서
@@ -146,7 +146,7 @@ export default class SideBar extends Component {
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
           </div>);
