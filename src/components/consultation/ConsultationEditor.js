@@ -16,6 +16,7 @@ export default class ConsultationEditor extends Component {
             MEMO : '',
             P_SUBSIDY_AMT : '',
             AVAL_INQUIRY_PASS: false,
+            PPSTY: '중간'
         },
         loading: true,
     }
@@ -36,6 +37,9 @@ export default class ConsultationEditor extends Component {
                     loading: false,
                     item: getConsultation
                 });
+
+                //bootstrap react
+                document.querySelector('#EnrollmentValidation [name="PPSTY"] ~ button .filter-option-inner-inner').textContent = getConsultation.PPSTY;
             }, () => {
                 Swal.fire({
                     title: '에러!',
@@ -167,18 +171,31 @@ export default class ConsultationEditor extends Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <label className="col-sm-3 col-form-label">가용 조회 Pass</label>
-                                    <div className="col-sm-8">
-                                        <div className="form-group bmd-form-group">
-                                            <input className="form-control" type="checkbox" name="AVAL_INQUIRY_PASS" autoComplete="false" checked={this.state.item.AVAL_INQUIRY_PASS} onChange={this._onChangeHandler}/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
                                     <label className="col-sm-3 col-form-label">고객 전화 번호</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
                                             <input className="form-control" type="text" name="C_TEL"  aria-required="true" autoComplete="false" value={this.state.item.C_TEL} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <label className="col-sm-3 col-form-label">고객 성향</label>
+                                    <div className="col-lg-5 col-md-6 col-sm-3">
+                                        <select className="selectpicker" data-style="select-with-transition" name="PPSTY" value={this.state.item.PPSTY} onChange={this._onChangeHandler}>
+                                            <option value="높음">높음</option>
+                                            <option value="중간">중간</option>
+                                            <option value="낮음">낮음</option>
+                                        </select>
+                                    </div>
+                                    <div className="col-lg-3 col-md-6 col-sm-4 checkbox-radios">
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input className="form-check-input" type="checkbox" name="AVAL_INQUIRY_PASS" autoComplete="false" checked={this.state.item.AVAL_INQUIRY_PASS} onChange={this._onChangeHandler}/>
+                                                가용조회 Pass
+                                                <span className="form-check-sign">
+                                                    <span className="check"></span>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
