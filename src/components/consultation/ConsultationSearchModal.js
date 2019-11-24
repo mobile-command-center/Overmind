@@ -1,9 +1,9 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import ReadMoreReact from 'read-more-react';
 import Swal from 'sweetalert2'
 import ConsultService from '../../services/consultService';
 import { Row, Col, Modal, Button, Table } from 'react-bootstrap';
+import PhoneNumber from '../../utils/PhoneNumber';
 
 export default class ConsultationSearchModal extends Component {
     constructor(props) {
@@ -51,7 +51,7 @@ export default class ConsultationSearchModal extends Component {
         e.preventDefault();
 
         const elemTarget = e.target;
-        const CONST_ID = e.currentTarget.dataset.id;
+        
 
         if (elemTarget && elemTarget.dataset.action === 'onPrevPage') {
             this.onPrevPage(e);
@@ -62,7 +62,14 @@ export default class ConsultationSearchModal extends Component {
         } else {
             if(this.props.onSuccess) {
                 this.closeModal();
-                this.props.onSuccess(CONST_ID);
+
+                const CONST_ID = parseInt(e.currentTarget.dataset.id, 10);
+
+                const targetConsultation = this.state.edges.find((edge) => {
+                    return edge.CONST_ID === CONST_ID;
+                });
+
+                this.props.onSuccess(targetConsultation);
             }
         }
     }
@@ -300,16 +307,9 @@ export default class ConsultationSearchModal extends Component {
         return this.state.edges.map((Consultation) => (
             <tr key={Consultation.CONST_ID} onClick={this.onClickCHandler} data-id={Consultation.CONST_ID}>
                 <td className="text-center">{Consultation.CONST_ID}</td>
-                <td>{Consultation.C_TEL || '미등록'}</td>
-                <td>{Consultation.P_SUBSIDY_AMT || '미등록'}</td>
-                <td>{Consultation.EE_ID || '미등록'}</td>
-                <td>{Consultation.MEMO ? 
-                    <ReadMoreReact text={Consultation.MEMO}                     
-                        min={20}
-                        ideal={25}
-                        max={30}>
-                    </ReadMoreReact> : '미등록'}</td>
-                <td>{Consultation.DATE ? moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") : '미등록'}</td>
+                <td className="text-center">{PhoneNumber(Consultation.C_TEL) || '미등록'}</td>
+                <td className="text-center">{Consultation.EE_ID || '미등록'}</td>
+                <td className="text-center">{Consultation.DATE ? moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") : '미등록'}</td>
             </tr>
         ));
     }
@@ -351,12 +351,10 @@ export default class ConsultationSearchModal extends Component {
                             <Table hover responsive>
                                 <thead>
                                     <tr>
-                                        <th className="text-center">상담 ID</th>
-                                        <th>고객 전화 번호</th>
-                                        <th>후기 지급 금액</th>
-                                        <th>상담 직원 ID</th>
-                                        <th>상담 내용</th>
-                                        <th>상담 시간</th>
+                                        <th className="text-center">상담 순서</th>
+                                        <th className="text-center">고객 전화 번호</th>
+                                        <th className="text-center">상담 직원 ID</th>
+                                        <th className="text-center">상담 시간</th>
                                     </tr>
                                 </thead>
                                 <tbody>
