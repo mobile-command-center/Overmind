@@ -16,7 +16,8 @@ export default class ConsultationEditor extends Component {
             MEMO : '',
             P_SUBSIDY_AMT : '',
             AVAL_INQUIRY_PASS: false,
-            PPSTY: '중간'
+            PPSTY: '중간',
+            ST: '상담만'
         },
         loading: true,
     }
@@ -38,8 +39,9 @@ export default class ConsultationEditor extends Component {
                     item: getConsultation
                 });
 
-                //bootstrap react
-                document.querySelector('#EnrollmentValidation [name="PPSTY"] ~ button .filter-option-inner-inner').textContent = getConsultation.PPSTY;
+                // 정식 react용 select가 아니라서 수동으로 초기값을 세팅해주어야 한다. select의 형재 node로 버튼을 생성해서 노출하고 있다.
+                document.querySelector('#EnrollmentValidation [name="PPSTY"] ~ button .filter-option-inner-inner').textContent = getConsultation.PPSTY || '중간';
+                document.querySelector('#EnrollmentValidation [name="ST"] ~ button .filter-option-inner-inner').textContent = getConsultation.ST || '상담만';
             }, () => {
                 Swal.fire({
                     title: '에러!',
@@ -196,6 +198,20 @@ export default class ConsultationEditor extends Component {
                                                     <span className="check"></span>
                                                 </span>
                                             </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <label className="col-sm-3 col-form-label">상태</label>
+                                    <div className="col-sm-8">
+                                        <div className="form-group bmd-form-group">
+                                            <select className="selectpicker" data-style="select-with-transition" name="ST" value={this.state.item.ST} onChange={this._onChangeHandler}>
+                                                <option value="상담만">상담만</option>
+                                                <option value="신청서 송부">신청서 송부</option>
+                                                <option value="신청서 접수완료">신청서 접수완료</option>
+                                                <option value="보류">보류</option>
+                                                <option value="설치완료">설치완료</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

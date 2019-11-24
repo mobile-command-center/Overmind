@@ -26,6 +26,7 @@ class ConsultService {
                         P_SUBSIDY_AMT
                         AVAL_INQUIRY_PASS
                         PPSTY
+                        ST
                     }
                 }
             `,
@@ -53,6 +54,7 @@ class ConsultService {
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
                             PPSTY
+                            ST
                         }
                         totalCount
                         pageInfo {
@@ -94,6 +96,9 @@ class ConsultService {
                             ${input.filter.PPSTY ? `PPSTY : {
                                 contains: "${input.filter.PPSTY.contains}"
                             }`: ''}
+                            ${input.filter.ST ? `ST : {
+                                contains: "${input.filter.ST.contains}"
+                            }`: ''}
                         }`: ''}
                     }) {
                         edges {
@@ -106,6 +111,7 @@ class ConsultService {
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
                             PPSTY
+                            ST
                         }
                         totalCount
                         pageInfo {
@@ -132,6 +138,7 @@ class ConsultService {
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                             AVAL_INQUIRY_PASS: ${String(input.AVAL_INQUIRY_PASS)}
                             ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
+                            ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
                         }) {
                             CONST_ID
                         }
@@ -155,6 +162,7 @@ class ConsultService {
                         ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                         ${typeof input.AVAL_INQUIRY_PASS !== 'undefined' ? `AVAL_INQUIRY_PASS: ${input.AVAL_INQUIRY_PASS}`:''}
                         ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
+                        ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
                     }) {
                         CONST_ID
                     }
