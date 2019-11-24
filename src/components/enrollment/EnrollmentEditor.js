@@ -137,7 +137,8 @@ export default class EnrollmentEditor extends Component {
           }]);
     }
 
-    _onSuccessConsultationSearchModal = (CONST_ID) => {
+    _onSuccessConsultationSearchModal = (Consultation) => {
+        const CONST_ID = Consultation.CONST_ID;
         this.setState({
             ...this.state,
             item: {
