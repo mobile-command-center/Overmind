@@ -3,6 +3,7 @@ import Swal from 'sweetalert2'
 import moment from 'moment';
 import ConsultService from '../../services/consultService';
 import LoadingSpinner from '../common/LoadingSpinner';
+import PhoneNumber from '../../utils/PhoneNumber';
 
 
 export default class ConsultationEditor extends Component {
@@ -63,14 +64,21 @@ export default class ConsultationEditor extends Component {
     }
 
     _onChangeHandler = (e) => {
-        this.setState({
+        const newState = {
             ...this.state,
             item : {
                 ...this.state.item,
                 [this._inputDateRef.current.name]: this._inputDateRef.current.value,
-                [e.target.name]: (e.target.type === 'checkbox') ? e.target.checked : e.target.value
             }
-        });
+        }
+
+        if(e.target.name === 'C_TEL') {
+            newState.item[e.target.name] = String(e.target.value).replace(/[^(0-9)]/gi, '');
+        } else {
+            newState.item[e.target.name] = (e.target.type === 'checkbox') ? e.target.checked : e.target.value;
+        }
+
+        this.setState(newState);
     };
 
     _onClickRegister = (e) => {
@@ -176,7 +184,7 @@ export default class ConsultationEditor extends Component {
                                     <label className="col-sm-3 col-form-label">고객 전화 번호</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
-                                            <input className="form-control" type="text" name="C_TEL"  aria-required="true" autoComplete="false" value={this.state.item.C_TEL} onChange={this._onChangeHandler}/>
+                                            <input className="form-control" type="text" name="C_TEL"  aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler}/>
                                         </div>
                                     </div>
                                 </div>
