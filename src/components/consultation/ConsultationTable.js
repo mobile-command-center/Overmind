@@ -52,6 +52,9 @@ export default class ConsultationTable extends Component {
                     P_SUBSIDY_AMT: {
                         contains: this.state.searchText
                     },
+                    ST: {
+                        contains: this.state.searchText
+                    },
                 }
             })
             .then(({ data: { searchConsultation: ConsultationConnection } }) => {
@@ -155,6 +158,9 @@ export default class ConsultationTable extends Component {
                     P_SUBSIDY_AMT: {
                         contains: this.state.searchText
                     },
+                    ST: {
+                        contains: this.state.searchText
+                    }
                 }
             })
             .then(({ data: { searchConsultation: ConsultationConnection } }) => {
@@ -250,6 +256,9 @@ export default class ConsultationTable extends Component {
                     P_SUBSIDY_AMT: {
                         contains: this.state.searchText
                     },
+                    ST: {
+                        contains: this.state.searchText
+                    }
                 }
             })
             .then(({ data: { searchConsultation: ConsultationConnection } }) => {
@@ -340,20 +349,39 @@ export default class ConsultationTable extends Component {
         }]);
     }
 
+    getTrClassNameByStatus = (ST) => {
+        const text = String(ST);
+
+        if(text.indexOf('상담만') > -1) {
+            return 'table-light'
+        } else if(text.indexOf('신청서 송부') > -1) {
+            return 'table-secondary';
+        } else if(text.indexOf('신청서 접수완료') > -1) {
+            return 'table-primary';
+        } else if(text.indexOf('보류') > -1) {
+            return 'table-danger';
+        } else if(text.indexOf('설치완료') > -1) {
+            return 'table-success';
+        } else {
+            return 'table-warning';
+        }
+    }
+
     renderItems = () => {
         return this.state.edges.map((Consultation) => (
-            <tr key={Consultation.CONST_ID} onClick={this.onClickCHandler} data-id={Consultation.CONST_ID}>
+            <tr key={Consultation.CONST_ID} onClick={this.onClickCHandler} data-id={Consultation.CONST_ID} className={this.getTrClassNameByStatus(Consultation.ST)}>
                 <td className="text-center">{Consultation.CONST_ID}</td>
-                <td className="text-center">{Consultation.C_TEL || '미등록'}</td>
+                <td className="text-center">{Consultation.ST || ''}</td>
+                <td className="text-center">{Consultation.C_TEL || ''}</td>
                 {/* <td className="text-center">{Consultation.EE_ID || '미등록'}</td> */}
                 <td className="text-center">{Consultation.MEMO ? 
                     <ReadMoreReact text={Consultation.MEMO}                     
                     min={20}
                     ideal={25}
                     max={30}>
-                    </ReadMoreReact> : '미등록'}</td>
-                <td className="text-center">{Consultation.P_SUBSIDY_AMT || '미등록'}</td>
-                <td className="text-center">{moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") || '미등록'}</td>
+                    </ReadMoreReact> : ''}</td>
+                <td className="text-center">{Consultation.P_SUBSIDY_AMT || ''}</td>
+                <td className="text-center">{moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") || ''}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
                     <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons" data-action="onDelete">delete</i></a>
@@ -409,6 +437,7 @@ export default class ConsultationTable extends Component {
                                                 <colgroup>
                                                     <col width="70px"></col>
                                                     <col width="120px"></col>
+                                                    <col width="120px"></col>
                                                     <col></col>
                                                     <col width="120px"></col>
                                                     <col width="140px"></col>
@@ -417,12 +446,13 @@ export default class ConsultationTable extends Component {
                                                 <thead className="thead-dark">
                                                     <tr>
                                                         <th className="text-center">순서</th>
+                                                        <th className="text-center">상태</th>
                                                         <th className="text-center">고객 전화 번호</th>
                                                         {/* <th className="text-center">상담 직원 ID</th> */}
                                                         <th className="text-center">상담 내용</th>
                                                         <th className="text-center">후기 지급 금액</th>
                                                         <th className="text-center">상담 시간</th>
-                                                        <th className="disabled-sorting text-center">Actions</th>
+                                                        <th className="disabled-sorting text-center">수정/삭제</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
