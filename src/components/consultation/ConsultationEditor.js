@@ -14,7 +14,8 @@ export default class ConsultationEditor extends Component {
             EE_ID : '',
             C_TEL : '',
             MEMO : '',
-            P_SUBSIDY_AMT : ''
+            P_SUBSIDY_AMT : '',
+            AVAL_INQUIRY_PASS: false,
         },
         loading: true,
     }
@@ -61,7 +62,7 @@ export default class ConsultationEditor extends Component {
             item : {
                 ...this.state.item,
                 [this._inputDateRef.current.name]: this._inputDateRef.current.value,
-                [e.target.name]: e.target.value
+                [e.target.name]: (e.target.type === 'checkbox') ? e.target.checked : e.target.value
             }
         });
     };
@@ -162,6 +163,14 @@ export default class ConsultationEditor extends Component {
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
                                             <input className="form-control" type="text" name="EE_ID" aria-required="true" autoComplete="false" value={this.state.item.EE_ID} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <label className="col-sm-3 col-form-label">가용 조회 Pass</label>
+                                    <div className="col-sm-8">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="checkbox" name="AVAL_INQUIRY_PASS" autoComplete="false" checked={this.state.item.AVAL_INQUIRY_PASS} onChange={this._onChangeHandler}/>
                                         </div>
                                     </div>
                                 </div>

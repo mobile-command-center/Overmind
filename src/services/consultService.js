@@ -24,6 +24,7 @@ class ConsultService {
                         C_TEL
                         MEMO
                         P_SUBSIDY_AMT
+                        AVAL_INQUIRY_PASS
                     }
                 }
             `,
@@ -49,6 +50,7 @@ class ConsultService {
                             C_TEL
                             MEMO
                             P_SUBSIDY_AMT
+                            AVAL_INQUIRY_PASS
                         }
                         totalCount
                         pageInfo {
@@ -97,6 +99,7 @@ class ConsultService {
                             C_TEL
                             MEMO
                             P_SUBSIDY_AMT
+                            AVAL_INQUIRY_PASS
                         }
                         totalCount
                         pageInfo {
@@ -121,6 +124,7 @@ class ConsultService {
                             ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
                             ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
+                            AVAL_INQUIRY_PASS: ${String(input.AVAL_INQUIRY_PASS)}
                         }) {
                             CONST_ID
                         }
@@ -130,6 +134,7 @@ class ConsultService {
     }
 
     update(input) {
+        debugger;
         return this._client
         .mutate({
             mutation: gql`
@@ -142,6 +147,7 @@ class ConsultService {
                         ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
                         ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                         ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
+                        ${typeof input.AVAL_INQUIRY_PASS !== 'undefined' ? `AVAL_INQUIRY_PASS: ${input.AVAL_INQUIRY_PASS}`:''}
                     }) {
                         CONST_ID
                     }
