@@ -25,6 +25,7 @@ class ConsultService {
                         MEMO
                         P_SUBSIDY_AMT
                         AVAL_INQUIRY_PASS
+                        PPSTY
                     }
                 }
             `,
@@ -51,6 +52,7 @@ class ConsultService {
                             MEMO
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
+                            PPSTY
                         }
                         totalCount
                         pageInfo {
@@ -89,6 +91,9 @@ class ConsultService {
                             ${input.filter.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT : {
                                     contains: "${input.filter.P_SUBSIDY_AMT.contains}"
                             }`: ''}
+                            ${input.filter.PPSTY ? `PPSTY : {
+                                contains: "${input.filter.PPSTY.contains}"
+                            }`: ''}
                         }`: ''}
                     }) {
                         edges {
@@ -100,6 +105,7 @@ class ConsultService {
                             MEMO
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
+                            PPSTY
                         }
                         totalCount
                         pageInfo {
@@ -125,6 +131,7 @@ class ConsultService {
                             ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                             AVAL_INQUIRY_PASS: ${String(input.AVAL_INQUIRY_PASS)}
+                            ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
                         }) {
                             CONST_ID
                         }
@@ -134,7 +141,6 @@ class ConsultService {
     }
 
     update(input) {
-        debugger;
         return this._client
         .mutate({
             mutation: gql`
@@ -148,6 +154,7 @@ class ConsultService {
                         ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                         ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                         ${typeof input.AVAL_INQUIRY_PASS !== 'undefined' ? `AVAL_INQUIRY_PASS: ${input.AVAL_INQUIRY_PASS}`:''}
+                        ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
                     }) {
                         CONST_ID
                     }
