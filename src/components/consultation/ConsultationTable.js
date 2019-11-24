@@ -5,6 +5,7 @@ import ReadMoreReact from 'read-more-react';
 import ConsultService from '../../services/consultService';
 import consultService from '../../services/consultService';
 import LoadingSpinner from '../common/LoadingSpinner';
+import PhoneNumber from '../../utils/PhoneNumber';
 
 const styles = {
     table: {
@@ -372,7 +373,7 @@ export default class ConsultationTable extends Component {
             <tr key={Consultation.CONST_ID} onClick={this.onClickCHandler} data-id={Consultation.CONST_ID} className={this.getTrClassNameByStatus(Consultation.ST)}>
                 <td className="text-center">{Consultation.CONST_ID}</td>
                 <td className="text-center">{Consultation.ST || ''}</td>
-                <td className="text-center">{Consultation.C_TEL || ''}</td>
+                <td className="text-center">{PhoneNumber(Consultation.C_TEL) || ''}</td>
                 {/* <td className="text-center">{Consultation.EE_ID || '미등록'}</td> */}
                 <td className="text-center">{Consultation.MEMO ? 
                     <ReadMoreReact text={Consultation.MEMO}                     
