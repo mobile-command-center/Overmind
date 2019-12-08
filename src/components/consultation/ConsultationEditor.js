@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Swal from 'sweetalert2'
-import moment from 'moment';
+// import moment from 'moment';
 import ConsultService from '../../services/consultService';
 import LoadingSpinner from '../common/LoadingSpinner';
 import PhoneNumber from '../../utils/PhoneNumber';
@@ -13,10 +13,9 @@ export default class ConsultationEditor extends Component {
         item:  {
             CONST_ID: '',
             WRTR_ID: 'USER',
-            DATE : new Date().toISOString(),
-            EE_ID : '',
+            // DATE_REG : new Date().toISOString(),
+            // DATE_MDF : '',
             C_TEL : '',
-            MEMO : '',
             P_SUBSIDY_AMT : '',
             AVAL_INQUIRY_PASS: false,
             PPSTY: '중간',
@@ -200,24 +199,16 @@ export default class ConsultationEditor extends Component {
                                         </div>
                                     </div>) : null
                                 }
-                                <div className="row">
+                                {/* <div className="row">
                                     <label className="col-sm-3 col-form-label">상담 시간</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group is-filled">
-                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} value={moment(this.state.item.DATE).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
+                                            <input className="form-control datetimepicker" type="text" name="DATE" required={true} value={moment(this.state.item.DATE_REG).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
                                             <span className="material-input"></span>
                                             <span className="material-input"></span>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="row">
-                                    <label className="col-sm-3 col-form-label">상담 직원 ID</label>
-                                    <div className="col-sm-8">
-                                        <div className="form-group bmd-form-group">
-                                            <input className="form-control" type="text" name="EE_ID" aria-required="true" autoComplete="false" value={this.state.item.EE_ID} onChange={this._onChangeHandler}/>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> */}
                                 {this._renderCustomerTell()}
                                 <div className="row">
                                     <label className="col-sm-3 col-form-label">고객 성향</label>
@@ -262,14 +253,14 @@ export default class ConsultationEditor extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
+                                {/* <div className="row">
                                     <label className="col-sm-3 col-form-label">상담 내용</label>
                                     <div className="col-sm-8">
                                         <div className="form-group bmd-form-group">
                                             <textarea className="form-control" rows="18" name="MEMO" value={this.state.item.MEMO} onChange={this._onChangeHandler}></textarea>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="card-footer text-right">
                                 <div className="form-check mr-auto"></div>
