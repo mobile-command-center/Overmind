@@ -308,8 +308,7 @@ export default class ConsultationSearchModal extends Component {
             <tr key={Consultation.CONST_ID} onClick={this.onClickCHandler} data-id={Consultation.CONST_ID}>
                 <td className="text-center">{Consultation.CONST_ID}</td>
                 <td className="text-center">{PhoneNumber(Consultation.C_TEL) || '미등록'}</td>
-                <td className="text-center">{Consultation.EE_ID || '미등록'}</td>
-                <td className="text-center">{Consultation.DATE ? moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") : '미등록'}</td>
+                <td className="text-center">{Consultation.DATE_REG ? moment(Consultation.DATE_REG).format("YYYY/MM/DD h:mm A") : '미등록'}</td>
             </tr>
         ));
     }
@@ -353,8 +352,7 @@ export default class ConsultationSearchModal extends Component {
                                     <tr>
                                         <th className="text-center">상담 순서</th>
                                         <th className="text-center">고객 전화 번호</th>
-                                        <th className="text-center">상담 직원 ID</th>
-                                        <th className="text-center">상담 시간</th>
+                                        <th className="text-center">등록 시각</th>
                                     </tr>
                                 </thead>
                                 <tbody>

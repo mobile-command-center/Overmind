@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 class ConsultService {
     constructor() {
         this._client = new ApolloClient({
-            uri: 'https://3bs9wim5w1.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql'
+            uri: 'https://4uecyvfodh.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql'
         });
     }
 
@@ -17,12 +17,10 @@ class ConsultService {
                         CONST_ID: ${input.CONST_ID}
                     }) {
                         CONST_ID
-                        DATE
                         WRTR_ID
-                        WRT_DATE
-                        EE_ID
+                        DATE_REG
+                        DATE_MDF
                         C_TEL
-                        MEMO
                         P_SUBSIDY_AMT
                         AVAL_INQUIRY_PASS
                         PPSTY
@@ -46,11 +44,9 @@ class ConsultService {
                     }) {
                         edges {
                             CONST_ID
-                            DATE
-                            WRT_DATE
-                            EE_ID
+                            DATE_REG
+                            DATE_MDF
                             C_TEL
-                            MEMO
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
                             PPSTY
@@ -78,17 +74,14 @@ class ConsultService {
                         ${input.before ? `before: ${input.before}`: ''}
                         ${input.after ? `after: ${input.after}`: ''}
                         ${input.filter ? `filter: {
-                            ${input.filter.WRT_DATE ? `WRT_DATE: {
-                                    contains: "${input.filter.WRT_DATE.contains}"
+                            ${input.filter.DATE_REG ? `DATE_REG: {
+                                    contains: "${input.filter.DATE_REG.contains}"
                             }`: ''}
-                            ${input.filter.EE_ID ? `EE_ID: {
-                                    contains: "${input.filter.EE_ID.contains}"
+                            ${input.filter.DATE_MDF ? `DATE_MDF: {
+                                contains: "${input.filter.DATE_MDF.contains}"
                             }`: ''}
                             ${input.filter.C_TEL ? `C_TEL: {
                                     contains: "${input.filter.C_TEL.contains}"
-                            }`: ''}
-                            ${input.filter.MEMO ? `MEMO: {
-                                    contains: "${input.filter.MEMO.contains}"
                             }`: ''}
                             ${input.filter.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT : {
                                     contains: "${input.filter.P_SUBSIDY_AMT.contains}"
@@ -103,11 +96,9 @@ class ConsultService {
                     }) {
                         edges {
                             CONST_ID
-                            DATE
-                            WRT_DATE
-                            EE_ID
+                            DATE_REG
+                            DATE_MDF
                             C_TEL
-                            MEMO
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
                             PPSTY
@@ -131,10 +122,7 @@ class ConsultService {
                     mutation {
                         createConsultation(input: {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
-                            DATE: ${`"${input.DATE}"`}
-                            ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                             ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
-                            ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                             AVAL_INQUIRY_PASS: ${String(input.AVAL_INQUIRY_PASS)}
                             ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
@@ -154,11 +142,8 @@ class ConsultService {
                 mutation {
                     updateConsultation(input: {
                         CONST_ID: ${input.CONST_ID}
-                        ${input.DATE ? `DATE: ${`"${input.DATE}"`}`: ''}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
-                        ${input.EE_ID ? `EE_ID: ${`"${input.EE_ID}"`}`: ''}
                         ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
-                        ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                         ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                         ${typeof input.AVAL_INQUIRY_PASS !== 'undefined' ? `AVAL_INQUIRY_PASS: ${input.AVAL_INQUIRY_PASS}`:''}
                         ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}

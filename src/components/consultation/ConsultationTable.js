@@ -374,15 +374,14 @@ export default class ConsultationTable extends Component {
                 <td className="text-center">{Consultation.CONST_ID}</td>
                 <td className="text-center">{Consultation.ST || ''}</td>
                 <td className="text-center">{PhoneNumber(Consultation.C_TEL) || ''}</td>
-                {/* <td className="text-center">{Consultation.EE_ID || '미등록'}</td> */}
-                <td className="text-center">{Consultation.MEMO ? 
+                {/* <td className="text-center">{Consultation.MEMO ? 
                     <ReadMoreReact text={Consultation.MEMO}                     
                     min={20}
                     ideal={25}
                     max={30}>
-                    </ReadMoreReact> : ''}</td>
+                    </ReadMoreReact> : ''}</td> */}
                 <td className="text-center">{Consultation.P_SUBSIDY_AMT || ''}</td>
-                <td className="text-center">{moment(Consultation.DATE).format("YYYY/MM/DD h:mm A") || ''}</td>
+                <td className="text-center">{moment(Consultation.DATE_REG).format("YYYY/MM/DD h:mm A") || ''}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
                     <a href="#34" className="btn btn-link btn-danger btn-just-icon remove"><i className="material-icons" data-action="onDelete">delete</i></a>
@@ -439,7 +438,7 @@ export default class ConsultationTable extends Component {
                                                     <col width="70px"></col>
                                                     <col width="120px"></col>
                                                     <col width="120px"></col>
-                                                    <col></col>
+                                                    {/* <col></col> */}
                                                     <col width="120px"></col>
                                                     <col width="140px"></col>
                                                     <col width="100px"></col>
@@ -449,10 +448,9 @@ export default class ConsultationTable extends Component {
                                                         <th className="text-center">순서</th>
                                                         <th className="text-center">상태</th>
                                                         <th className="text-center">고객 전화 번호</th>
-                                                        {/* <th className="text-center">상담 직원 ID</th> */}
-                                                        <th className="text-center">상담 내용</th>
+                                                        {/* <th className="text-center">상담 내용</th> */}
                                                         <th className="text-center">후기 지급 금액</th>
-                                                        <th className="text-center">상담 시간</th>
+                                                        <th className="text-center">접수 시각</th>
                                                         <th className="disabled-sorting text-center">수정/삭제</th>
                                                     </tr>
                                                 </thead>
