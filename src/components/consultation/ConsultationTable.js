@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Swal from 'sweetalert2'
 import moment from 'moment';
-import ReadMoreReact from 'read-more-react';
+// import ReadMoreReact from 'read-more-react';
 import ConsultService from '../../services/consultService';
 import consultService from '../../services/consultService';
 import LoadingSpinner from '../common/LoadingSpinner';
