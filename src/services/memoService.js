@@ -108,7 +108,7 @@ class MemoService {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
                             CONST_ID: ${input.CONST_ID}
                             ${input.DATE_MEMO ? `DATE_MEMO: ${`"${input.DATE_MEMO}"`}`: ''}
-                            ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT}"`}`: ''}
+                            ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT.replace(/\n/g, '\\n')}"`}`: ''}
                         }) {
                             MEMO_ID
                         }
@@ -126,7 +126,7 @@ class MemoService {
                         MEMO_ID: ${input.MEMO_ID}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.DATE_MEMO ? `DATE_MEMO: ${`"${input.DATE_MEMO}"`}`: ''}
-                        ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT}"`}`: ''}
+                        ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT.replace(/\n/g, '\\n')}"`}`: ''}
                     }) {
                         MEMO_ID
                     }

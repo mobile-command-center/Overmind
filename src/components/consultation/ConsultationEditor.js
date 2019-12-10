@@ -170,9 +170,9 @@ export default class ConsultationEditor extends Component {
         return(
             <form id="EnrollmentValidation" action="" method="">
                 <div className="card ">
-                    <div className="card-header card-header-warning card-header-icon">
+                    <div className="card-header card-header-rose card-header-icon">
                         <div className="card-icon">
-                            <i className="material-icons">call</i>
+                            <i className="material-icons">person</i>
                         </div>
                         <h4 className="card-title">상담 작성 폼</h4>
                     </div>
@@ -244,7 +244,7 @@ export default class ConsultationEditor extends Component {
                     </div>
                     <div className="card-footer text-right">
                         <div className="form-check mr-auto"></div>
-                        <button type="button" className="btn btn-warning" onClick={this._onClickRegister} onChange={this._onChangeHandler}>등록</button>
+                        <button type="button" className="btn btn-rose" onClick={this._onClickRegister} onChange={this._onChangeHandler}>등록</button>
                     </div>
                 </div>
             </form>

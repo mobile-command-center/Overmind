@@ -129,16 +129,51 @@ export default class MemoEditor extends Component {
         this.setState(newState);
     };
 
+    _onClickDelete = () => {
+        Swal.queue([{
+            title: '삭제하시겠습니까?',
+            confirmButtonText: '예, 삭제하겠습니다.',
+            cancelButtonText: '아니오',
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger",
+            text: '한 번 삭제 하시면 복구하실 수 없습니다.',
+            showLoaderOnConfirm: true,
+            type: 'warning',
+            preConfirm: () => {
+                return MemoService.delete({
+                    MEMO_ID: this.state.item.MEMO_ID
+                }).then(({ data: { deleteMemo: { MEMO_ID } } }) => {
+                    Swal.insertQueueStep({
+                        title: '성공!',
+                        text: `상담 ID: ${MEMO_ID}가 삭제되었습니다.`,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-success',
+                        type: 'success',
+                        preConfirm: () => {
+                            window.location.reload();
+                        }
+                    });
+                }, (error) => {
+                    Swal.insertQueueStep({
+                        title: '에러!',
+                        text: '메모 삭제가 실패 하였습니다.',
+                        type: 'error',
+                    });
+                })
+            }
+        }]);
+    }
+
     render() {
         return (
             <form action="" method="">
                 <div className="card ">
                     <div className="card-header card-header-warning card-header-icon">
                         <div className="card-icon">
-                            <i className="material-icons">call</i>
+                            <i className="material-icons">message</i>
                         </div>
                         <h4 className="card-title">
-                            {this.state.item.MEMO_ID ? '기존 메모' : '새로운 메모'}
+                            {this.state.item.MEMO_ID ? '기존 메모' : '신규 메모'}
                         </h4>
                     </div>
                     <div className="card-body">
@@ -181,6 +216,7 @@ export default class MemoEditor extends Component {
                     </div>
                     <div className="card-footer text-right">
                         <div className="form-check mr-auto"></div>
+                        {this.state.item.MEMO_ID ? <button type="button" className="btn btn-outline-rose" onClick={this._onClickDelete}>삭제</button> : null}
                         <button type="button" className="btn btn-warning" onClick={this._onClickRegister} onChange={this._onChangeHandler}>등록</button>
                     </div>
                 </div>
