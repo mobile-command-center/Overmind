@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, DashBoard } from '../pages';
+import { Home, DashBoard, Register } from '../pages';
 import EnrollmentEdit from '../pages/enrollment/EnrollmentEdit';
 import ConsultationEdit from '../pages/consultation/ConsultationEdit'
 import ConsultationSearch from '../pages/consultation/ConsultationSearch';
@@ -17,6 +17,7 @@ class App extends Component {
             <div>
                 <Route exact path="/" component={Home}/>
                 <Route path="/dashboard" component={DashBoard}/>
+                <Route path="/register" component={Register}/>
                 <Switch>
                     <Route path="/consultation/edit/:CONST_ID" component={ConsultationEdit}/>
                     <Route path="/consultation/edit" component={ConsultationEdit}/>
