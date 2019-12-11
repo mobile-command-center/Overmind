@@ -36,6 +36,7 @@
   "homepage": "http://nexus-dev.ajungweb.co.kr.s3-website.ap-northeast-2.amazonaws.com",
   "private": true,
   "dependencies": {
+    "amazon-cognito-identity-js": "^3.2.0",
     "apollo-boost": "^0.4.4",
     "bootstrap": "^4.3.1",
     "graphql": "^14.5.8",
