@@ -33,7 +33,7 @@ export default class ConsultationEditor extends Component {
                 });
 
                 // 정식 react용 select가 아니라서 수동으로 초기값을 세팅해주어야 한다. select의 형재 node로 버튼을 생성해서 노출하고 있다.
-                document.querySelector('#EnrollmentValidation [name="PPSTY"] ~ button .filter-option-inner-inner').textContent = getConsultation.PPSTY || '중간';
+                document.querySelector('#EnrollmentValidation [name="PPSTY"] ~ button .filter-option-inner-inner').textContent = getConsultation.PPSTY || '보통';
                 document.querySelector('#EnrollmentValidation [name="ST"] ~ button .filter-option-inner-inner').textContent = getConsultation.ST || '상담만';
             }, () => {
                 Swal.fire({
@@ -199,11 +199,11 @@ export default class ConsultationEditor extends Component {
                         </div> */}
                         {this._renderCustomerTell()}
                         <div className="row">
-                            <label className="col-sm-3 col-form-label">고객 성향</label>
+                            <label className="col-sm-3 col-form-label">고객 사은품 의존</label>
                             <div className="col-lg-5 col-md-6 col-sm-3">
                                 <select className="selectpicker" data-style="select-with-transition" name="PPSTY" value={this.state.item.PPSTY} onChange={this._onChangeHandler}>
                                     <option value="높음">높음</option>
-                                    <option value="중간">중간</option>
+                                    <option value="보통">보통</option>
                                     <option value="낮음">낮음</option>
                                 </select>
                             </div>
