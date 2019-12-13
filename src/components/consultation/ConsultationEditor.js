@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import Swal from 'sweetalert2'
-
+import React, { Component } from 'react';
+import Swal from 'sweetalert2';
+import moment from 'moment';
 import ConsultService from '../../services/consultService';
 import LoadingSpinner from '../common/LoadingSpinner';
 import PhoneNumber from '../../utils/PhoneNumber';
@@ -8,18 +8,26 @@ import ConsultationSearchModal from '../consultation/ConsultationSearchModal';
 import { Row, Col } from 'react-bootstrap';
 
 export default class ConsultationEditor extends Component {
-    state = {
-        item:  {
-            CONST_ID: '',
-            WRTR_ID: 'USER',
-            C_TEL : '',
-            P_SUBSIDY_AMT : '',
-            AVAL_INQUIRY_PASS: false,
-            PPSTY: '중간',
-            ST: '상담만'
-        },
-        loading: true,
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            item:  {
+                CONST_ID: '',
+                WRTR_ID: 'USER',
+                C_TEL : '',
+                DATE_INSTALL : new Date().toISOString(),
+                P_SUBSIDY_AMT : '',
+                AVAL_INQUIRY_PASS: false,
+                PPSTY: '중간',
+                ST: '상담만'
+            },
+            loading: true,
+        };
+
+        this._inputDateRef = React.createRef();
     }
+
 
     componentDidMount() {
         const { CONST_ID } = this.props;
@@ -82,7 +90,7 @@ export default class ConsultationEditor extends Component {
                 if(!!this.state.item.CONST_ID) {
                     return ConsultService.update({
                         ...this.state.item,
-                        // [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
                     }).then(({data: {updateConsultation : {CONST_ID}}}) => {
                             Swal.insertQueueStep({
                                 title: '성공!',
@@ -91,8 +99,7 @@ export default class ConsultationEditor extends Component {
                                 confirmButtonClass: 'btn btn-success',
                                 type: 'success',
                                 preConfirm: () => {
-                                    // window.location.replace(`/consultation/${CONST_ID}`);
-                                    window.location.reload();
+                                    window.location.replace(`/consultation/edit/${CONST_ID}`);
                                 }
                             });
                         }, (error) => {
@@ -105,7 +112,7 @@ export default class ConsultationEditor extends Component {
                 } else {
                     return ConsultService.create({
                         ...this.state.item,
-                        // [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
                     }).then(({data: {createConsultation : {CONST_ID}}})=> {
                         Swal.insertQueueStep({
                             title: '성공!',
@@ -216,6 +223,16 @@ export default class ConsultationEditor extends Component {
                                             <span className="check"></span>
                                         </span>
                                     </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <label className="col-sm-3 col-form-label">설치 예정일</label>
+                            <div className="col-sm-8">
+                                <div className="form-group bmd-form-group is-filled">
+                                    <input className="form-control datetimepicker" type="text" name="DATE_INSTALL" required={true} value={moment(this.state.item.DATE_INSTALL).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
+                                    <span className="material-input"></span>
+                                    <span className="material-input"></span>
                                 </div>
                             </div>
                         </div>
