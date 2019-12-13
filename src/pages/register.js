@@ -148,7 +148,7 @@ export default class Register extends Component {
                     </div>
                 </div>
                 <div className="text-center">
-                    <a href="#" className="btn btn-primary btn-round" onClick={this._activate}>확인</a>
+                    <a href="#pablo" className="btn btn-primary btn-round" onClick={this._activate}>확인</a>
                 </div>
             </form> 
         );        
