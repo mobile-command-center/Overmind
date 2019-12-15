@@ -144,35 +144,6 @@ export default class ConsultationEditor extends Component {
         });
     }
 
-    _renderCustomerTell = () => {
-        if(typeof this.props.CONST_ID !== 'undefined') {
-            return (
-            <Row>
-                <label className="col-sm-3 col-form-label">고객 전화 번호</label>
-                <Col sm="8" md="8">
-                    <div className="form-group bmd-form-group">
-                        <input className="form-control" type="text" name="C_TEL"  aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler}/>
-                    </div>
-                </Col>
-            </Row>
-            );
-        } else {
-            return (
-            <Row>
-                <label className="col-sm-3 col-form-label">고객 전화 번호</label>
-                <Col sm="5" md="6">
-                    <div className="form-group bmd-form-group">
-                        <input className="form-control" type="text" name="C_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler}/>
-                    </div>
-                </Col>
-                <Col sm="2">
-                    <ConsultationSearchModal onSuccess={this._onSuccessConsultationSearchModal}></ConsultationSearchModal>
-                </Col>
-            </Row>
-            );
-        }
-    }
-
     _renderCustomerInfo = () => {
         return(
             <form id="EnrollmentValidation" action="" method="">
@@ -194,17 +165,17 @@ export default class ConsultationEditor extends Component {
                                 </div>
                             </div>) : null
                         }
-                        {/* <div className="row">
-                            <label className="col-sm-3 col-form-label">상담 시간</label>
-                            <div className="col-sm-8">
-                                <div className="form-group bmd-form-group is-filled">
-                                    <input className="form-control datetimepicker" type="text" name="DATE" required={true} value={moment(this.state.item.DATE_REG).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
-                                    <span className="material-input"></span>
-                                    <span className="material-input"></span>
+                        <Row>
+                            <label className="col-sm-3 col-form-label">고객 전화 번호</label>
+                            <Col sm="5" md="6">
+                                <div className="form-group bmd-form-group">
+                                    <input className="form-control" type="text" name="C_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler}/>
                                 </div>
-                            </div>
-                        </div> */}
-                        {this._renderCustomerTell()}
+                            </Col>
+                            <Col sm="2">
+                                <ConsultationSearchModal onSuccess={this._onSuccessConsultationSearchModal} searchText={this.state.item.C_TEL}/>
+                            </Col>
+                        </Row>
                         <div className="row">
                             <label className="col-sm-3 col-form-label">고객 사은품 의존</label>
                             <div className="col-lg-5 col-md-6 col-sm-3">
