@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, DashBoard, Register } from '../pages';
+import { Home, DashBoard, Register, Auth } from '../pages';
 import EnrollmentEdit from '../pages/enrollment/EnrollmentEdit';
 import ConsultationEdit from '../pages/consultation/ConsultationEdit'
 import ConsultationSearch from '../pages/consultation/ConsultationSearch';
@@ -40,6 +40,7 @@ class App extends Component {
                     <Route path="/payment/search/:searchText" component={PaymentSearch}/>
                     <Route path="/payment/" component={PaymentSearch}/>
                 </Switch>
+                <Auth/>
             </div>
         );
     }
