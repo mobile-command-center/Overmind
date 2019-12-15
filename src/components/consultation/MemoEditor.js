@@ -7,11 +7,15 @@ export default class MemoEditor extends Component {
     constructor(props) {
         super(props);
 
+        const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+
+        debugger;
+
         this.state = {
             item:  {
                 MEMO_ID: '',
                 CONST_ID: '',
-                WRTR_ID: 'USER',
+                WRTR_ID: userInfo.email,
                 DATE_MEMO: new Date().toISOString(),
                 MEMO: ''
             },

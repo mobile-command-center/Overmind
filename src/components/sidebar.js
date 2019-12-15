@@ -9,7 +9,8 @@ export default class SideBar extends Component {
         super(props);
 
         this.state = {
-            userName: ''
+            userName: '',
+            userEmail: '',
         };
     }
     componentDidMount() {
@@ -21,8 +22,11 @@ export default class SideBar extends Component {
         const userPool = new CognitoUserPool(poolData);
         const cognitoUser = userPool.getCurrentUser();
 
+        const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+
         this.setState({
-            userName: cognitoUser.username
+            userName: cognitoUser.username,
+            userEmail: userInfo.email,
         });
     }
 
@@ -47,7 +51,7 @@ export default class SideBar extends Component {
                             <div className="user-info">
                             <a data-toggle="collapse" href="#collapseExample" className="username">
                                 <span>
-                                {this.state.userName}
+                                    {this.state.userName}
                                 <b className="caret"></b>
                                 </span>
                             </a>

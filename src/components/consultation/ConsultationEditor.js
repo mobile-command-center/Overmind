@@ -11,10 +11,12 @@ export default class ConsultationEditor extends Component {
     constructor(props) {
         super(props);
 
+        const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+
         this.state = {
             item:  {
                 CONST_ID: '',
-                WRTR_ID: 'USER',
+                WRTR_ID: userInfo.email,
                 C_TEL : '',
                 DATE_INSTALL : new Date().toISOString(),
                 P_SUBSIDY_AMT : '',

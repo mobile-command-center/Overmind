@@ -57,6 +57,10 @@ export default class Home extends Component {
                 // API Gateway로 만든 API에 Request를 보낼 때는 Authorization 헤더의 값으로 idToken을 넣어야합니다.
                 console.log('idToken + ' + result.idToken.jwtToken);
 
+                window.localStorage.setItem('userInfo', JSON.stringify({
+                    email: EMAIL
+                }));
+
                 window.location.href = '/consultation';
               },
             onFailure: function(err) {

@@ -15,6 +15,7 @@ class App extends Component {
     render() {
         return (
             <div>
+                <Auth/>
                 <Route exact path="/" component={Home}/>
                 <Route path="/dashboard" component={DashBoard}/>
                 <Route path="/register" component={Register}/>
@@ -40,7 +41,6 @@ class App extends Component {
                     <Route path="/payment/search/:searchText" component={PaymentSearch}/>
                     <Route path="/payment/" component={PaymentSearch}/>
                 </Switch>
-                <Auth/>
             </div>
         );
     }
