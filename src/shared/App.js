@@ -25,7 +25,7 @@ class App extends Component {
                     <Route path="/consultation/search/:searchText" component={ConsultationSearch}/>
                     <Route path="/consultation/" component={ConsultationSearch}/>
                 </Switch>
-                <Switch>
+                {/* <Switch>
                     <Route path="/application/search/:searchText" component={ApplicationSearch}/>
                     <Route path="/application/" component={ApplicationSearch}/>
                 </Switch>
@@ -40,7 +40,7 @@ class App extends Component {
                     <Route path="/payment/edit" component={PaymentEdit}/>
                     <Route path="/payment/search/:searchText" component={PaymentSearch}/>
                     <Route path="/payment/" component={PaymentSearch}/>
-                </Switch>
+                </Switch> */}
             </div>
         );
     }

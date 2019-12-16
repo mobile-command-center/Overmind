@@ -33,7 +33,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://nexus-dev.ajungweb.co.kr.s3-website.ap-northeast-2.amazonaws.com",
+  "homepage": "http://nexus.ajungweb.co.kr",
   "private": true,
   "dependencies": {
     "amazon-cognito-identity-js": "^3.2.0",

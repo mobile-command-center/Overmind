@@ -4,7 +4,8 @@ import gql from 'graphql-tag';
 class MemoService {
     constructor() {
         this._client = new ApolloClient({
-            uri: 'https://4uecyvfodh.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql'
+            // uri: 'https://4uecyvfodh.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql' //DEV 환경용
+            uri: 'https://4rtponga6g.execute-api.ap-northeast-2.amazonaws.com/real/v1/graphql'
         });
     }
 
