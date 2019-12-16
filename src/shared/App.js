@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, DashBoard } from '../pages';
+import { Home, DashBoard, Register, Auth } from '../pages';
 import EnrollmentEdit from '../pages/enrollment/EnrollmentEdit';
 import ConsultationEdit from '../pages/consultation/ConsultationEdit'
 import ConsultationSearch from '../pages/consultation/ConsultationSearch';
@@ -15,15 +15,17 @@ class App extends Component {
     render() {
         return (
             <div>
+                <Auth/>
                 <Route exact path="/" component={Home}/>
                 <Route path="/dashboard" component={DashBoard}/>
+                <Route path="/register" component={Register}/>
                 <Switch>
                     <Route path="/consultation/edit/:CONST_ID" component={ConsultationEdit}/>
                     <Route path="/consultation/edit" component={ConsultationEdit}/>
                     <Route path="/consultation/search/:searchText" component={ConsultationSearch}/>
                     <Route path="/consultation/" component={ConsultationSearch}/>
                 </Switch>
-                <Switch>
+                {/* <Switch>
                     <Route path="/application/search/:searchText" component={ApplicationSearch}/>
                     <Route path="/application/" component={ApplicationSearch}/>
                 </Switch>
@@ -38,7 +40,7 @@ class App extends Component {
                     <Route path="/payment/edit" component={PaymentEdit}/>
                     <Route path="/payment/search/:searchText" component={PaymentSearch}/>
                     <Route path="/payment/" component={PaymentSearch}/>
-                </Switch>
+                </Switch> */}
             </div>
         );
     }

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { CognitoUserPool } from 'amazon-cognito-identity-js';
+import CognitoConfig from '../config/CognitoConfig';
 
 export default class NavigationBar extends Component {
     state = {
@@ -9,6 +11,23 @@ export default class NavigationBar extends Component {
           [e.target.name]: e.target.value
         });
     }
+
+    _logOut = () => {
+        const poolData = { 
+            UserPoolId : CognitoConfig.userPoolId,
+            ClientId : CognitoConfig.appClientId
+        };
+
+        const userPool = new CognitoUserPool(poolData);
+        const cognitoUser = userPool.getCurrentUser();
+
+        cognitoUser.signOut();
+
+        window.localStorage.clear();
+
+        window.location.href = '/';
+    }
+
     render() {
         return(
             <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -74,7 +93,7 @@ export default class NavigationBar extends Component {
                         <a className="dropdown-item" href="#profile">Profile</a>
                         <a className="dropdown-item" href="#setting">Settings</a>
                         <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="#logout">Log out</a>
+                        <a className="dropdown-item" href="#logout" onClick={this._logOut}>Log out</a>
                         </div>
                     </li>
                     </ul>

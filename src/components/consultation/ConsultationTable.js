@@ -38,7 +38,7 @@ export default class ConsultationTable extends Component {
                     DATE: {
                         contains: this.state.searchText
                     },
-                    WRT_DATE: {
+                    WRTR_ID: {
                         contains: this.state.searchText
                     },
                     EE_ID: {
@@ -144,7 +144,7 @@ export default class ConsultationTable extends Component {
                     DATE: {
                         contains: this.state.searchText
                     },
-                    WRT_DATE: {
+                    WRTR_ID: {
                         contains: this.state.searchText
                     },
                     EE_ID: {
@@ -242,7 +242,7 @@ export default class ConsultationTable extends Component {
                     DATE: {
                         contains: this.state.searchText
                     },
-                    WRT_DATE: {
+                    WRTR_ID: {
                         contains: this.state.searchText
                     },
                     EE_ID: {
@@ -369,6 +369,9 @@ export default class ConsultationTable extends Component {
     }
 
     renderItems = () => {
+        // this.state.edges.map((consultation) => {
+        //     console.log(moment(consultation.DATE_INSTALL).format("YYYY/MM/DD h:mm A"), consultation.DATE_INSTALL);
+        // })
         return this.state.edges.map((Consultation) => (
             <tr key={Consultation.CONST_ID} onClick={this.onClickCHandler} data-id={Consultation.CONST_ID} className={this.getTrClassNameByStatus(Consultation.ST)}>
                 <td className="text-center">{Consultation.CONST_ID}</td>
@@ -381,6 +384,7 @@ export default class ConsultationTable extends Component {
                     max={30}>
                     </ReadMoreReact> : ''}</td> */}
                 <td className="text-center">{Consultation.P_SUBSIDY_AMT || ''}</td>
+                <td className="text-center">{moment(Consultation.DATE_INSTALL).format("YYYY/MM/DD h:mm A") || ''}</td>
                 <td className="text-center">{moment(Consultation.DATE_REG).format("YYYY/MM/DD h:mm A") || ''}</td>
                 <td className="text-right">
                     <a href="#12" className="btn btn-link btn-warning btn-just-icon edit"><i className="material-icons" data-action="onEdit">edit</i></a>
@@ -441,6 +445,7 @@ export default class ConsultationTable extends Component {
                                                     {/* <col></col> */}
                                                     <col width="120px"></col>
                                                     <col width="140px"></col>
+                                                    <col width="140px"></col>
                                                     <col width="100px"></col>
                                                 </colgroup>
                                                 <thead className="thead-dark">
@@ -450,6 +455,7 @@ export default class ConsultationTable extends Component {
                                                         <th className="text-center">고객 전화 번호</th>
                                                         {/* <th className="text-center">상담 내용</th> */}
                                                         <th className="text-center">후기 지급 금액</th>
+                                                        <th className="text-center">설치 예상 시기</th>
                                                         <th className="text-center">접수 시각</th>
                                                         <th className="disabled-sorting text-center">수정/삭제</th>
                                                     </tr>

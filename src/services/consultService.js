@@ -4,7 +4,8 @@ import gql from 'graphql-tag';
 class ConsultService {
     constructor() {
         this._client = new ApolloClient({
-            uri: 'https://4uecyvfodh.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql'
+            // uri: 'https://4uecyvfodh.execute-api.ap-northeast-2.amazonaws.com/dev/v1/graphql' //DEV 환경용
+            uri: 'https://4rtponga6g.execute-api.ap-northeast-2.amazonaws.com/real/v1/graphql'
         });
     }
 
@@ -20,6 +21,7 @@ class ConsultService {
                         WRTR_ID
                         DATE_REG
                         DATE_MDF
+                        DATE_INSTALL
                         C_TEL
                         P_SUBSIDY_AMT
                         AVAL_INQUIRY_PASS
@@ -44,8 +46,10 @@ class ConsultService {
                     }) {
                         edges {
                             CONST_ID
+                            WRTR_ID
                             DATE_REG
                             DATE_MDF
+                            DATE_INSTALL
                             C_TEL
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
@@ -74,11 +78,17 @@ class ConsultService {
                         ${input.before ? `before: ${input.before}`: ''}
                         ${input.after ? `after: ${input.after}`: ''}
                         ${input.filter ? `filter: {
+                            ${input.filter.WRTR_ID ? `WRTR_ID: {
+                                contains: "${input.filter.WRTR_ID.contains}"
+                            }`: ''}
                             ${input.filter.DATE_REG ? `DATE_REG: {
-                                    contains: "${input.filter.DATE_REG.contains}"
+                                contains: "${input.filter.DATE_REG.contains}"
                             }`: ''}
                             ${input.filter.DATE_MDF ? `DATE_MDF: {
                                 contains: "${input.filter.DATE_MDF.contains}"
+                            }`: ''}
+                            ${input.filter.DATE_INSTALL ? `DATE_INSTALL: {
+                                contains: "${input.filter.DATE_INSTALL.contains}"
                             }`: ''}
                             ${input.filter.C_TEL ? `C_TEL: {
                                     contains: "${input.filter.C_TEL.contains}"
@@ -96,8 +106,10 @@ class ConsultService {
                     }) {
                         edges {
                             CONST_ID
+                            WRTR_ID
                             DATE_REG
                             DATE_MDF
+                            DATE_INSTALL
                             C_TEL
                             P_SUBSIDY_AMT
                             AVAL_INQUIRY_PASS
@@ -123,6 +135,7 @@ class ConsultService {
                         createConsultation(input: {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
                             ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
+                            ${input.DATE_INSTALL ? `DATE_INSTALL: ${`"${input.DATE_INSTALL}"`}`: ''}
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                             AVAL_INQUIRY_PASS: ${String(input.AVAL_INQUIRY_PASS)}
                             ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
@@ -144,6 +157,7 @@ class ConsultService {
                         CONST_ID: ${input.CONST_ID}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
+                        ${input.DATE_INSTALL ? `DATE_INSTALL: ${`"${input.DATE_INSTALL}"`}`: ''}
                         ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                         ${typeof input.AVAL_INQUIRY_PASS !== 'undefined' ? `AVAL_INQUIRY_PASS: ${input.AVAL_INQUIRY_PASS}`:''}
                         ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}

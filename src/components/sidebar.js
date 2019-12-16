@@ -1,6 +1,35 @@
 import React, { Component } from 'react';
+import {
+    CognitoUserPool
+} from 'amazon-cognito-identity-js';
+import CognitoConfig from '../config/CognitoConfig';
 
 export default class SideBar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            userName: '',
+            userEmail: '',
+        };
+    }
+    componentDidMount() {
+        const poolData = { 
+            UserPoolId : CognitoConfig.userPoolId,
+            ClientId : CognitoConfig.appClientId
+        };
+
+        const userPool = new CognitoUserPool(poolData);
+        const cognitoUser = userPool.getCurrentUser();
+
+        const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+
+        this.setState({
+            userName: cognitoUser.username,
+            userEmail: userInfo.email,
+        });
+    }
+
     render() {
         const url = this.props.url;
 
@@ -22,7 +51,7 @@ export default class SideBar extends Component {
                             <div className="user-info">
                             <a data-toggle="collapse" href="#collapseExample" className="username">
                                 <span>
-                                테스트 사용자
+                                    {this.state.userName}
                                 <b className="caret"></b>
                                 </span>
                             </a>

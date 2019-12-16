@@ -22,31 +22,6 @@ export default class ConsultationSearchModal extends Component {
         }
     }
 
-    componentDidMount() {
-        ConsultService.read({
-            first: this.state.limit
-        })
-        .then(({ data: { readConsultation: ConsultationConnection } }) => {
-            this.setState({
-                edges: ConsultationConnection.edges,
-                pageInfo: ConsultationConnection.pageInfo,
-                limit: this.state.limit,
-                loading: false
-            });
-        }, () => {
-            this.setState({
-                loading: false
-            });
-            Swal.fire({
-                title: '에러!',
-                text: '상담 정보 조회를 실패 하였습니다.',
-                buttonsStyling: false,
-                confirmButtonClass: 'btn btn-success',
-                type: 'error'
-            });
-        });
-    }
-
     onClickCHandler = (e) => {
         e.preventDefault();
 
@@ -271,9 +246,6 @@ export default class ConsultationSearchModal extends Component {
                 C_TEL: {
                     contains: this.state.searchText
                 },
-                MEMO: {
-                    contains: this.state.searchText
-                },
                 P_SUBSIDY_AMT: {
                     contains: this.state.searchText
                 },
@@ -313,9 +285,54 @@ export default class ConsultationSearchModal extends Component {
         ));
     }
 
+    openModal = () => {
+        const { searchText } = this.props;
+        
+        this.setState({
+            ...this.state,
+            searchText
+        });
+
+        ConsultService.search({
+            first: this.state.limit,
+            filter: {
+                DATE: {
+                    contains: searchText
+                },
+                WRT_DATE: {
+                    contains: searchText
+                },
+                EE_ID: {
+                    contains: searchText
+                },
+                C_TEL: {
+                    contains: searchText
+                },
+                P_SUBSIDY_AMT: {
+                    contains: searchText
+                },
+            }
+        })
+        .then(({ data: { searchConsultation: ConsultationConnection } }) => {
+            this.setState({
+                edges: ConsultationConnection.edges,
+                pageInfo: ConsultationConnection.pageInfo,
+                limit: this.state.limit,
+                loading: false
+            });
+        }, (err) => {
+            Swal.fire({
+                title: '에러!',
+                text: '상담 정보 검색을 실패 하였습니다.',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-success',
+                type: 'error'
+            });
+        });
+    }
+
     closeModal = () => {
         this.setState({show: false});
-        this.componentDidMount();
     }
 
     render() {
@@ -325,7 +342,7 @@ export default class ConsultationSearchModal extends Component {
                 <i className="material-icons">search</i>
                 찾기
             </Button>
-            <Modal show={this.state.show} onHide={this.closeModal} size='lg' aria-labelledby="constSearchModalLabel">
+            <Modal show={this.state.show} onHide={this.closeModal} onShow={this.openModal} size='lg' aria-labelledby="constSearchModalLabel">
                 <div className="modal-content">
                     <Modal.Header closeButton>
                         <Modal.Title>상담내역 검색</Modal.Title>
