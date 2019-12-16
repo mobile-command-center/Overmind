@@ -182,6 +182,7 @@ export default class ConsultationEditor extends Component {
                             <label className="col-sm-3 col-form-label">고객 사은품 의존</label>
                             <div className="col-lg-5 col-md-6 col-sm-3">
                                 <select className="selectpicker" data-style="select-with-transition" name="PPSTY" value={this.state.item.PPSTY} onChange={this._onChangeHandler}>
+                                    <option value="아주높음">아주높음</option>
                                     <option value="높음">높음</option>
                                     <option value="보통">보통</option>
                                     <option value="낮음">낮음</option>
