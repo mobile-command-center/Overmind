@@ -9,8 +9,6 @@ export default class MemoEditor extends Component {
 
         const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
 
-        debugger;
-
         this.state = {
             item:  {
                 MEMO_ID: '',
@@ -46,6 +44,7 @@ export default class MemoEditor extends Component {
         }
 
         window.$('.datetimepicker').datetimepicker({
+            locale: "ko",
             format: 'YYYY/MM/DD h:mm A',
             icons: {
               time: "fa fa-clock-o",

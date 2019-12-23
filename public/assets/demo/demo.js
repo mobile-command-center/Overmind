@@ -253,6 +253,7 @@ demo = {
 
   initDateTimePicker: function() {
     $('.datetimepicker').datetimepicker({
+      locale: "ko",
       icons: {
         time: "fa fa-clock-o",
         date: "fa fa-calendar",
