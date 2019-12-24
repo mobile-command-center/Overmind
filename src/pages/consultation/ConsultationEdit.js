@@ -61,14 +61,14 @@ export default class ConsultationEdit extends Component {
                     <div className="content">
                         <div className="container-fluid">
                             <Row>
-                                <div className="col-md-6 ml-auto mr-auto">
+                                <div className="col-md-12 ml-auto mr-auto">
                                     <ConsultationEditor CONST_ID={CONST_ID}></ConsultationEditor>
                                 </div>
                             </Row>
                             {this.state.edges.map(edge => {
                                 return( 
                                 <Row key={edge.MEMO_ID+''}>
-                                    <div className="col-md-6 ml-auto mr-auto">
+                                    <div className="col-md-12 ml-auto mr-auto">
                                         <MemoEditor memoInfo={edge}></MemoEditor>
                                     </div>
                                 </Row>);
@@ -76,7 +76,7 @@ export default class ConsultationEdit extends Component {
                             {
                                 CONST_ID ? (
                                     <Row key={null+''}>
-                                        <div className="col-md-6 ml-auto mr-auto">
+                                        <div className="col-md-12 ml-auto mr-auto">
                                             <MemoEditor CONST_ID={CONST_ID}></MemoEditor>
                                         </div>
                                     </Row>

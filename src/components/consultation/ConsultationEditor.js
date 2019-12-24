@@ -163,96 +163,109 @@ export default class ConsultationEditor extends Component {
                         <div className="card-icon">
                             <i className="material-icons">person</i>
                         </div>
-                        <h4 className="card-title">상담 작성 폼</h4>
+                        <h4 className="card-title">상담 작성 폼 (ID : {this.state.item.CONST_ID})</h4>
                     </div>
                     <div className="card-body">
-                        {this.state.item.CONST_ID ? 
-                            (<div className="row">
-                                <label className="col-sm-3 col-form-label">상담 ID</label>
-                                <div className="col-sm-8">
-                                    <div className="form-group bmd-form-group">
-                                        <input className="form-control" type="text" name="CONST_ID" aria-required="true" disabled value={this.state.item.CONST_ID} onChange={this._onChangeHandler}/>
-                                    </div>
-                                </div>
-                            </div>) : null
-                        }
                         <Row>
-                            <label className="col-sm-3 col-form-label">고객 전화 번호</label>
-                            <Col sm="5" md="6">
-                                <div className="form-group bmd-form-group">
-                                    <input className="form-control" type="text" name="C_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler} onKeyDown={this._onKeyDownHandler}/>
-                                </div>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">고객 전화 번호</label>
+                                    <Col sm="5" md="6">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="C_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler} onKeyDown={this._onKeyDownHandler}/>
+                                        </div>
+                                    </Col>
+                                    <Col sm="2">
+                                        <ConsultationSearchModal ref={this._phoneSearchRef} onSuccess={this._onSuccessConsultationSearchModal} searchText={this.state.item.C_TEL}/>
+                                    </Col>
+                                </Row>
                             </Col>
-                            <Col sm="2">
-                                <ConsultationSearchModal ref={this._phoneSearchRef} onSuccess={this._onSuccessConsultationSearchModal} searchText={this.state.item.C_TEL}/>
+                            <Col >
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">최종 상태</label>
+                                    <Col sm="8">
+                                        <div className="form-group bmd-form-group">
+                                            <select className="selectpicker" data-style="select-with-transition" name="ST" value={this.state.item.ST} onChange={this._onChangeHandler}>
+                                                <option value="상담만">상담만</option>
+                                                <option value="신청서 송부">신청서 송부</option>
+                                                <option value="신청서 접수완료">신청서 접수완료</option>
+                                                <option value="보류">보류</option>
+                                                <option value="설치완료">설치완료</option>
+                                            </select>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">최종 후기 지급 금액</label>
+                                    <Col sm="8">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="P_SUBSIDY_AMT"  aria-required="true" autoComplete="false" value={this.state.item.P_SUBSIDY_AMT || ''} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
-                        <div className="row">
-                            <label className="col-sm-3 col-form-label">고객 사은품 의존</label>
-                            <div className="col-lg-5 col-md-6 col-sm-3">
-                                <select className="selectpicker" data-style="select-with-transition" name="PPSTY" value={this.state.item.PPSTY} onChange={this._onChangeHandler}>
-                                    <option value="아주높음">아주높음</option>
-                                    <option value="높음">높음</option>
-                                    <option value="보통">보통</option>
-                                    <option value="낮음">낮음</option>
-                                </select>
-                            </div>
-                            <div className="col-lg-3 col-md-6 col-sm-4 checkbox-radios">
-                                <div className="form-check form-check-inline">
-                                    <label className="form-check-label">
-                                        <input className="form-check-input" type="checkbox" name="AVAL_INQUIRY_PASS" autoComplete="false" checked={this.state.item.AVAL_INQUIRY_PASS} onChange={this._onChangeHandler}/>
-                                        가용조회 Pass
-                                        <span className="form-check-sign">
-                                            <span className="check"></span>
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <label className="col-sm-3 col-form-label">설치 예정일</label>
-                            <div className="col-sm-8">
-                                <div className="form-group bmd-form-group is-filled">
-                                    <input className="form-control datetimepicker" type="text" name="DATE_INSTALL" required={true} value={moment(this.state.item.DATE_INSTALL).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
-                                    <span className="material-input"></span>
-                                    <span className="material-input"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <label className="col-sm-3 col-form-label">최종 상태</label>
-                            <div className="col-sm-8">
-                                <div className="form-group bmd-form-group">
-                                    <select className="selectpicker" data-style="select-with-transition" name="ST" value={this.state.item.ST} onChange={this._onChangeHandler}>
-                                        <option value="상담만">상담만</option>
-                                        <option value="신청서 송부">신청서 송부</option>
-                                        <option value="신청서 접수완료">신청서 접수완료</option>
-                                        <option value="보류">보류</option>
-                                        <option value="설치완료">설치완료</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <label className="col-sm-3 col-form-label">최종 후기 지급 금액</label>
-                            <div className="col-sm-8">
-                                <div className="form-group bmd-form-group">
-                                    <input className="form-control" type="text" name="P_SUBSIDY_AMT"  aria-required="true" autoComplete="false" value={this.state.item.P_SUBSIDY_AMT || ''} onChange={this._onChangeHandler}/>
-                                </div>
-                            </div>
-                        </div>
                         <Row>
-                            <label className="col-sm-3 col-form-label">추천인 전화 번호</label>
-                            <Col sm="5" md="6">
-                                <div className="form-group bmd-form-group">
-                                    <input className="form-control" type="text" name="REC_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.REC_TEL)} onChange={this._onChangeHandler}/>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">설치 예정일</label>
+                                    <Col sm="8">
+                                        <div className="form-group bmd-form-group is-filled">
+                                            <input className="form-control datetimepicker" type="text" name="DATE_INSTALL" required={true} value={moment(this.state.item.DATE_INSTALL).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler} ref={this._inputDateRef}/>
+                                            <span className="material-input"></span>
+                                            <span className="material-input"></span>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">고객 사은품 의존</label>
+                                    <div className="col-lg-5 col-md-6 col-sm-3">
+                                        <select className="selectpicker" data-style="select-with-transition" name="PPSTY" value={this.state.item.PPSTY} onChange={this._onChangeHandler}>
+                                            <option value="아주높음">아주높음</option>
+                                            <option value="높음">높음</option>
+                                            <option value="보통">보통</option>
+                                            <option value="낮음">낮음</option>
+                                        </select>
+                                    </div>
+
+                                </Row>
+                            </Col>
+                            <Col>
+                                <div className="checkbox-radios">
+                                    <div className="form-check form-check-inline">
+                                        <label className="form-check-label">
+                                            <input className="form-check-input" type="checkbox" name="AVAL_INQUIRY_PASS" autoComplete="false" checked={this.state.item.AVAL_INQUIRY_PASS} onChange={this._onChangeHandler}/>
+                                            가용조회 Pass
+                                            <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
                                 </div>
                             </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">추천인 전화 번호</label>
+                                    <Col sm="8">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="REC_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.REC_TEL)} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col></Col>
+                            <Col></Col>
                         </Row>
                     </div>
                     <div className="card-footer text-right">
                         <div className="form-check mr-auto"></div>
-                        <button type="button" className="btn btn-rose" onClick={this._onClickRegister} onChange={this._onChangeHandler}>등록</button>
+                        <button type="button" className="btn btn-rose" onClick={this._onClickRegister} onChange={this._onChangeHandler}>저장</button>
                     </div>
                 </div>
             </form>
