@@ -86,8 +86,8 @@ export default class ConsultationEditor extends Component {
 
     _onClickRegister = (e) => {
         Swal.queue([{
-            title: '상담 정보 등록',
-            confirmButtonText: '등록',
+            title: '상담 정보 저장',
+            confirmButtonText: '저장',
             text: '상담 정보를 등록 하시겠습니까?',
             showLoaderOnConfirm: true,
             type: 'warning',
@@ -104,7 +104,7 @@ export default class ConsultationEditor extends Component {
                                 confirmButtonClass: 'btn btn-success',
                                 type: 'success',
                                 preConfirm: () => {
-                                    window.location.replace(`/consultation/edit/${CONST_ID}`);
+                                    window.location.reload();
                                 }
                             });
                         }, (error) => {
@@ -126,8 +126,7 @@ export default class ConsultationEditor extends Component {
                             confirmButtonClass: 'btn btn-success',
                             type: 'success',
                             preConfirm: () => {
-                                // window.location.replace(`/consultation/${CONST_ID}`);
-                                window.location.reload();
+                                window.location.replace(`/consultation/edit/${CONST_ID}`);
                             }
                         });
                     }, (error)=> {
