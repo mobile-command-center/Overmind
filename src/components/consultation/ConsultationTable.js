@@ -451,10 +451,10 @@ export default class ConsultationTable extends Component {
                                                 <thead className="thead-dark">
                                                     <tr>
                                                         <th className="text-center">순서</th>
-                                                        <th className="text-center">상태</th>
+                                                        <th className="text-center">최종 상태</th>
                                                         <th className="text-center">고객 전화 번호</th>
                                                         {/* <th className="text-center">상담 내용</th> */}
-                                                        <th className="text-center">후기 지급 금액</th>
+                                                        <th className="text-center">최종 후기 지급 금액</th>
                                                         <th className="text-center">설치 예상 시기</th>
                                                         <th className="text-center">접수 시각</th>
                                                         <th className="disabled-sorting text-center">수정/삭제</th>

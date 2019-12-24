@@ -69,6 +69,7 @@ export default class ConsultationEditor extends Component {
             ...this.state,
             item : {
                 ...this.state.item,
+                [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString(),
             }
         }
 
@@ -92,7 +93,7 @@ export default class ConsultationEditor extends Component {
                 if(!!this.state.item.CONST_ID) {
                     return ConsultService.update({
                         ...this.state.item,
-                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                        [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString()
                     }).then(({data: {updateConsultation : {CONST_ID}}}) => {
                             Swal.insertQueueStep({
                                 title: '성공!',
@@ -114,7 +115,7 @@ export default class ConsultationEditor extends Component {
                 } else {
                     return ConsultService.create({
                         ...this.state.item,
-                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                        [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString()
                     }).then(({data: {createConsultation : {CONST_ID}}})=> {
                         Swal.insertQueueStep({
                             title: '성공!',
@@ -211,7 +212,7 @@ export default class ConsultationEditor extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <label className="col-sm-3 col-form-label">상태</label>
+                            <label className="col-sm-3 col-form-label">최종 상태</label>
                             <div className="col-sm-8">
                                 <div className="form-group bmd-form-group">
                                     <select className="selectpicker" data-style="select-with-transition" name="ST" value={this.state.item.ST} onChange={this._onChangeHandler}>
@@ -225,10 +226,10 @@ export default class ConsultationEditor extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <label className="col-sm-3 col-form-label">후기 지급 금액</label>
+                            <label className="col-sm-3 col-form-label">최종 후기 지급 금액</label>
                             <div className="col-sm-8">
                                 <div className="form-group bmd-form-group">
-                                    <input className="form-control" type="text" name="P_SUBSIDY_AMT"  aria-required="true" autoComplete="false"value={this.state.item.P_SUBSIDY_AMT} onChange={this._onChangeHandler}/>
+                                    <input className="form-control" type="text" name="P_SUBSIDY_AMT"  aria-required="true" autoComplete="false" value={this.state.item.P_SUBSIDY_AMT || ''} onChange={this._onChangeHandler}/>
                                 </div>
                             </div>
                         </div>

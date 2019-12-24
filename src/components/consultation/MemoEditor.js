@@ -15,7 +15,9 @@ export default class MemoEditor extends Component {
                 CONST_ID: '',
                 WRTR_ID: userInfo.email,
                 DATE_MEMO: new Date().toISOString(),
-                MEMO: ''
+                MEMO: '',
+                P_SUBSIDY_AMT: '',
+                ST: '상담만'
             },
         }
 
@@ -42,6 +44,8 @@ export default class MemoEditor extends Component {
 
             this.setState(newState);
         }
+
+        window.$(".selectpicker").selectpicker();
 
         window.$('.datetimepicker').datetimepicker({
             locale: "ko",
@@ -71,7 +75,7 @@ export default class MemoEditor extends Component {
                 if(!!this.state.item.MEMO_ID) {
                     return MemoService.update({
                         ...this.state.item,
-                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                        [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString()
                     }).then(({data: {updateMemo : {MEMO_ID}}}) => {
                             Swal.insertQueueStep({
                                 title: '성공!',
@@ -93,7 +97,7 @@ export default class MemoEditor extends Component {
                 } else {
                     return MemoService.create({
                         ...this.state.item,
-                        [this._inputDateRef.current.name]: new Date(this._inputDateRef.current.value).toISOString()
+                        [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString()
                     }).then(({data: {createMemo : {MEMO_ID}}})=> {
                         Swal.insertQueueStep({
                             title: '성공!',
@@ -123,7 +127,7 @@ export default class MemoEditor extends Component {
             ...this.state,
             item : {
                 ...this.state.item,
-                [this._inputDateRef.current.name]: this._inputDateRef.current.value,
+                [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString(),
             }
         }
 
@@ -209,10 +213,32 @@ export default class MemoEditor extends Component {
                             </div>
                         </div>
                         <div className="row">
+                            <label className="col-sm-3 col-form-label">상태</label>
+                            <div className="col-sm-8">
+                                <div className="form-group bmd-form-group">
+                                    <select className="selectpicker" data-style="select-with-transition" name="ST" value={this.state.item.ST} onChange={this._onChangeHandler}>
+                                        <option value="상담만">상담만</option>
+                                        <option value="신청서 송부">신청서 송부</option>
+                                        <option value="신청서 접수완료">신청서 접수완료</option>
+                                        <option value="보류">보류</option>
+                                        <option value="설치완료">설치완료</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <label className="col-sm-3 col-form-label">후기 지급 금액</label>
+                            <div className="col-sm-8">
+                                <div className="form-group bmd-form-group">
+                                    <input className="form-control" type="text" name="P_SUBSIDY_AMT"  aria-required="true" autoComplete="false" value={this.state.item.P_SUBSIDY_AMT || ''} onChange={this._onChangeHandler}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
                             <label className="col-sm-3 col-form-label">상담 내용</label>
                             <div className="col-sm-8">
                                 <div className="form-group bmd-form-group">
-                                    <textarea className="form-control" rows="5" name="CONTENT" value={this.state.item.CONTENT} onChange={this._onChangeHandler}></textarea>
+                                    <textarea className="form-control" rows="5" name="CONTENT" value={this.state.item.CONTENT || ''} onChange={this._onChangeHandler}></textarea>
                                 </div>
                             </div>
                         </div>
