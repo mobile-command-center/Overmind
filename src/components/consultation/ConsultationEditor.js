@@ -22,7 +22,8 @@ export default class ConsultationEditor extends Component {
                 P_SUBSIDY_AMT : '',
                 AVAL_INQUIRY_PASS: false,
                 PPSTY: '중간',
-                ST: '상담만'
+                ST: '상담만',
+                REC_TEL: ''
             },
             loading: true,
         };
@@ -73,7 +74,7 @@ export default class ConsultationEditor extends Component {
             }
         }
 
-        if(e.target.name === 'C_TEL') {
+        if(e.target.name === 'C_TEL' || e.target.name === 'REC_TEL') {
             newState.item[e.target.name] = String(e.target.value).replace(/[^(0-9)]/gi, '');
         } else {
             newState.item[e.target.name] = (e.target.type === 'checkbox') ? e.target.checked : e.target.value;
@@ -140,6 +141,11 @@ export default class ConsultationEditor extends Component {
           }]);
     }
 
+    _onKeyDownHandler = (e) => {
+        if(e.keyCode === 13) {
+        }
+    }
+
     _onSuccessConsultationSearchModal = (consultation) => {
         this.setState({
             ...this.state,
@@ -172,7 +178,7 @@ export default class ConsultationEditor extends Component {
                             <label className="col-sm-3 col-form-label">고객 전화 번호</label>
                             <Col sm="5" md="6">
                                 <div className="form-group bmd-form-group">
-                                    <input className="form-control" type="text" name="C_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler}/>
+                                    <input className="form-control" type="text" name="C_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.C_TEL)} onChange={this._onChangeHandler} onKeyDown={this._onKeyDownHandler}/>
                                 </div>
                             </Col>
                             <Col sm="2">
@@ -233,6 +239,14 @@ export default class ConsultationEditor extends Component {
                                 </div>
                             </div>
                         </div>
+                        <Row>
+                            <label className="col-sm-3 col-form-label">추천인 전화 번호</label>
+                            <Col sm="5" md="6">
+                                <div className="form-group bmd-form-group">
+                                    <input className="form-control" type="text" name="REC_TEL" aria-required="true" autoComplete="false" value={PhoneNumber(this.state.item.REC_TEL)} onChange={this._onChangeHandler}/>
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
                     <div className="card-footer text-right">
                         <div className="form-check mr-auto"></div>

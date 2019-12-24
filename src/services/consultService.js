@@ -27,6 +27,7 @@ class ConsultService {
                         AVAL_INQUIRY_PASS
                         PPSTY
                         ST
+                        REC_TEL
                     }
                 }
             `,
@@ -55,6 +56,7 @@ class ConsultService {
                             AVAL_INQUIRY_PASS
                             PPSTY
                             ST
+                            REC_TEL
                         }
                         totalCount
                         pageInfo {
@@ -102,6 +104,9 @@ class ConsultService {
                             ${input.filter.ST ? `ST : {
                                 contains: "${input.filter.ST.contains}"
                             }`: ''}
+                            ${input.filter.REC_TEL ? `REC_TEL: {
+                                contains: "${input.filter.REC_TEL.contains}"
+                            }`: ''}
                         }`: ''}
                     }) {
                         edges {
@@ -115,6 +120,7 @@ class ConsultService {
                             AVAL_INQUIRY_PASS
                             PPSTY
                             ST
+                            REC_TEL
                         }
                         totalCount
                         pageInfo {
@@ -140,6 +146,7 @@ class ConsultService {
                             AVAL_INQUIRY_PASS: ${String(input.AVAL_INQUIRY_PASS)}
                             ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
                             ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
+                            ${input.REC_TEL ? `REC_TEL: ${`"${input.REC_TEL}"`}`: ''}
                         }) {
                             CONST_ID
                         }
@@ -162,6 +169,7 @@ class ConsultService {
                         ${typeof input.AVAL_INQUIRY_PASS !== 'undefined' ? `AVAL_INQUIRY_PASS: ${input.AVAL_INQUIRY_PASS}`:''}
                         ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
                         ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
+                        ${input.REC_TEL ? `REC_TEL: ${`"${input.REC_TEL}"`}`: ''}
                     }) {
                         CONST_ID
                     }
