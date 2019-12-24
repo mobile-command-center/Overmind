@@ -29,6 +29,7 @@ export default class ConsultationEditor extends Component {
         };
 
         this._inputDateRef = React.createRef();
+        this._phoneSearchRef = React.createRef();
     }
 
 
@@ -143,6 +144,7 @@ export default class ConsultationEditor extends Component {
 
     _onKeyDownHandler = (e) => {
         if(e.keyCode === 13) {
+            this._phoneSearchRef.current.openModal();
         }
     }
 
@@ -182,7 +184,7 @@ export default class ConsultationEditor extends Component {
                                 </div>
                             </Col>
                             <Col sm="2">
-                                <ConsultationSearchModal onSuccess={this._onSuccessConsultationSearchModal} searchText={this.state.item.C_TEL}/>
+                                <ConsultationSearchModal ref={this._phoneSearchRef} onSuccess={this._onSuccessConsultationSearchModal} searchText={this.state.item.C_TEL}/>
                             </Col>
                         </Row>
                         <div className="row">
