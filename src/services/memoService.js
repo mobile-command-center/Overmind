@@ -20,6 +20,8 @@ class MemoService {
                         MEMO_ID
                         WRTR_ID
                         DATE_MEMO
+                        P_SUBSIDY_AMT
+                        ST
                         CONTENT
                     }
                 }
@@ -42,6 +44,8 @@ class MemoService {
                             MEMO_ID
                             WRTR_ID
                             DATE_MEMO
+                            P_SUBSIDY_AMT
+                            ST
                             CONTENT
                         }
                         totalCount
@@ -78,6 +82,12 @@ class MemoService {
                             ${input.filter.DATE_MEMO ? `DATE_MEMO: {
                                     contains: "${input.filter.DATE_MEMO.contains}"
                             }`: ''}
+                            ${input.filter.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: {
+                                contains: "${input.filter.P_SUBSIDY_AMT.contains}"
+                            }`: ''}
+                            ${input.filter.ST ? `ST: {
+                                contains: "${input.filter.ST.contains}"
+                            }`: ''}
                             ${input.filter.CONTENT ? `CONTENT : {
                                 contains: "${input.filter.CONTENT.contains}"
                             }`: ''}
@@ -87,6 +97,8 @@ class MemoService {
                             MEMO_ID
                             WRTR_ID
                             DATE_MEMO
+                            P_SUBSIDY_AMT
+                            ST
                             CONTENT
                         }
                         totalCount
@@ -101,6 +113,20 @@ class MemoService {
     }
 
     create(input) {
+        console.log(`
+        mutation {
+            createMemo(input: {
+                WRTR_ID: ${`"${input.WRTR_ID}"`}
+                CONST_ID: ${input.CONST_ID}
+                ${input.DATE_MEMO ? `DATE_MEMO: ${`"${input.DATE_MEMO}"`}`: ''}
+                P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}
+                ST: ${`"${input.ST}"`}
+                ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT.replace(/\n/g, '\\n')}"`}`: ''}
+            }) {
+                MEMO_ID
+            }
+        }
+    `);
         return this._client
             .mutate({
                 mutation: gql`
@@ -109,6 +135,8 @@ class MemoService {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
                             CONST_ID: ${input.CONST_ID}
                             ${input.DATE_MEMO ? `DATE_MEMO: ${`"${input.DATE_MEMO}"`}`: ''}
+                            P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}
+                            ST: ${`"${input.ST}"`}
                             ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT.replace(/\n/g, '\\n')}"`}`: ''}
                         }) {
                             MEMO_ID
@@ -127,6 +155,8 @@ class MemoService {
                         MEMO_ID: ${input.MEMO_ID}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.DATE_MEMO ? `DATE_MEMO: ${`"${input.DATE_MEMO}"`}`: ''}
+                        ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
+                        ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
                         ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT.replace(/\n/g, '\\n')}"`}`: ''}
                     }) {
                         MEMO_ID

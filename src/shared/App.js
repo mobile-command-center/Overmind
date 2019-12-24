@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Home, DashBoard, Register, Auth } from '../pages';
-import EnrollmentEdit from '../pages/enrollment/EnrollmentEdit';
+// import EnrollmentEdit from '../pages/enrollment/EnrollmentEdit';
 import ConsultationEdit from '../pages/consultation/ConsultationEdit'
 import ConsultationSearch from '../pages/consultation/ConsultationSearch';
-import PaymentEdit from '../pages/payment/PaymentEdit';
-import PaymentSearch from '../pages/payment/PaymentSearch';
-import EnrollmentSearch from '../pages/enrollment/EnrollmentSearch';
-import ApplicationSearch from '../pages/application/ApplicationSearch';
+// import PaymentEdit from '../pages/payment/PaymentEdit';
+// import PaymentSearch from '../pages/payment/PaymentSearch';
+// import EnrollmentSearch from '../pages/enrollment/EnrollmentSearch';
+// import ApplicationSearch from '../pages/application/ApplicationSearch';
 
 // https://velopert.com/3417 리액트 라우터 강좌
 
