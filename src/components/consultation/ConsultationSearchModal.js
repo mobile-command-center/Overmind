@@ -286,6 +286,14 @@ export default class ConsultationSearchModal extends Component {
     }
 
     openModal = () => {
+        this.setState({ show: true });
+    }
+
+    closeModal = () => {
+        this.setState({ show: false });
+    }
+
+    _onShow = () => {
         const { searchText } = this.props;
         
         this.setState({
@@ -331,7 +339,7 @@ export default class ConsultationSearchModal extends Component {
         });
     }
 
-    closeModal = () => {
+    _onHide = () => {
         this.setState({show: false});
     }
 
@@ -342,7 +350,7 @@ export default class ConsultationSearchModal extends Component {
                 <i className="material-icons">search</i>
                 찾기
             </Button>
-            <Modal show={this.state.show} onHide={this.closeModal} onShow={this.openModal} size='lg' aria-labelledby="constSearchModalLabel">
+            <Modal show={this.state.show} onHide={this._onHide} onShow={this._onShow} size='lg' aria-labelledby="constSearchModalLabel">
                 <div className="modal-content">
                     <Modal.Header closeButton>
                         <Modal.Title>상담내역 검색</Modal.Title>
