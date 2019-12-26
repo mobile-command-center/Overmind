@@ -28,6 +28,7 @@ class ConsultService {
                         PPSTY
                         ST
                         REC_TEL
+                        MEMO
                     }
                 }
             `,
@@ -57,6 +58,7 @@ class ConsultService {
                             PPSTY
                             ST
                             REC_TEL
+                            MEMO
                         }
                         totalCount
                         pageInfo {
@@ -107,6 +109,9 @@ class ConsultService {
                             ${input.filter.REC_TEL ? `REC_TEL: {
                                 contains: "${input.filter.REC_TEL.contains}"
                             }`: ''}
+                            ${input.filter.MEMO ? `MEMO: {
+                                contains: "${input.filter.MEMO.contains}"
+                            }`: ''}
                         }`: ''}
                     }) {
                         edges {
@@ -121,6 +126,7 @@ class ConsultService {
                             PPSTY
                             ST
                             REC_TEL
+                            MEMO
                         }
                         totalCount
                         pageInfo {
@@ -147,6 +153,7 @@ class ConsultService {
                             ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
                             ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
                             ${input.REC_TEL ? `REC_TEL: ${`"${input.REC_TEL}"`}`: ''}
+                            ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                         }) {
                             CONST_ID
                         }
@@ -170,6 +177,7 @@ class ConsultService {
                         ${input.PPSTY ? `PPSTY: ${`"${input.PPSTY}"`}`: ''}
                         ${input.ST ? `ST: ${`"${input.ST}"`}`: ''}
                         ${input.REC_TEL ? `REC_TEL: ${`"${input.REC_TEL}"`}`: ''}
+                        ${input.MEMO ? `MEMO: ${`"${input.MEMO.replace(/\n/g, '\\n')}"`}`: ''}
                     }) {
                         CONST_ID
                     }

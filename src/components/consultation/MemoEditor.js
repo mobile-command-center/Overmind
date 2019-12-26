@@ -208,22 +208,6 @@ export default class MemoEditor extends Component {
                                     </div>
                                 </Row>
                             </Col>
-                            {/* <Col>
-                                <div className="row">
-                                    <label className="col-sm-3 col-form-label">상태</label>
-                                    <div className="col-sm-8">
-                                        <div className="form-group bmd-form-group">
-                                            <select className="selectpicker" data-style="select-with-transition" name="ST" value={this.state.item.ST} onChange={this._onChangeHandler}>
-                                                <option value="상담만">상담만</option>
-                                                <option value="신청서 송부">신청서 송부</option>
-                                                <option value="신청서 접수완료">신청서 접수완료</option>
-                                                <option value="보류">보류</option>
-                                                <option value="설치완료">설치완료</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Col> */}
                             <Col>
                                 <Row>
                                     <label className="col-sm-3 col-form-label">후기 지급 금액</label>
@@ -238,7 +222,7 @@ export default class MemoEditor extends Component {
                         <Row>
                             <Col>
                                 <div className="row">
-                                    <label className="col-sm-1 col-form-label">상담 내용</label>
+                                    <label className="col-sm-1 col-form-label">메모 내용</label>
                                     <div className="col-sm-10">
                                         <div className="form-group bmd-form-group">
                                             <textarea className="form-control" rows="5" name="CONTENT" value={this.state.item.CONTENT || ''} onChange={this._onChangeHandler}></textarea>

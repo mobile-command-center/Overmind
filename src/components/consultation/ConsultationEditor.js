@@ -23,7 +23,8 @@ export default class ConsultationEditor extends Component {
                 AVAL_INQUIRY_PASS: false,
                 PPSTY: '중간',
                 ST: '상담만',
-                REC_TEL: ''
+                REC_TEL: '',
+                MEMO: ''
             },
             loading: true,
         };
@@ -260,6 +261,18 @@ export default class ConsultationEditor extends Component {
                             </Col>
                             <Col></Col>
                             <Col></Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div className="row">
+                                    <label className="col-sm-1 col-form-label">상담 내용</label>
+                                    <div className="col-sm-10">
+                                        <div className="form-group bmd-form-group">
+                                            <textarea className="form-control" rows="5" name="MEMO" value={this.state.item.MEMO || ''} onChange={this._onChangeHandler}></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Col>
                         </Row>
                     </div>
                     <div className="card-footer text-right">
