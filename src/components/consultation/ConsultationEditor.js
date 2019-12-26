@@ -17,6 +17,7 @@ export default class ConsultationEditor extends Component {
             item:  {
                 CONST_ID: '',
                 WRTR_ID: userInfo.email,
+                WRTR_ID_MDF: userInfo.email,
                 C_TEL : '',
                 DATE_INSTALL : new Date().toISOString(),
                 P_SUBSIDY_AMT : '',
@@ -86,6 +87,8 @@ export default class ConsultationEditor extends Component {
     };
 
     _onClickRegister = (e) => {
+        const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+
         Swal.queue([{
             title: '상담 정보 저장',
             confirmButtonText: '저장',
@@ -96,6 +99,8 @@ export default class ConsultationEditor extends Component {
                 if(!!this.state.item.CONST_ID) {
                     return ConsultService.update({
                         ...this.state.item,
+                        WRTR_ID_MDF: userInfo.email,
+                        DATE_MDF: new Date().toISOString(),
                         [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString()
                     }).then(({data: {updateConsultation : {CONST_ID}}}) => {
                             Swal.insertQueueStep({
@@ -118,6 +123,8 @@ export default class ConsultationEditor extends Component {
                 } else {
                     return ConsultService.create({
                         ...this.state.item,
+                        WRTR_ID_MDF: userInfo.email,
+                        DATE_MDF: new Date().toISOString(),
                         [this._inputDateRef.current.name]: moment(this._inputDateRef.current.value, 'YYYY/MM/DD h:mm A').toISOString()
                     }).then(({data: {createConsultation : {CONST_ID}}})=> {
                         Swal.insertQueueStep({
@@ -149,10 +156,7 @@ export default class ConsultationEditor extends Component {
     }
 
     _onSuccessConsultationSearchModal = (consultation) => {
-        this.setState({
-            ...this.state,
-            item: consultation
-        });
+        window.location.replace(`/consultation/edit/${consultation.CONST_ID}`);
     }
 
     _renderCustomerInfo = () => {
@@ -166,6 +170,54 @@ export default class ConsultationEditor extends Component {
                         <h4 className="card-title">상담 작성 폼 (ID : {this.state.item.CONST_ID})</h4>
                     </div>
                     <div className="card-body">
+                        <Row>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">작성자 ID</label>
+                                    <Col sm="5" md="6">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="WRTR_ID"  aria-required="true" autoComplete="false" disabled value={this.state.item.WRTR_ID || ''} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">작성 날짜</label>
+                                    <Col sm="5" md="6">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="DATE_REG"  aria-required="true" autoComplete="false" disabled value={moment(this.state.item.DATE_REG).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">마지막 수정자 ID</label>
+                                    <Col sm="5" md="6">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="WRTR_ID_MDF"  aria-required="true" autoComplete="false" disabled value={this.state.item.WRTR_ID_MDF || ''} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col>
+                                <Row>
+                                    <label className="col-sm-3 col-form-label">마지막 수정 날짜</label>
+                                    <Col sm="5" md="6">
+                                        <div className="form-group bmd-form-group">
+                                            <input className="form-control" type="text" name="DATE_MDF"  aria-required="true" autoComplete="false" disabled value={moment(this.state.item.DATE_MDF).format("YYYY/MM/DD h:mm A")} onChange={this._onChangeHandler}/>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col>
+                            </Col>
+                        </Row>
                         <Row>
                             <Col>
                                 <Row>

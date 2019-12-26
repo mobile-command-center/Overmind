@@ -19,6 +19,7 @@ class ConsultService {
                     }) {
                         CONST_ID
                         WRTR_ID
+                        WRTR_ID_MDF
                         DATE_REG
                         DATE_MDF
                         DATE_INSTALL
@@ -49,6 +50,7 @@ class ConsultService {
                         edges {
                             CONST_ID
                             WRTR_ID
+                            WRTR_ID_MDF
                             DATE_REG
                             DATE_MDF
                             DATE_INSTALL
@@ -85,6 +87,9 @@ class ConsultService {
                             ${input.filter.WRTR_ID ? `WRTR_ID: {
                                 contains: "${input.filter.WRTR_ID.contains}"
                             }`: ''}
+                            ${input.filter.WRTR_ID_MDF ? `WRTR_ID_MDF: {
+                                contains: "${input.filter.WRTR_ID_MDF.contains}"
+                            }`: ''}
                             ${input.filter.DATE_REG ? `DATE_REG: {
                                 contains: "${input.filter.DATE_REG.contains}"
                             }`: ''}
@@ -117,6 +122,7 @@ class ConsultService {
                         edges {
                             CONST_ID
                             WRTR_ID
+                            WRTR_ID_MDF
                             DATE_REG
                             DATE_MDF
                             DATE_INSTALL
@@ -146,6 +152,7 @@ class ConsultService {
                     mutation {
                         createConsultation(input: {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
+                            ${input.WRTR_ID_MDF ? `WRTR_ID_MDF: ${`"${input.WRTR_ID_MDF}"`}`: ''}
                             ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
                             ${input.DATE_INSTALL ? `DATE_INSTALL: ${`"${input.DATE_INSTALL}"`}`: ''}
                             ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
@@ -169,6 +176,7 @@ class ConsultService {
                 mutation {
                     updateConsultation(input: {
                         CONST_ID: ${input.CONST_ID}
+                        ${input.WRTR_ID_MDF ? `WRTR_ID_MDF: ${`"${input.WRTR_ID_MDF}"`}`: ''}
                         ${input.WRTR_ID ? `WRTR_ID: ${`"${input.WRTR_ID}"`}`: ''}
                         ${input.C_TEL ? `C_TEL: ${`"${input.C_TEL}"`}`: ''}
                         ${input.DATE_INSTALL ? `DATE_INSTALL: ${`"${input.DATE_INSTALL}"`}`: ''}
