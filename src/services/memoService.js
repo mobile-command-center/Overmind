@@ -113,20 +113,6 @@ class MemoService {
     }
 
     create(input) {
-        console.log(`
-        mutation {
-            createMemo(input: {
-                WRTR_ID: ${`"${input.WRTR_ID}"`}
-                CONST_ID: ${input.CONST_ID}
-                ${input.DATE_MEMO ? `DATE_MEMO: ${`"${input.DATE_MEMO}"`}`: ''}
-                P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}
-                ST: ${`"${input.ST}"`}
-                ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT.replace(/\n/g, '\\n')}"`}`: ''}
-            }) {
-                MEMO_ID
-            }
-        }
-    `);
         return this._client
             .mutate({
                 mutation: gql`
@@ -135,7 +121,7 @@ class MemoService {
                             WRTR_ID: ${`"${input.WRTR_ID}"`}
                             CONST_ID: ${input.CONST_ID}
                             ${input.DATE_MEMO ? `DATE_MEMO: ${`"${input.DATE_MEMO}"`}`: ''}
-                            P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}
+                            ${input.P_SUBSIDY_AMT ? `P_SUBSIDY_AMT: ${`"${input.P_SUBSIDY_AMT}"`}`: ''}
                             ST: ${`"${input.ST}"`}
                             ${input.CONTENT ? `CONTENT: ${`"${input.CONTENT.replace(/\n/g, '\\n')}"`}`: ''}
                         }) {
